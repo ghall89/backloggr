@@ -32,4 +32,20 @@ const deleteGame = async id => {
 		.catch(err => console.error(err));
 };
 
-export { getGames, deleteGame };
+const addGame = async body => {
+	const options = {
+		method: 'POST',
+		headers: {
+			cookie:
+				'connect.sid=s%253AKG1f8FUH6-ihvYiNbuSPRtDW8BgXm5vv.Wzc0xz%252B8s0gphKkENvjqSEglQUVAcdE4eD2xUiMalHI',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(body),
+	};
+
+	fetch('http://localhost:3001/games', options)
+		.then(response => response.json())
+		.catch(err => console.error(err));
+};
+
+export { getGames, deleteGame, addGame };
