@@ -2,7 +2,7 @@
 const nextConfig = {
 	reactStrictMode: true,
 	env: {
-		MONGO_DB: process.env.MONGO_DB,
+		MONGODB_URI: process.env.MONGODB_URI,
 		RAWG_API_KEY: process.env.RAWG_API_KEY,
 	},
 };

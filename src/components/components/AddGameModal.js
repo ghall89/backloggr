@@ -9,8 +9,6 @@ const AddGameModal = ({ openModal, setOpenModal, handleApi }) => {
 
 	const handleSearch = async () => {
 		const res = await gameSearch(query);
-
-		console.log(res);
 	};
 	//
 	// 	const handleSubmit = async () => {

@@ -15,8 +15,6 @@ const getGames = async () => {
 };
 
 const deleteGame = async id => {
-	console.log(id);
-
 	const options = {
 		method: 'DELETE',
 		headers: {
