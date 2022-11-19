@@ -18,7 +18,9 @@ const Home = () => {
 	const handleApi = async () => {
 		const data = await getGames();
 		setGames(data);
-		setLoading(false);
+		if (loading) {
+			setLoading(false);
+		}
 	};
 
 	const deleteAction = async () => {

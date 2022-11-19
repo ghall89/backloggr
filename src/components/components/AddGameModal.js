@@ -2,19 +2,23 @@ import { useState } from 'react';
 import { Box, Button, Dialog, TextField } from '@mui/material';
 
 import { addGame } from '../../lib/games';
+import { gameSearch } from '../../lib/rawgApi';
 
 const AddGameModal = ({ openModal, setOpenModal, handleApi }) => {
-	const [title, setTitle] = useState('');
-	const [genre, setGenre] = useState('');
-	const [publisher, setPublisher] = useState('');
-	const [platform, setPlatform] = useState('');
+	const [query, setQuery] = useState('');
 
-	const handleSubmit = async () => {
-		const submitBody = { title, genre, publisher, platform };
-		await addGame(submitBody);
-		await handleApi();
-		setOpenModal(false);
+	const handleSearch = async () => {
+		const res = await gameSearch(query);
+
+		console.log(res);
 	};
+	//
+	// 	const handleSubmit = async () => {
+	// 		const submitBody = { title, genre, publisher, platform };
+	// 		await addGame(submitBody);
+	// 		await handleApi();
+	// 		setOpenModal(false);
+	// 	};
 
 	return (
 		<Dialog onClose={() => setOpenModal(false)} open={openModal}>
@@ -22,27 +26,12 @@ const AddGameModal = ({ openModal, setOpenModal, handleApi }) => {
 				sx={{ padding: 3, display: 'flex', flexDirection: 'column', gap: 1 }}
 			>
 				<TextField
-					onChange={({ target }) => setTitle(target.value)}
+					onChange={({ target }) => setQuery(target.value)}
 					label="Title"
 					variant="outlined"
 				/>
-				<TextField
-					onChange={({ target }) => setGenre(target.value)}
-					label="Genre"
-					variant="outlined"
-				/>
-				<TextField
-					onChange={({ target }) => setPublisher(target.value)}
-					label="Publisher"
-					variant="outlined"
-				/>
-				<TextField
-					onChange={({ target }) => setPlatform(target.value)}
-					label="Platform"
-					variant="outlined"
-				/>
-				<Button onClick={() => handleSubmit()} variant="contained">
-					Submit
+				<Button onClick={() => handleSearch()} variant="contained">
+					Search
 				</Button>
 			</Box>
 		</Dialog>

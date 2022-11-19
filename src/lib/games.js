@@ -7,7 +7,7 @@ const getGames = async () => {
 		},
 	};
 
-	const res = await fetch('http://localhost:3001/games', options)
+	const res = await fetch('/api/games', options)
 		.then(response => response.json())
 		.catch(err => console.error(err));
 
@@ -27,7 +27,7 @@ const deleteGame = async id => {
 		body: `{"id":"${id}"}`,
 	};
 
-	fetch('http://localhost:3001/games/', options)
+	fetch('/api/games', options)
 		.then(response => response.json())
 		.catch(err => console.error(err));
 };
@@ -43,7 +43,7 @@ const addGame = async body => {
 		body: JSON.stringify(body),
 	};
 
-	fetch('http://localhost:3001/games', options)
+	fetch('/api/games', options)
 		.then(response => response.json())
 		.catch(err => console.error(err));
 };
