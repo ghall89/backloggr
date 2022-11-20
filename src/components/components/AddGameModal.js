@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useUser } from '@auth0/nextjs-auth0';
 import { Box, Button, Dialog, TextField } from '@mui/material';
 
 const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
+	const { user } = useUser();
+
 	const [title, setTitle] = useState('');
 	const [platform, setPlatform] = useState('');
 
@@ -10,6 +13,7 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 			title,
 			platform,
 			status: 'not_started',
+			user_ref: user.sub,
 		};
 		await addAction(submitBody);
 		setOpenModal(false);

@@ -1,9 +1,9 @@
-const getGames = async filter => {
+const getGames = async (user_ref, filter) => {
 	let url;
 	if (filter === 'all') {
-		url = '/api/games';
+		url = `/api/games?user_ref=${user_ref}`;
 	} else {
-		url = `/api/games?filter=${filter}`;
+		url = `/api/games?user_ref=${user_ref}&filter=${filter}`;
 	}
 
 	const options = {

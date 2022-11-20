@@ -87,20 +87,20 @@ const GameTable = ({ games, handleDelete, loading, setFilter, handleApi }) => {
 	return (
 		<>
 			<Tabs value={tabState} onChange={handleTabs} centered>
-				<Tab value="not_started" label="New" />
+				<Tab value="not_started" label="Backlog" />
 				<Tab value="in_progress" label="In Progress" />
 				<Tab value="finished" label="Finished" />
 				<Tab value="completed" label="Completed" />
 				<Tab value="all" label="All" />
 			</Tabs>
-			<Box sx={{ height: 434 }}>
+			<Box sx={{ height: '70vh' }}>
 				{loading ? (
 					<Skeleton animation="wave" height={434} />
 				) : (
 					<DataGrid
 						rows={games}
 						columns={columns}
-						pageSize={5}
+						pageSize={10}
 						getRowId={row => row._id}
 					/>
 				)}

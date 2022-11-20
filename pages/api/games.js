@@ -8,10 +8,10 @@ export default async function handler(req, res) {
 
 	switch (method) {
 		case 'GET':
-			let query = {};
+			let query = { user_ref: req.query.user_ref };
 
 			if (req.query.filter) {
-				query = { status: req.query.filter };
+				query = { ...query, status: req.query.filter };
 			}
 
 			try {
