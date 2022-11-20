@@ -1,4 +1,11 @@
-import { Button, FormControl, MenuItem, Select } from '@mui/material';
+import {
+	Box,
+	Button,
+	FormControl,
+	MenuItem,
+	Select,
+	Skeleton,
+} from '@mui/material';
 import { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Delete } from '@mui/icons-material';
@@ -36,7 +43,7 @@ const StatusSelect = ({ row }) => {
 	);
 };
 
-const GameTable = ({ games, handleDelete }) => {
+const GameTable = ({ games, handleDelete, loading }) => {
 	const columns = [
 		{
 			field: 'icon',
@@ -89,12 +96,18 @@ const GameTable = ({ games, handleDelete }) => {
 	];
 
 	return (
-		<DataGrid
-			rows={games}
-			columns={columns}
-			pageSize={5}
-			getRowId={row => row._id}
-		/>
+		<Box sx={{ height: 434 }}>
+			{loading ? (
+				<Skeleton animation="wave" height={434} />
+			) : (
+				<DataGrid
+					rows={games}
+					columns={columns}
+					pageSize={5}
+					getRowId={row => row._id}
+				/>
+			)}
+		</Box>
 	);
 };
 

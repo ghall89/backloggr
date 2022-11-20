@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Backdrop, Box, Button, CircularProgress } from '@mui/material';
+import { Box, Button, Tabs, Tab } from '@mui/material';
+import { Add } from '@mui/icons-material';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
 import { AddGameModal, ConfirmModal, GameTable } from './components';
@@ -10,12 +11,9 @@ const Home = () => {
 	const [openModal, setOpenModal] = useState(false);
 	const [selectedId, setSelectedId] = useState();
 	const [openConfirm, setOpenConfirm] = useState(false);
+	const [tabState, setTabState] = useState('new');
 
 	const handleApi = () => {
-		if (!loading) {
-			setLoading(true);
-		}
-
 		setTimeout(async () => {
 			const data = await getGames();
 			setGames(data);
@@ -39,29 +37,32 @@ const Home = () => {
 		await handleApi();
 	};
 
+	const handleTabs = (event, newValue) => setTabState(newValue);
+
 	useEffect(() => {
 		handleApi();
 	}, []);
 
 	return (
 		<>
-			{loading ? (
-				<Backdrop
-					sx={{ color: '#fff', zIndex: theme => theme.zIndex.drawer + 1 }}
-					open={true}
-				>
-					<CircularProgress color="inherit" />
-				</Backdrop>
-			) : (
-				<Box sx={{ height: 434, width: '100%', padding: 4 }}>
-					<Box sx={{ marginBottom: 2 }}>
-						<Button onClick={() => setOpenModal(true)} variant="contained">
-							Add Game
-						</Button>
-					</Box>
-					<GameTable games={games} handleDelete={handleDelete} />
+			<Box sx={{ width: '100%', padding: 4 }}>
+				<Tabs value={tabState} onChange={handleTabs} centered>
+					<Tab value="new" label="New" />
+					<Tab value="in_progress" label="In Progress" />
+					<Tab value="finipeted" label="Finished/Completed" />
+					<Tab value="all" label="All" />
+				</Tabs>
+				<Box sx={{ marginBottom: 2 }}>
+					<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
+						Add Game
+					</Button>
 				</Box>
-			)}
+				<GameTable
+					games={games}
+					handleDelete={handleDelete}
+					loading={loading}
+				/>
+			</Box>
 
 			<AddGameModal
 				openModal={openModal}

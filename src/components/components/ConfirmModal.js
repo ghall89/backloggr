@@ -28,9 +28,16 @@ const ConfirmModal = ({ open, setOpen, confirmAction }) => {
 				</DialogContentText>
 			</DialogContent>
 			<DialogActions>
-				<Button onClick={() => setOpen(false)}>Cancel</Button>
-				<Button onClick={() => handleConfirm()} autoFocus>
-					Dew it!
+				<Button variant="contained" onClick={() => setOpen(false)}>
+					Cancel
+				</Button>
+				<Button
+					variant="contained"
+					color="error"
+					onClick={() => handleConfirm()}
+					autoFocus
+				>
+					Delete
 				</Button>
 			</DialogActions>
 		</Dialog>

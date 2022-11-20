@@ -9,8 +9,3 @@ let gameSchema = new Schema({
 });
 
 module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema);
-
-//
-// let Game = mongoose.model('game', gameSchema);
-//
-// module.exports = Game;
