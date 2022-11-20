@@ -10,6 +10,7 @@ import { AddGameModal, AppBar, ConfirmModal, GameTable } from './components';
 
 const Backlog = () => {
 	const { user } = useUser();
+	console.log(user);
 
 	const [games, setGames] = useState();
 	const [loading, setLoading] = useState(true);
@@ -19,14 +20,12 @@ const Backlog = () => {
 	const [filter, setFilter] = useState('not_started');
 
 	const handleApi = () => {
-		if (user) {
-			setTimeout(async () => {
-				const data = await getGames(user.sub, filter);
-				setGames(data);
+		setTimeout(async () => {
+			const data = await getGames(user.sub, filter);
+			setGames(data);
 
-				setLoading(false);
-			}, 1000);
-		}
+			setLoading(false);
+		}, 1000);
 	};
 
 	const deleteAction = async () => {
@@ -45,14 +44,14 @@ const Backlog = () => {
 	};
 
 	useEffect(() => {
-		handleApi();
-	}, [filter]);
+		if (user) {
+			handleApi();
+		}
+	}, [filter, user]);
 
 	return (
 		<>
-			{!user ? (
-				<>{() => Router.push('/')}</>
-			) : (
+			{!user ? null : (
 				<>
 					<AppBar />
 					<Box sx={{ width: '100%', padding: 4 }}>

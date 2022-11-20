@@ -6,7 +6,7 @@ let gameSchema = new Schema({
 	platform: String,
 	user_ref: String,
 	status: String,
-	user_ref: Schema.Types.ObjectId,
+	user_ref: String,
 });
 
 module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema);
