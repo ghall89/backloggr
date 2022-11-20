@@ -5,14 +5,16 @@ import {
 	MenuItem,
 	Select,
 	Skeleton,
+	Tab,
+	Tabs,
 } from '@mui/material';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Delete } from '@mui/icons-material';
 
 import { updateGame } from '../../lib/games';
 
-const StatusSelect = ({ row }) => {
+const StatusSelect = ({ row, handleApi }) => {
 	const { _id, status } = row;
 
 	const [statusSelect, setStatusSelect] = useState(status);
@@ -22,6 +24,7 @@ const StatusSelect = ({ row }) => {
 		await updateGame(
 			`{"id":"${_id}","params":{"status": "${event.target.value}"}}`,
 		);
+		await handleApi();
 	};
 
 	return (
@@ -43,7 +46,14 @@ const StatusSelect = ({ row }) => {
 	);
 };
 
-const GameTable = ({ games, handleDelete, loading }) => {
+const GameTable = ({ games, handleDelete, loading, setFilter, handleApi }) => {
+	const [tabState, setTabState] = useState('not_started');
+
+	const handleTabs = (event, newValue) => {
+		setTabState(newValue);
+		setFilter(newValue);
+	};
+
 	const columns = [
 		{
 			field: 'icon',
@@ -66,48 +76,36 @@ const GameTable = ({ games, handleDelete, loading }) => {
 			headerName: 'Platform',
 			width: 100,
 		},
-		// 		{
-		// 			field: 'status',
-		// 			headerName: 'Status',
-		// 			valueGetter: ({ row }) => {
-		// 				let status = 'Not Started';
-		// 				if (row.started) {
-		// 					status = 'In Progress';
-		// 				}
-		// 				if (row.finished) {
-		// 					status = 'Finished';
-		// 				}
-		// 				if (row.completed) {
-		// 					status = 'Completed!';
-		// 				}
-		// 				if (row.abandoned) {
-		// 					status = 'Abandoned';
-		// 				}
-		//
-		// 				return status;
-		// 			},
-		// 		},
 		{
 			field: 'status',
 			headerName: 'Status',
-			renderCell: ({ row }) => <StatusSelect row={row} />,
+			renderCell: ({ row }) => <StatusSelect row={row} handleApi={handleApi} />,
 			width: 130,
 		},
 	];
 
 	return (
-		<Box sx={{ height: 434 }}>
-			{loading ? (
-				<Skeleton animation="wave" height={434} />
-			) : (
-				<DataGrid
-					rows={games}
-					columns={columns}
-					pageSize={5}
-					getRowId={row => row._id}
-				/>
-			)}
-		</Box>
+		<>
+			<Tabs value={tabState} onChange={handleTabs} centered>
+				<Tab value="not_started" label="New" />
+				<Tab value="in_progress" label="In Progress" />
+				<Tab value="finished" label="Finished" />
+				<Tab value="completed" label="Completed" />
+				<Tab value="all" label="All" />
+			</Tabs>
+			<Box sx={{ height: 434 }}>
+				{loading ? (
+					<Skeleton animation="wave" height={434} />
+				) : (
+					<DataGrid
+						rows={games}
+						columns={columns}
+						pageSize={5}
+						getRowId={row => row._id}
+					/>
+				)}
+			</Box>
+		</>
 	);
 };
 

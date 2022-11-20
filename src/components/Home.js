@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Button, Tabs, Tab } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
@@ -11,11 +11,11 @@ const Home = () => {
 	const [openModal, setOpenModal] = useState(false);
 	const [selectedId, setSelectedId] = useState();
 	const [openConfirm, setOpenConfirm] = useState(false);
-	const [tabState, setTabState] = useState('new');
+	const [filter, setFilter] = useState('not_started');
 
 	const handleApi = () => {
 		setTimeout(async () => {
-			const data = await getGames();
+			const data = await getGames(filter);
 			setGames(data);
 
 			setLoading(false);
@@ -37,21 +37,13 @@ const Home = () => {
 		await handleApi();
 	};
 
-	const handleTabs = (event, newValue) => setTabState(newValue);
-
 	useEffect(() => {
 		handleApi();
-	}, []);
+	}, [filter]);
 
 	return (
 		<>
 			<Box sx={{ width: '100%', padding: 4 }}>
-				<Tabs value={tabState} onChange={handleTabs} centered>
-					<Tab value="new" label="New" />
-					<Tab value="in_progress" label="In Progress" />
-					<Tab value="finipeted" label="Finished/Completed" />
-					<Tab value="all" label="All" />
-				</Tabs>
 				<Box sx={{ marginBottom: 2 }}>
 					<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
 						Add Game
@@ -61,6 +53,8 @@ const Home = () => {
 					games={games}
 					handleDelete={handleDelete}
 					loading={loading}
+					setFilter={setFilter}
+					handleApi={handleApi}
 				/>
 			</Box>
 
