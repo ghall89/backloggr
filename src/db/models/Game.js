@@ -3,10 +3,9 @@ let Schema = mongoose.Schema;
 
 let gameSchema = new Schema({
 	title: String,
-	publisher: String,
-	developer: String,
-	genre: String,
 	platform: String,
+	user_ref: String,
+	status: String,
 });
 
 module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema);

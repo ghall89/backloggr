@@ -46,4 +46,20 @@ const addGame = async body => {
 		.catch(err => console.error(err));
 };
 
-export { getGames, deleteGame, addGame };
+const updateGame = async body => {
+	const options = {
+		method: 'PUT',
+		headers: {
+			cookie:
+				'connect.sid=s%253AKG1f8FUH6-ihvYiNbuSPRtDW8BgXm5vv.Wzc0xz%252B8s0gphKkENvjqSEglQUVAcdE4eD2xUiMalHI',
+			'Content-Type': 'application/json',
+		},
+		body,
+	};
+
+	fetch('/api/games', options)
+		.then(response => response.json())
+		.catch(err => console.error(err));
+};
+
+export { getGames, deleteGame, addGame, updateGame };
