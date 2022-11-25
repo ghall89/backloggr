@@ -6,11 +6,10 @@ import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
-import { AddGameModal, AppBar, ConfirmModal, GameTable } from './components';
+import { AddGameModal, AppBar, ConfirmModal, GameList } from './components';
 
 const Backlog = () => {
 	const { user } = useUser();
-	console.log(user);
 
 	const [games, setGames] = useState();
 	const [loading, setLoading] = useState(true);
@@ -54,16 +53,16 @@ const Backlog = () => {
 			{!user ? null : (
 				<>
 					<AppBar />
-					<Box sx={{ width: '100%', padding: 4 }}>
+					<Box sx={{ width: '100%', paddingTop: 4 }}>
 						<Box sx={{ marginBottom: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
 								Add Game
 							</Button>
 						</Box>
-						<GameTable
+
+						<GameList
 							games={games}
 							handleDelete={handleDelete}
-							loading={loading}
 							setFilter={setFilter}
 							handleApi={handleApi}
 						/>

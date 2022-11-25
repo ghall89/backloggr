@@ -14,6 +14,10 @@ export default async function handler(req, res) {
 				query = { ...query, status: req.query.filter };
 			}
 
+			if (req.query.id) {
+				query = { ...query, _id: { $eq: req.query.id } };
+			}
+
 			try {
 				let games = await Game.find(query);
 				res.status(200).json({

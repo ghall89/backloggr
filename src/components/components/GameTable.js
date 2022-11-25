@@ -7,12 +7,14 @@ import {
 	Skeleton,
 	Tab,
 	Tabs,
+	Typography,
 } from '@mui/material';
 import { useState, useMemo } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Delete } from '@mui/icons-material';
 
 import { updateGame } from '../../lib/games';
+import { PlaformIcon } from './PlatformIcon';
 
 const StatusSelect = ({ row, handleApi }) => {
 	const { _id, status } = row;
@@ -102,6 +104,7 @@ const GameTable = ({ games, handleDelete, loading, setFilter, handleApi }) => {
 						columns={columns}
 						pageSize={10}
 						getRowId={row => row._id}
+						rowsPerPageOptions={[10]}
 					/>
 				)}
 			</Box>
