@@ -72,14 +72,8 @@ const Backlog = () => {
 							</Button>
 						</Box>
 
-						<GameList
-							games={filteredGames}
-							handleDelete={handleDelete}
-							setFilter={setFilter}
-							handleApi={handleApi}
-						/>
+						<GameList games={filteredGames} setFilter={setFilter} />
 					</Box>
-
 					<AddGameModal
 						openModal={openModal}
 						setOpenModal={setOpenModal}

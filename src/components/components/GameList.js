@@ -14,7 +14,7 @@ import {
 
 import PlatformIcon from './PlatformIcon';
 
-const GameList = ({ games, handleDelete, loading, setFilter, handleApi }) => {
+const GameList = ({ games, loading, setFilter }) => {
 	const [tabState, setTabState] = useState('not_started');
 
 	const handleTabs = (event, newValue) => {

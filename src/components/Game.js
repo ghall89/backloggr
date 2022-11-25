@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
+
 import Router from 'next/router';
 
 import {
@@ -100,20 +101,22 @@ const Game = ({ id }) => {
 	return (
 		<>
 			<AppBar />
-			<Button
-				startIcon={<ArrowBackIosNew />}
-				onClick={() => Router.push('/backlog')}
-			>
-				Back
-			</Button>
+			<Box sx={{ padding: 2 }}>
+				<Button
+					startIcon={<ArrowBackIosNew />}
+					onClick={() => Router.push('/backlog')}
+				>
+					Back
+				</Button>
+			</Box>
 			{loading && !game ? null : (
 				<Box
 					sx={{
-						padding: 3,
+						padding: 2,
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'space-between',
-						height: '90vh',
+						height: '80vh',
 					}}
 				>
 					<Box>
@@ -121,6 +124,7 @@ const Game = ({ id }) => {
 						<Typography>{game.platform}</Typography>
 					</Box>
 					<StatusButton status={game.status} />
+
 					<Button
 						variant="contained"
 						color="error"
