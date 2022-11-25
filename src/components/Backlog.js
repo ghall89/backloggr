@@ -12,29 +12,18 @@ const Backlog = () => {
 	const { user } = useUser();
 
 	const [games, setGames] = useState();
+	const [filter, setFilter] = useState('not_started');
+	const [filteredGames, setFilteredGames] = useState();
 	const [loading, setLoading] = useState(true);
 	const [openModal, setOpenModal] = useState(false);
-	const [selectedId, setSelectedId] = useState();
-	const [openConfirm, setOpenConfirm] = useState(false);
-	const [filter, setFilter] = useState('not_started');
 
 	const handleApi = () => {
 		setTimeout(async () => {
-			const data = await getGames(user.sub, filter);
+			const data = await getGames(user.sub);
 			setGames(data);
-
+			window.sessionStorage.setItem('games', JSON.stringify(data));
 			setLoading(false);
 		}, 1000);
-	};
-
-	const deleteAction = async () => {
-		await deleteGame(selectedId);
-		await handleApi();
-	};
-
-	const handleDelete = id => {
-		setSelectedId(id);
-		setOpenConfirm(true);
 	};
 
 	const addAction = async submitBody => {
@@ -43,10 +32,33 @@ const Backlog = () => {
 	};
 
 	useEffect(() => {
+		const session = window.sessionStorage.getItem('games');
+
+		if (session) {
+			setGames(JSON.parse(session));
+			return;
+		}
+
 		if (user) {
 			handleApi();
 		}
-	}, [filter, user]);
+	}, [user]);
+
+	useEffect(() => {
+		if (games) {
+			if (filter === 'all') {
+				setFilteredGames(games);
+			} else {
+				const filteredArr = [];
+				games.forEach(game => {
+					if (game.status.includes(filter)) {
+						filteredArr.push(game);
+					}
+				});
+				setFilteredGames(filteredArr);
+			}
+		}
+	}, [games, filter]);
 
 	return (
 		<>
@@ -61,7 +73,7 @@ const Backlog = () => {
 						</Box>
 
 						<GameList
-							games={games}
+							games={filteredGames}
 							handleDelete={handleDelete}
 							setFilter={setFilter}
 							handleApi={handleApi}
@@ -72,11 +84,6 @@ const Backlog = () => {
 						openModal={openModal}
 						setOpenModal={setOpenModal}
 						addAction={addAction}
-					/>
-					<ConfirmModal
-						open={openConfirm}
-						setOpen={setOpenConfirm}
-						confirmAction={deleteAction}
 					/>
 				</>
 			)}

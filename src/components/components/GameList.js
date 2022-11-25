@@ -1,3 +1,6 @@
+import { useState, useMemo } from 'react';
+import Router from 'next/router';
+
 import {
 	List,
 	ListItem,
@@ -8,7 +11,6 @@ import {
 	Tabs,
 	Tooltip,
 } from '@mui/material';
-import { useState, useMemo } from 'react';
 
 import PlatformIcon from './PlatformIcon';
 
@@ -27,7 +29,7 @@ const GameList = ({ games, handleDelete, loading, setFilter, handleApi }) => {
 				<Tab value="in_progress" label="In Progress" />
 				<Tab value="finished" label="Finished" />
 				<Tab value="completed" label="Completed" />
-				<Tab value="all" label="All" />
+				{/* <Tab value="all" label="All" /> */}
 			</Tabs>
 			{loading ? null : (
 				<List
@@ -40,7 +42,7 @@ const GameList = ({ games, handleDelete, loading, setFilter, handleApi }) => {
 				>
 					{games?.map(game => (
 						<ListItem key={game._id}>
-							<ListItemButton href={`/game/${game._id}`}>
+							<ListItemButton onClick={() => Router.push(`/game/${game._id}`)}>
 								<ListItemIcon>
 									<PlatformIcon label={game.platform} />
 								</ListItemIcon>

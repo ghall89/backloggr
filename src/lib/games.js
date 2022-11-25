@@ -1,11 +1,4 @@
-const getGames = async (user_ref, filter) => {
-	let url;
-	if (filter === 'all') {
-		url = `/api/games?user_ref=${user_ref}`;
-	} else {
-		url = `/api/games?user_ref=${user_ref}&filter=${filter}`;
-	}
-
+const getGames = async user_ref => {
 	const options = {
 		method: 'GET',
 		headers: {
@@ -14,7 +7,7 @@ const getGames = async (user_ref, filter) => {
 		},
 	};
 
-	const res = await fetch(url, options)
+	const res = await fetch(`/api/games?user_ref=${user_ref}`, options)
 		.then(response => response.json())
 		.catch(err => console.error(err));
 
