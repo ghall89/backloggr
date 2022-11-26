@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 import {
 	Box,
@@ -16,8 +16,10 @@ import { ArrowBackIosNew } from '@mui/icons-material';
 import { getGame, deleteGame, updateGame } from '../lib/games';
 import { AppBar, ConfirmModal } from './components';
 
-const Game = ({ id }) => {
+const Game = () => {
 	const { user } = useUser();
+	const router = useRouter();
+	const { id } = router.query;
 
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [loading, setLoading] = useState(true);
@@ -26,6 +28,7 @@ const Game = ({ id }) => {
 
 	const handleApi = async () => {
 		const session = await JSON.parse(window.sessionStorage.getItem('games'));
+
 		if (session) {
 			session.forEach(item => {
 				if (item._id.includes(id)) {
@@ -120,10 +123,10 @@ const Game = ({ id }) => {
 					}}
 				>
 					<Box>
-						<Typography variant="h5">{game.title}</Typography>
-						<Typography>{game.platform}</Typography>
+						<Typography variant="h5">{game?.title}</Typography>
+						<Typography>{game?.platform}</Typography>
 					</Box>
-					<StatusButton status={game.status} />
+					<StatusButton status={game?.status} />
 
 					<Button
 						variant="contained"
