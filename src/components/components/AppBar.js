@@ -15,18 +15,16 @@ const AppBarComponent = () => {
 	}, [user]);
 
 	return (
-		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static" sx={{ backgroundColor: '#24273a' }}>
-				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						{`${name} Backlog`}
-					</Typography>
-					<Button href="/api/auth/logout" color="error" startIcon={<Logout />}>
-						Logout
-					</Button>
-				</Toolbar>
-			</AppBar>
-		</Box>
+		<AppBar position="fixed" sx={{ backgroundColor: '#24273a' }}>
+			<Toolbar>
+				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+					{`${name} Backlog`}
+				</Typography>
+				<Button href="/api/auth/logout" color="error" startIcon={<Logout />}>
+					Logout
+				</Button>
+			</Toolbar>
+		</AppBar>
 	);
 };
 

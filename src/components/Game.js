@@ -114,7 +114,7 @@ const Game = () => {
 	return (
 		<>
 			<AppBar />
-			<Box sx={{ padding: 2 }}>
+			<Box sx={{ padding: 2, paddingTop: 10 }}>
 				<Button
 					startIcon={<ArrowBackIosNew />}
 					onClick={() => Router.push('/backlog')}
