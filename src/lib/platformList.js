@@ -5,9 +5,9 @@ const oldPlatformList = [
 	'NES',
 	'N64',
 	'GameCube',
-	'GB',
-	'GBC',
-	'GBA',
+	'GameBoy',
+	'GameBoy Color',
+	'GameBoy Advance',
 	'PS1',
 	'PS2',
 	'PS3',
@@ -20,6 +20,9 @@ const oldPlatformList = [
 	'Genesis',
 	'Saturn',
 	'Dreamcast',
+	'PSP',
+	'Vita',
+	'DS',
 ];
 
 export { currentPlatformList, oldPlatformList };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
@@ -10,9 +10,10 @@ import { AddGameModal, AppBar, ConfirmModal, GameList } from './components';
 
 const Backlog = () => {
 	const { user } = useUser();
+	const { query } = useRouter();
 
 	const [games, setGames] = useState();
-	const [filter, setFilter] = useState('not_started');
+	const [filter, setFilter] = useState(query.tab || 'not_started');
 	const [filteredGames, setFilteredGames] = useState();
 	const [loading, setLoading] = useState(true);
 	const [openModal, setOpenModal] = useState(false);
@@ -65,8 +66,8 @@ const Backlog = () => {
 			{!user ? null : (
 				<>
 					<AppBar />
-					<Box sx={{ width: '100%', paddingTop: 4 }}>
-						<Box sx={{ marginBottom: 2 }}>
+					<Box sx={{ width: '100%', paddingTop: 2 }}>
+						<Box sx={{ margin: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
 								Add Game
 							</Button>

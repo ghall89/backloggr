@@ -11,7 +11,14 @@ import {
 	Select,
 	Typography,
 } from '@mui/material';
-import { ArrowBackIosNew } from '@mui/icons-material';
+import {
+	ArrowBackIosNew,
+	CheckBox,
+	Delete,
+	EmojiEvents,
+	Loop,
+	SportsEsports,
+} from '@mui/icons-material';
 
 import { getGame, deleteGame, updateGame } from '../lib/games';
 import { AppBar, ConfirmModal } from './components';
@@ -46,7 +53,7 @@ const Game = () => {
 	const setStatus = async newStatus => {
 		await updateGame(`{"id":"${id}","params":{"status": "${newStatus}"}}`);
 		window.sessionStorage.clear();
-		Router.push('/backlog');
+		Router.push(`/backlog?tab=${newStatus}`);
 	};
 
 	const deleteAction = async () => {
@@ -71,8 +78,9 @@ const Game = () => {
 						fullWidth
 						variant="contained"
 						onClick={() => setStatus('in_progress')}
+						startIcon={<SportsEsports />}
 					>
-						Mark as Started
+						Playing
 					</Button>
 				);
 			case 'in_progress':
@@ -81,8 +89,9 @@ const Game = () => {
 						fullWidth
 						variant="contained"
 						onClick={() => setStatus('finished')}
+						startIcon={<CheckBox />}
 					>
-						Mark as Finished
+						Finished
 					</Button>
 				);
 			case 'finished':
@@ -91,8 +100,9 @@ const Game = () => {
 						fullWidth
 						variant="contained"
 						onClick={() => setStatus('completed')}
+						startIcon={<EmojiEvents />}
 					>
-						Mark as Completed
+						Completed
 					</Button>
 				);
 			case 'completed':
@@ -118,8 +128,8 @@ const Game = () => {
 						padding: 2,
 						display: 'flex',
 						flexDirection: 'column',
-						justifyContent: 'space-between',
-						height: '80vh',
+						gap: 2,
+						height: 200,
 					}}
 				>
 					<Box>
@@ -127,12 +137,23 @@ const Game = () => {
 						<Typography>{game?.platform}</Typography>
 					</Box>
 					<StatusButton status={game?.status} />
-
+					{game?.status === 'finished' || game?.status === 'completed' ? (
+						<Button
+							color="secondary"
+							fullWidth
+							variant="contained"
+							onClick={() => setStatus('in_progress')}
+							startIcon={<Loop />}
+						>
+							Replaying
+						</Button>
+					) : null}
 					<Button
 						variant="contained"
 						color="error"
 						fullWidth
 						onClick={handleDelete}
+						startIcon={<Delete />}
 					>
 						Delete
 					</Button>

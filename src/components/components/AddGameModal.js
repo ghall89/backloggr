@@ -39,7 +39,14 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 	return (
 		<Dialog onClose={() => setOpenModal(false)} open={openModal}>
 			<Box
-				sx={{ padding: 3, display: 'flex', flexDirection: 'column', gap: 1 }}
+				sx={{
+					padding: 3,
+					display: 'flex',
+					flexDirection: 'column',
+					gap: 1,
+					backgroundColor: '#363a4f',
+					color: '#cad3f5',
+				}}
 			>
 				<TextField
 					onChange={({ target }) => setTitle(target.value)}
