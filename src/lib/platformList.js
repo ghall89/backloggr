@@ -1,14 +1,13 @@
 const currentPlatformList = ['Mobile', 'PC', 'PS5', 'Switch', 'Xbox Series'];
-
 const oldPlatformList = [
 	'3DS',
 	'SNES',
 	'NES',
 	'N64',
 	'GameCube',
-	'GB',
-	'GBC',
-	'GBA',
+	'GameBoy',
+	'GameBoy Color',
+	'GameBoy Advance',
 	'PS1',
 	'PS2',
 	'PS3',
@@ -21,6 +20,9 @@ const oldPlatformList = [
 	'Genesis',
 	'Saturn',
 	'Dreamcast',
+	'PSP',
+	'Vita',
+	'DS',
 ];
 
 export { currentPlatformList, oldPlatformList };

@@ -25,10 +25,12 @@ const Login = () => {
 				justifyContent: 'center',
 				alignItems: 'center',
 				height: '100vh',
-				backgroundColor: '#6d809d',
+				backgroundColor: '#1e2030',
 			}}
 		>
-			<Card sx={{ maxWidth: 400 }}>
+			<Card
+				sx={{ maxWidth: 400, backgroundColor: '#363a4f', color: '#cad3f5' }}
+			>
 				<CardContent>
 					<Typography variant="h6" align="center" gutterBottom>
 						Welcome to your Gaming Backlog!

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 import {
 	List,
@@ -15,7 +15,8 @@ import {
 import PlatformIcon from './PlatformIcon';
 
 const GameList = ({ games, loading, setFilter }) => {
-	const [tabState, setTabState] = useState('not_started');
+	const { query } = useRouter();
+	const [tabState, setTabState] = useState(query.tab || 'not_started');
 
 	const handleTabs = (event, newValue) => {
 		setTabState(newValue);
