@@ -1,23 +1,40 @@
 import { useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
-import { Box, Button, Dialog, TextField } from '@mui/material';
+import {
+	Box,
+	Button,
+	Dialog,
+	InputLabel,
+	ListSubheader,
+	MenuItem,
+	Select,
+	TextField,
+} from '@mui/material';
+
+import { currentPlatformList, oldPlatformList } from '../../lib/platformList';
 
 const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 	const { user } = useUser();
 
-	const [title, setTitle] = useState('');
-	const [platform, setPlatform] = useState('');
+	const [title, setTitle] = useState(null);
+	const [platform, setPlatform] = useState(null);
 
 	const handleSubmit = async () => {
-		const submitBody = {
-			title,
-			platform,
-			status: 'not_started',
-			user_ref: user.sub,
-		};
-		await addAction(submitBody);
-		setOpenModal(false);
+		if (title && platform) {
+			const submitBody = {
+				title,
+				platform,
+				status: 'not_started',
+				user_ref: user.sub,
+			};
+			await addAction(submitBody);
+			setTitle(null);
+			setPlatform(null);
+			setOpenModal(false);
+		}
 	};
+
+	const handleChange = async event => await setPlatform(event.target.value);
 
 	return (
 		<Dialog onClose={() => setOpenModal(false)} open={openModal}>
@@ -29,11 +46,26 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 					label="Title"
 					variant="outlined"
 				/>
-				<TextField
-					onChange={({ target }) => setPlatform(target.value)}
+				<InputLabel id="platform-label">Platform</InputLabel>
+				<Select
+					labelId="platform-label"
+					id="platform-select"
+					value={platform}
 					label="Platform"
-					variant="outlined"
-				/>
+					onChange={handleChange}
+				>
+					{currentPlatformList.map(val => (
+						<MenuItem key={val} value={val}>
+							{val}
+						</MenuItem>
+					))}
+					<ListSubheader>Other Platforms</ListSubheader>
+					{oldPlatformList.map(val => (
+						<MenuItem key={val} value={val}>
+							{val}
+						</MenuItem>
+					))}
+				</Select>
 				<Button onClick={() => handleSubmit()} variant="contained">
 					Submit
 				</Button>

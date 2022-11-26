@@ -6,37 +6,24 @@ import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
-import { AddGameModal, AppBar, ConfirmModal, GameTable } from './components';
+import { AddGameModal, AppBar, ConfirmModal, GameList } from './components';
 
 const Backlog = () => {
 	const { user } = useUser();
 
 	const [games, setGames] = useState();
+	const [filter, setFilter] = useState('not_started');
+	const [filteredGames, setFilteredGames] = useState();
 	const [loading, setLoading] = useState(true);
 	const [openModal, setOpenModal] = useState(false);
-	const [selectedId, setSelectedId] = useState();
-	const [openConfirm, setOpenConfirm] = useState(false);
-	const [filter, setFilter] = useState('not_started');
 
 	const handleApi = () => {
-		if (user) {
-			setTimeout(async () => {
-				const data = await getGames(user.sub, filter);
-				setGames(data);
-
-				setLoading(false);
-			}, 1000);
-		}
-	};
-
-	const deleteAction = async () => {
-		await deleteGame(selectedId);
-		await handleApi();
-	};
-
-	const handleDelete = id => {
-		setSelectedId(id);
-		setOpenConfirm(true);
+		setTimeout(async () => {
+			const data = await getGames(user.sub);
+			setGames(data);
+			window.sessionStorage.setItem('games', JSON.stringify(data));
+			setLoading(false);
+		}, 1000);
 	};
 
 	const addAction = async submitBody => {
@@ -45,40 +32,52 @@ const Backlog = () => {
 	};
 
 	useEffect(() => {
-		handleApi();
-	}, [filter]);
+		const session = window.sessionStorage.getItem('games');
+
+		if (session) {
+			setGames(JSON.parse(session));
+			return;
+		}
+
+		if (user) {
+			handleApi();
+		}
+	}, [user]);
+
+	useEffect(() => {
+		if (games) {
+			if (filter === 'all') {
+				setFilteredGames(games);
+			} else {
+				const filteredArr = [];
+				games.forEach(game => {
+					if (game.status.includes(filter)) {
+						filteredArr.push(game);
+					}
+				});
+				setFilteredGames(filteredArr);
+			}
+		}
+	}, [games, filter]);
 
 	return (
 		<>
-			{!user ? (
-				<>{() => Router.push('/')}</>
-			) : (
+			{!user ? null : (
 				<>
 					<AppBar />
-					<Box sx={{ width: '100%', padding: 4 }}>
+					<Box sx={{ width: '100%', paddingTop: 4 }}>
 						<Box sx={{ marginBottom: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
 								Add Game
 							</Button>
 						</Box>
-						<GameTable
-							games={games}
-							handleDelete={handleDelete}
-							loading={loading}
-							setFilter={setFilter}
-							handleApi={handleApi}
-						/>
-					</Box>
 
+						<GameList games={filteredGames} setFilter={setFilter} />
+					</Box>
 					<AddGameModal
 						openModal={openModal}
 						setOpenModal={setOpenModal}
 						addAction={addAction}
-					/>
-					<ConfirmModal
-						open={openConfirm}
-						setOpen={setOpenConfirm}
-						confirmAction={deleteAction}
 					/>
 				</>
 			)}
