@@ -54,13 +54,13 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 					label="Platform"
 					onChange={handleChange}
 				>
-					{currentPlatformList.map(val => (
+					{currentPlatformList.sort().map(val => (
 						<MenuItem key={val} value={val}>
 							{val}
 						</MenuItem>
 					))}
 					<ListSubheader>Other Platforms</ListSubheader>
-					{oldPlatformList.map(val => (
+					{oldPlatformList.sort().map(val => (
 						<MenuItem key={val} value={val}>
 							{val}
 						</MenuItem>

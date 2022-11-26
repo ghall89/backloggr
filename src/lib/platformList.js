@@ -1,5 +1,4 @@
 const currentPlatformList = ['Mobile', 'PC', 'PS5', 'Switch', 'Xbox Series'];
-
 const oldPlatformList = [
 	'3DS',
 	'SNES',
