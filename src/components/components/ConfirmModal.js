@@ -23,12 +23,12 @@ const ConfirmModal = ({ open, setOpen, confirmAction }) => {
 			<DialogTitle id="alert-dialog-title">{'Delete game?'}</DialogTitle>
 			<DialogContent>
 				<DialogContentText id="alert-dialog-description">
-					If you delete this game, it wll be deleted forever and have to be
+					If you delete this game, it will be deleted forever and have to be
 					added back manually.
 				</DialogContentText>
 			</DialogContent>
 			<DialogActions>
-				<Button variant="contained" onClick={() => setOpen(false)}>
+				<Button variant="contained" onClick={() => setOpen(false)} fullWidth>
 					Cancel
 				</Button>
 				<Button
@@ -36,6 +36,7 @@ const ConfirmModal = ({ open, setOpen, confirmAction }) => {
 					color="error"
 					onClick={() => handleConfirm()}
 					autoFocus
+					fullWidth
 				>
 					Delete
 				</Button>

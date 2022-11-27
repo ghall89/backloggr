@@ -6,7 +6,13 @@ import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
-import { AddGameModal, AppBar, ConfirmModal, GameList } from './components';
+import {
+	AddGameModal,
+	AppBar,
+	BottomTabs,
+	ConfirmModal,
+	GameList,
+} from './components';
 
 const Backlog = () => {
 	const { user } = useUser();
@@ -73,7 +79,7 @@ const Backlog = () => {
 							</Button>
 						</Box>
 
-						<GameList games={filteredGames} setFilter={setFilter} />
+						<GameList games={filteredGames} />
 					</Box>
 					<AddGameModal
 						openModal={openModal}
@@ -82,6 +88,7 @@ const Backlog = () => {
 					/>
 				</>
 			)}
+			<BottomTabs setFilter={setFilter} />
 		</>
 	);
 };
