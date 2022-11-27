@@ -6,13 +6,7 @@ import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
-import {
-	AddGameModal,
-	AppBar,
-	BottomTabs,
-	ConfirmModal,
-	GameList,
-} from './components';
+import { AddGameModal, BottomTabs, ConfirmModal, GameList } from './components';
 
 const handleSorting = (a, b) => {
 	var titleA = a.title.toUpperCase();
@@ -77,7 +71,6 @@ const Backlog = () => {
 		<>
 			{!user ? null : (
 				<>
-					<AppBar />
 					<Box sx={{ width: '100%', paddingTop: 8, paddingBottom: 8 }}>
 						<Box sx={{ margin: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
