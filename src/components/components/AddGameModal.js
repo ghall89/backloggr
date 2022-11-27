@@ -4,6 +4,7 @@ import {
 	Box,
 	Button,
 	Dialog,
+	FormControl,
 	InputLabel,
 	ListSubheader,
 	MenuItem,
@@ -43,9 +44,10 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 					padding: 3,
 					display: 'flex',
 					flexDirection: 'column',
-					gap: 1,
+					gap: 4,
 					backgroundColor: '#363a4f',
 					color: '#cad3f5',
+					width: '300px',
 				}}
 			>
 				<TextField
@@ -53,26 +55,29 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 					label="Title"
 					variant="outlined"
 				/>
-				<InputLabel id="platform-label">Platform</InputLabel>
-				<Select
-					labelId="platform-label"
-					id="platform-select"
-					value={platform}
-					label="Platform"
-					onChange={handleChange}
-				>
-					{currentPlatformList.sort().map(val => (
-						<MenuItem key={val} value={val}>
-							{val}
-						</MenuItem>
-					))}
-					<ListSubheader>Other Platforms</ListSubheader>
-					{oldPlatformList.sort().map(val => (
-						<MenuItem key={val} value={val}>
-							{val}
-						</MenuItem>
-					))}
-				</Select>
+				<FormControl fullWidth>
+					<InputLabel id="platform-label">Platform</InputLabel>
+
+					<Select
+						labelId="platform-label"
+						id="platform-select"
+						value={platform}
+						label="Platform"
+						onChange={handleChange}
+					>
+						{currentPlatformList.sort().map(val => (
+							<MenuItem key={val} value={val}>
+								{val}
+							</MenuItem>
+						))}
+						<ListSubheader>Other Platforms</ListSubheader>
+						{oldPlatformList.sort().map(val => (
+							<MenuItem key={val} value={val}>
+								{val}
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
 				<Button onClick={() => handleSubmit()} variant="contained">
 					Submit
 				</Button>
