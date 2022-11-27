@@ -1,12 +1,60 @@
 import { useUser } from '@auth0/nextjs-auth0';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Router from 'next/router';
 
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
-import { Logout } from '@mui/icons-material';
+import {
+	AppBar,
+	ClickAwayListener,
+	Grow,
+	IconButton,
+	ListItemIcon,
+	ListItemText,
+	MenuItem,
+	MenuList,
+	Paper,
+	Popper,
+	Toolbar,
+	Typography,
+} from '@mui/material';
+import { AccountCircle, Logout } from '@mui/icons-material';
 
 const AppBarComponent = () => {
 	const { user } = useUser();
 	const [name, setName] = useState('Your');
+
+	const [open, setOpen] = useState(false);
+	const anchorRef = useRef(null);
+
+	const handleToggle = () => {
+		setOpen(prevOpen => !prevOpen);
+	};
+
+	const handleClose = event => {
+		if (anchorRef.current && anchorRef.current.contains(event.target)) {
+			return;
+		}
+
+		setOpen(false);
+	};
+
+	function handleListKeyDown(event) {
+		if (event.key === 'Tab') {
+			event.preventDefault();
+			setOpen(false);
+		} else if (event.key === 'Escape') {
+			setOpen(false);
+		}
+	}
+
+	// return focus to the button when we transitioned from !open -> open
+	const prevOpen = useRef(open);
+	useEffect(() => {
+		if (prevOpen.current === true && open === false) {
+			anchorRef.current.focus();
+		}
+
+		prevOpen.current = open;
+	}, [open]);
 
 	useEffect(() => {
 		if (user?.nickname) {
@@ -20,9 +68,55 @@ const AppBarComponent = () => {
 				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 					{`${name} Backlog`}
 				</Typography>
-				<Button href="/api/auth/logout" color="error" startIcon={<Logout />}>
-					Logout
-				</Button>
+				<div>
+					<IconButton
+						ref={anchorRef}
+						id="composition-button"
+						aria-controls={open ? 'composition-menu' : undefined}
+						aria-expanded={open ? 'true' : undefined}
+						aria-haspopup="true"
+						onClick={handleToggle}
+						size="large"
+					>
+						<AccountCircle fontSize="inherit" />
+					</IconButton>
+					<Popper
+						open={open}
+						anchorEl={anchorRef.current}
+						role={undefined}
+						placement="bottom-start"
+						transition
+						disablePortal
+					>
+						{({ TransitionProps, placement }) => (
+							<Grow
+								{...TransitionProps}
+								style={{
+									transformOrigin:
+										placement === 'bottom-start' ? 'left top' : 'left bottom',
+								}}
+							>
+								<Paper>
+									<ClickAwayListener onClickAway={handleClose}>
+										<MenuList
+											autoFocusItem={open}
+											id="user-menu"
+											aria-labelledby="user-button"
+											onKeyDown={handleListKeyDown}
+										>
+											<MenuItem onClick={() => Router.push('/api/auth/logout')}>
+												<ListItemIcon>
+													<Logout fontSize="small" />
+												</ListItemIcon>
+												<ListItemText>Logout</ListItemText>
+											</MenuItem>
+										</MenuList>
+									</ClickAwayListener>
+								</Paper>
+							</Grow>
+						)}
+					</Popper>
+				</div>
 			</Toolbar>
 		</AppBar>
 	);

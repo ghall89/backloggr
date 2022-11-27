@@ -1,7 +1,7 @@
-import AppBar from './AppBar';
 import AddGameModal from './AddGameModal';
+import AppBar from './AppBar';
+import BottomTabs from './BottomTabs';
 import ConfirmModal from './ConfirmModal';
-// import GameTable from './GameTable';
 import GameList from './GameList';
 
-export { AppBar, AddGameModal, ConfirmModal, GameList };
+export { AppBar, AddGameModal, BottomTabs, ConfirmModal, GameList };
