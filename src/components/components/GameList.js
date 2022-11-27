@@ -47,7 +47,10 @@ const GameList = ({ games, loading }) => (
 									<ListItemIcon>
 										<PlatformIcon label={game.platform} />
 									</ListItemIcon>
-									<ListItemText>{game.title}</ListItemText>
+									<ListItemText>
+										{game.starred ? '★ ' : null}
+										{game.title}
+									</ListItemText>
 								</ListItemButton>
 							</ListItem>
 						))}
