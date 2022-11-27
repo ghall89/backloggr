@@ -18,7 +18,7 @@ const GameList = ({ games, loading }) => (
 	<>
 		{loading ? null : (
 			<>
-				{games.length === 0 ? (
+				{games?.length === 0 ? (
 					<Box
 						sx={{
 							display: 'flex',

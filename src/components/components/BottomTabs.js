@@ -26,6 +26,7 @@ const BottomTabs = ({ setFilter }) => {
 				left: 0,
 				right: 0,
 				backgroundColor: '#24273a',
+				paddingBottom: 3,
 			}}
 			value={tabState}
 			onChange={handleTabs}
