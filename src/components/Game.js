@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 
 import Router, { useRouter } from 'next/router';
@@ -7,6 +7,7 @@ import {
 	Box,
 	Button,
 	FormControl,
+	IconButton,
 	MenuItem,
 	Select,
 	Typography,
@@ -18,6 +19,8 @@ import {
 	EmojiEvents,
 	Loop,
 	SportsEsports,
+	StarOutline,
+	StarRate,
 } from '@mui/icons-material';
 
 import { getGame, deleteGame, updateGame } from '../lib/games';
@@ -32,12 +35,21 @@ const Game = () => {
 	const [loading, setLoading] = useState(true);
 	const [game, setGame] = useState();
 	const [statusSelect, setStatusSelect] = useState();
+	// const [starred, setStarred] = useState();
+
+	const starredMemo = useMemo(() => {
+		if (game?.starred) {
+			return true;
+		} else {
+			return false;
+		}
+	}, [game]);
 
 	const handleApi = async () => {
 		const session = await JSON.parse(window.sessionStorage.getItem('games'));
 
 		if (session) {
-			session.forEach(item => {
+			await session.forEach(item => {
 				if (item._id.includes(id)) {
 					setGame(item);
 				}
@@ -46,7 +58,6 @@ const Game = () => {
 			const data = await getGame(user.sub, id);
 			setGame(data[0]);
 		}
-
 		setLoading(false);
 	};
 
@@ -54,6 +65,12 @@ const Game = () => {
 		await updateGame(`{"id":"${id}","params":{"status": "${newStatus}"}}`);
 		window.sessionStorage.clear();
 		Router.push(`/backlog?tab=${newStatus}`);
+	};
+
+	const setStarStatus = async bool => {
+		setGame({ ...game, starred: bool });
+		await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
+		window.sessionStorage.clear();
 	};
 
 	const deleteAction = async () => {
@@ -117,7 +134,7 @@ const Game = () => {
 			<Box sx={{ padding: 2, paddingTop: 10 }}>
 				<Button
 					startIcon={<ArrowBackIosNew />}
-					onClick={() => Router.push('/backlog')}
+					onClick={() => Router.push(`/backlog?tab=${game.status}`)}
 				>
 					Back
 				</Button>
@@ -133,7 +150,15 @@ const Game = () => {
 					}}
 				>
 					<Box>
-						<Typography variant="h5">{game?.title}</Typography>
+						<Typography variant="h5">
+							<IconButton
+								onClick={() => setStarStatus(!starredMemo)}
+								size="medium"
+							>
+								{starredMemo ? <StarRate color="primary" /> : <StarOutline />}
+							</IconButton>
+							{game?.title}
+						</Typography>
 						<Typography>{game?.platform}</Typography>
 					</Box>
 					<StatusButton status={game?.status} />

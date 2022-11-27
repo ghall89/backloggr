@@ -7,6 +7,7 @@ let gameSchema = new Schema({
 	user_ref: String,
 	status: String,
 	user_ref: String,
+	starred: Boolean,
 });
 
 module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema);

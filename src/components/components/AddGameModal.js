@@ -27,6 +27,7 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 				platform,
 				status: 'not_started',
 				user_ref: user.sub,
+				starred: false,
 			};
 			await addAction(submitBody);
 			setTitle(null);
