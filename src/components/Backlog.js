@@ -14,6 +14,12 @@ import {
 	GameList,
 } from './components';
 
+const handleSorting = (a, b) => {
+	var titleA = a.title.toUpperCase();
+	var titleB = b.title.toUpperCase();
+	return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+};
+
 const Backlog = () => {
 	const { user } = useUser();
 	const { query } = useRouter();
@@ -79,7 +85,9 @@ const Backlog = () => {
 							</Button>
 						</Box>
 
-						<GameList games={filteredGames} />
+						<GameList
+							games={filteredGames?.sort((a, b) => handleSorting(a, b))}
+						/>
 					</Box>
 					<AddGameModal
 						openModal={openModal}

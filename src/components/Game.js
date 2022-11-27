@@ -24,7 +24,7 @@ import {
 } from '@mui/icons-material';
 
 import { getGame, deleteGame, updateGame } from '../lib/games';
-import { AppBar, ConfirmModal } from './components';
+import { AppBar, ConfirmModal, PlatformIcon } from './components';
 
 const Game = () => {
 	const { user } = useUser();
@@ -145,21 +145,34 @@ const Game = () => {
 						padding: 2,
 						display: 'flex',
 						flexDirection: 'column',
+						alignItems: 'center',
 						gap: 2,
 						height: 200,
 					}}
 				>
-					<Box>
-						<Typography variant="h5">
+					<Box sx={{ maxWidth: 400 }}>
+						<img width="100%" src="/no-image.jpg" alt="placeholder image" />
+					</Box>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'space-between',
+							width: '100%',
+							alignItems: 'center',
+						}}
+					>
+						<Box>
+							<Typography variant="h5">{game?.title}</Typography>
+							<Typography variant="h6">{game?.platform}</Typography>
+						</Box>
+						<Box>
 							<IconButton
 								onClick={() => setStarStatus(!starredMemo)}
 								size="medium"
 							>
 								{starredMemo ? <StarRate color="primary" /> : <StarOutline />}
 							</IconButton>
-							{game?.title}
-						</Typography>
-						<Typography>{game?.platform}</Typography>
+						</Box>
 					</Box>
 					<StatusButton status={game?.status} />
 					{game?.status === 'finished' || game?.status === 'completed' ? (

@@ -2,6 +2,8 @@ import Router from 'next/router';
 
 import {
 	Box,
+	CircularProgress,
+	Divider,
 	List,
 	ListItem,
 	ListItemButton,
@@ -10,13 +12,31 @@ import {
 	Typography,
 } from '@mui/material';
 
-import { SentimentVeryDissatisfied } from '@mui/icons-material';
+import { SentimentVeryDissatisfied, StarRate } from '@mui/icons-material';
 
 import PlatformIcon from './PlatformIcon';
 
+const ListGame = ({ game }) => (
+	<ListItem disableGutters>
+		<ListItemButton onClick={() => Router.push(`/game/${game._id}`)}>
+			<ListItemIcon>
+				<PlatformIcon label={game.platform} />
+			</ListItemIcon>
+			<Divider />
+
+			<ListItemText>{game.title}</ListItemText>
+			{game.starred ? <StarRate color="primary" /> : null}
+		</ListItemButton>
+	</ListItem>
+);
+
 const GameList = ({ games, loading }) => (
 	<>
-		{loading ? null : (
+		{loading ? (
+			<Box sx={{ display: 'flex' }}>
+				<CircularProgress />
+			</Box>
+		) : (
 			<>
 				{games?.length === 0 ? (
 					<Box
@@ -40,19 +60,15 @@ const GameList = ({ games, loading }) => (
 						}}
 					>
 						{games?.map(game => (
-							<ListItem key={game._id}>
-								<ListItemButton
-									onClick={() => Router.push(`/game/${game._id}`)}
-								>
-									<ListItemIcon>
-										<PlatformIcon label={game.platform} />
-									</ListItemIcon>
-									<ListItemText>
-										{game.starred ? '★ ' : null}
-										{game.title}
-									</ListItemText>
-								</ListItemButton>
-							</ListItem>
+							<>
+								{game?.starred ? <ListGame key={game._id} game={game} /> : null}
+							</>
+						))}
+						{games?.some(e => e.starred === true) ? <Divider /> : null}
+						{games?.map(game => (
+							<>
+								{!game.starred ? <ListGame key={game._id} game={game} /> : null}
+							</>
 						))}
 					</List>
 				)}
