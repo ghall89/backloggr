@@ -1,6 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import { useState, useEffect, useRef } from 'react';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 
 import {
 	AppBar,
@@ -20,7 +20,6 @@ import { AccountCircle, Logout } from '@mui/icons-material';
 
 const AppBarComponent = () => {
 	const { user } = useUser();
-	const { route } = useRouter();
 
 	const [name, setName] = useState('Your');
 
@@ -65,72 +64,66 @@ const AppBarComponent = () => {
 	}, [user]);
 
 	return (
-		<>
-			{route === '/' ? null : (
-				<AppBar position="fixed" sx={{ backgroundColor: '#24273a' }}>
-					<Toolbar>
-						<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-							{`${name} Backlog`}
-						</Typography>
-						{!user ? null : (
-							<div>
-								<IconButton
-									ref={anchorRef}
-									id="composition-button"
-									aria-controls={open ? 'composition-menu' : undefined}
-									aria-expanded={open ? 'true' : undefined}
-									aria-haspopup="true"
-									onClick={handleToggle}
-									size="large"
+		<AppBar position="fixed" sx={{ backgroundColor: '#24273a' }}>
+			<Toolbar>
+				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+					{`${name} Backlog`}
+				</Typography>
+				{!user ? null : (
+					<div>
+						<IconButton
+							ref={anchorRef}
+							id="composition-button"
+							aria-controls={open ? 'composition-menu' : undefined}
+							aria-expanded={open ? 'true' : undefined}
+							aria-haspopup="true"
+							onClick={handleToggle}
+							size="large"
+						>
+							<AccountCircle fontSize="inherit" />
+						</IconButton>
+						<Popper
+							open={open}
+							anchorEl={anchorRef.current}
+							role={undefined}
+							placement="bottom-start"
+							transition
+							disablePortal
+						>
+							{({ TransitionProps, placement }) => (
+								<Grow
+									{...TransitionProps}
+									style={{
+										transformOrigin:
+											placement === 'bottom-start' ? 'left top' : 'left bottom',
+									}}
 								>
-									<AccountCircle fontSize="inherit" />
-								</IconButton>
-								<Popper
-									open={open}
-									anchorEl={anchorRef.current}
-									role={undefined}
-									placement="bottom-start"
-									transition
-									disablePortal
-								>
-									{({ TransitionProps, placement }) => (
-										<Grow
-											{...TransitionProps}
-											style={{
-												transformOrigin:
-													placement === 'bottom-start'
-														? 'left top'
-														: 'left bottom',
-											}}
-										>
-											<Paper>
-												<ClickAwayListener onClickAway={handleClose}>
-													<MenuList
-														autoFocusItem={open}
-														id="user-menu"
-														aria-labelledby="user-button"
-														onKeyDown={handleListKeyDown}
-													>
-														<MenuItem
-															onClick={() => Router.push('/api/auth/logout')}
-														>
-															<ListItemIcon>
-																<Logout fontSize="small" />
-															</ListItemIcon>
-															<ListItemText>Logout</ListItemText>
-														</MenuItem>
-													</MenuList>
-												</ClickAwayListener>
-											</Paper>
-										</Grow>
-									)}
-								</Popper>
-							</div>
-						)}
-					</Toolbar>
-				</AppBar>
-			)}
-		</>
+									<Paper>
+										<ClickAwayListener onClickAway={handleClose}>
+											<MenuList
+												autoFocusItem={open}
+												id="user-menu"
+												aria-labelledby="user-button"
+												onKeyDown={handleListKeyDown}
+											>
+												<MenuItem
+													onClick={() => Router.push('/api/auth/logout')}
+												>
+													<ListItemIcon>
+														<Logout fontSize="small" />
+													</ListItemIcon>
+													<ListItemText>Logout</ListItemText>
+												</MenuItem>
+											</MenuList>
+										</ClickAwayListener>
+									</Paper>
+								</Grow>
+							)}
+						</Popper>
+					</div>
+				)}
+			</Toolbar>
+		</AppBar>
 	);
 };
 

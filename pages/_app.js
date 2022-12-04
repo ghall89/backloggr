@@ -1,10 +1,14 @@
 import '../styles/globals.css';
+
+import { useRouter } from 'next/router';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { UserProvider } from '@auth0/nextjs-auth0';
 
 import { AppBar } from '../src/components/components';
 
 function MyApp({ Component, pageProps }) {
+	const { route } = useRouter();
+
 	const theme = createTheme({
 		palette: {
 			mode: 'dark',
@@ -33,7 +37,7 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<UserProvider>
 			<ThemeProvider theme={theme}>
-				<AppBar />
+				{route === '/' ? null : <AppBar />}
 				<Component {...pageProps} />
 			</ThemeProvider>
 		</UserProvider>
