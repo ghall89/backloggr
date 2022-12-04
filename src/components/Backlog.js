@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 import Router, { useRouter } from 'next/router';
@@ -80,6 +81,10 @@ const Backlog = () => {
 		<>
 			{!user ? null : (
 				<>
+					<Head>
+						<title>{`Backloggr - ${user.nickname}'s Backlog`}</title>
+					</Head>
+
 					<AppBar />
 					<Box sx={{ width: '100%', paddingTop: 8, paddingBottom: 8 }}>
 						<Box sx={{ margin: 2 }}>
