@@ -21,7 +21,7 @@ import { AccountCircle, Logout } from '@mui/icons-material';
 const AppBarComponent = () => {
 	const { user } = useUser();
 	const { route } = useRouter();
-	console.log(route);
+
 	const [name, setName] = useState('Your');
 
 	const [open, setOpen] = useState(false);

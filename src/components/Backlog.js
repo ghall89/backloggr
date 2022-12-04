@@ -6,7 +6,13 @@ import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
-import { AddGameModal, BottomTabs, ConfirmModal, GameList } from './components';
+import {
+	AddGameModal,
+	BottomTabs,
+	ConfirmModal,
+	GameList,
+	Loading,
+} from './components';
 
 const handleSorting = (a, b) => {
 	var titleA = a.title.toUpperCase();
@@ -34,6 +40,7 @@ const Backlog = () => {
 	};
 
 	const addAction = async submitBody => {
+		setLoading(true);
 		await addGame(submitBody);
 		await handleApi();
 	};
@@ -43,6 +50,7 @@ const Backlog = () => {
 
 		if (session) {
 			setGames(JSON.parse(session));
+			setLoading(false);
 			return;
 		}
 
@@ -90,6 +98,7 @@ const Backlog = () => {
 				</>
 			)}
 			<BottomTabs setFilter={setFilter} />
+			<Loading loading={loading} />
 		</>
 	);
 };
