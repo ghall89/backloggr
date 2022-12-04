@@ -24,7 +24,7 @@ import {
 } from '@mui/icons-material';
 
 import { getGame, deleteGame, updateGame } from '../lib/games';
-import { ConfirmModal, PlatformIcon } from './components';
+import { AppBar, ConfirmModal, PlatformIcon } from './components';
 
 const Game = () => {
 	const { user } = useUser();
@@ -130,6 +130,7 @@ const Game = () => {
 
 	return (
 		<>
+			<AppBar />
 			<Box sx={{ padding: 2, paddingTop: 10 }}>
 				<Button
 					startIcon={<ArrowBackIosNew />}
