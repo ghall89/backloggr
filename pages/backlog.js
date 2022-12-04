@@ -6,16 +6,7 @@ import Backlog from '../src/components/Backlog';
 const BacklogPage = () => {
 	const { user } = useUser();
 
-	return (
-		<div>
-			<Head>
-				<title>{`Backloggr - ${user.nickname}'s Backlog`}</title>
-			</Head>
-			<main>
-				<Backlog />
-			</main>
-		</div>
-	);
+	return <Backlog />;
 };
 
 export default BacklogPage;
