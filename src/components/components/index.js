@@ -4,7 +4,6 @@ import BottomTabs from './BottomTabs';
 import ConfirmModal from './ConfirmModal';
 import GameList from './GameList';
 import PlatformIcon from './PlatformIcon';
-import Loading from './Loading';
 
 export {
 	AppBar,
@@ -13,5 +12,4 @@ export {
 	ConfirmModal,
 	GameList,
 	PlatformIcon,
-	Loading,
 };
