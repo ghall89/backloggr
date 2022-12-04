@@ -8,10 +8,10 @@ import { Add } from '@mui/icons-material';
 import { addGame, getGames, deleteGame } from '../lib/games';
 import {
 	AddGameModal,
+	AppBar,
 	BottomTabs,
 	ConfirmModal,
 	GameList,
-	Loading,
 } from './components';
 
 const handleSorting = (a, b) => {
@@ -40,7 +40,6 @@ const Backlog = () => {
 	};
 
 	const addAction = async submitBody => {
-		setLoading(true);
 		await addGame(submitBody);
 		await handleApi();
 	};
@@ -50,7 +49,6 @@ const Backlog = () => {
 
 		if (session) {
 			setGames(JSON.parse(session));
-			setLoading(false);
 			return;
 		}
 
@@ -79,6 +77,7 @@ const Backlog = () => {
 		<>
 			{!user ? null : (
 				<>
+					<AppBar />
 					<Box sx={{ width: '100%', paddingTop: 8, paddingBottom: 8 }}>
 						<Box sx={{ margin: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
@@ -98,7 +97,6 @@ const Backlog = () => {
 				</>
 			)}
 			<BottomTabs setFilter={setFilter} />
-			<Loading loading={loading} />
 		</>
 	);
 };

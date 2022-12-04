@@ -2,8 +2,6 @@ import '../styles/globals.css';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { UserProvider } from '@auth0/nextjs-auth0';
 
-import { AppBar } from '../src/components/components';
-
 function MyApp({ Component, pageProps }) {
 	const theme = createTheme({
 		palette: {
@@ -33,7 +31,6 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<UserProvider>
 			<ThemeProvider theme={theme}>
-				<AppBar />
 				<Component {...pageProps} />
 			</ThemeProvider>
 		</UserProvider>
