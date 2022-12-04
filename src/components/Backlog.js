@@ -12,6 +12,7 @@ import {
 	BottomTabs,
 	ConfirmModal,
 	GameList,
+	LoadingOverlay,
 } from './components';
 
 const handleSorting = (a, b) => {
@@ -40,6 +41,7 @@ const Backlog = () => {
 	};
 
 	const addAction = async submitBody => {
+		setLoading(true);
 		await addGame(submitBody);
 		await handleApi();
 	};
@@ -49,6 +51,7 @@ const Backlog = () => {
 
 		if (session) {
 			setGames(JSON.parse(session));
+			setLoading(false);
 			return;
 		}
 
@@ -87,6 +90,7 @@ const Backlog = () => {
 
 						<GameList
 							games={filteredGames?.sort((a, b) => handleSorting(a, b))}
+							loading={loading}
 						/>
 					</Box>
 					<AddGameModal
@@ -97,6 +101,7 @@ const Backlog = () => {
 				</>
 			)}
 			<BottomTabs setFilter={setFilter} />
+			<LoadingOverlay loading={loading} />
 		</>
 	);
 };
