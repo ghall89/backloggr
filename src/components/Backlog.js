@@ -90,6 +90,7 @@ const Backlog = () => {
 
 						<GameList
 							games={filteredGames?.sort((a, b) => handleSorting(a, b))}
+							loading={loading}
 						/>
 					</Box>
 					<AddGameModal
