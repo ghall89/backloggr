@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useEffect, useMemo, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0';
 
@@ -130,6 +131,9 @@ const Game = () => {
 
 	return (
 		<>
+			<Head>
+				<title>{`Backloggr - ${game?.title}`}</title>
+			</Head>
 			<AppBar />
 			<Box sx={{ padding: 2, paddingTop: 10 }}>
 				<Button

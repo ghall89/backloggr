@@ -33,7 +33,7 @@ const Login = () => {
 			>
 				<CardContent>
 					<Typography variant="h6" align="center" gutterBottom>
-						Welcome to your Gaming Backlog!
+						Welcome to Backloggr!
 					</Typography>
 				</CardContent>
 				<CardMedia
