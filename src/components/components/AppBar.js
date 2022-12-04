@@ -20,6 +20,7 @@ import { AccountCircle, Logout } from '@mui/icons-material';
 
 const AppBarComponent = () => {
 	const { user } = useUser();
+
 	const [name, setName] = useState('Your');
 
 	const [open, setOpen] = useState(false);
@@ -68,55 +69,59 @@ const AppBarComponent = () => {
 				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 					{`${name} Backlog`}
 				</Typography>
-				<div>
-					<IconButton
-						ref={anchorRef}
-						id="composition-button"
-						aria-controls={open ? 'composition-menu' : undefined}
-						aria-expanded={open ? 'true' : undefined}
-						aria-haspopup="true"
-						onClick={handleToggle}
-						size="large"
-					>
-						<AccountCircle fontSize="inherit" />
-					</IconButton>
-					<Popper
-						open={open}
-						anchorEl={anchorRef.current}
-						role={undefined}
-						placement="bottom-start"
-						transition
-						disablePortal
-					>
-						{({ TransitionProps, placement }) => (
-							<Grow
-								{...TransitionProps}
-								style={{
-									transformOrigin:
-										placement === 'bottom-start' ? 'left top' : 'left bottom',
-								}}
-							>
-								<Paper>
-									<ClickAwayListener onClickAway={handleClose}>
-										<MenuList
-											autoFocusItem={open}
-											id="user-menu"
-											aria-labelledby="user-button"
-											onKeyDown={handleListKeyDown}
-										>
-											<MenuItem onClick={() => Router.push('/api/auth/logout')}>
-												<ListItemIcon>
-													<Logout fontSize="small" />
-												</ListItemIcon>
-												<ListItemText>Logout</ListItemText>
-											</MenuItem>
-										</MenuList>
-									</ClickAwayListener>
-								</Paper>
-							</Grow>
-						)}
-					</Popper>
-				</div>
+				{!user ? null : (
+					<div>
+						<IconButton
+							ref={anchorRef}
+							id="composition-button"
+							aria-controls={open ? 'composition-menu' : undefined}
+							aria-expanded={open ? 'true' : undefined}
+							aria-haspopup="true"
+							onClick={handleToggle}
+							size="large"
+						>
+							<AccountCircle fontSize="inherit" />
+						</IconButton>
+						<Popper
+							open={open}
+							anchorEl={anchorRef.current}
+							role={undefined}
+							placement="bottom-start"
+							transition
+							disablePortal
+						>
+							{({ TransitionProps, placement }) => (
+								<Grow
+									{...TransitionProps}
+									style={{
+										transformOrigin:
+											placement === 'bottom-start' ? 'left top' : 'left bottom',
+									}}
+								>
+									<Paper>
+										<ClickAwayListener onClickAway={handleClose}>
+											<MenuList
+												autoFocusItem={open}
+												id="user-menu"
+												aria-labelledby="user-button"
+												onKeyDown={handleListKeyDown}
+											>
+												<MenuItem
+													onClick={() => Router.push('/api/auth/logout')}
+												>
+													<ListItemIcon>
+														<Logout fontSize="small" />
+													</ListItemIcon>
+													<ListItemText>Logout</ListItemText>
+												</MenuItem>
+											</MenuList>
+										</ClickAwayListener>
+									</Paper>
+								</Grow>
+							)}
+						</Popper>
+					</div>
+				)}
 			</Toolbar>
 		</AppBar>
 	);
