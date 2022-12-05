@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Router, { useRouter } from 'next/router';
 
-import { Tab, Tabs } from '@mui/material';
+import { Tab, Tabs, Hidden } from '@mui/material';
 import {
 	CheckBox,
 	EmojiEvents,
@@ -32,10 +32,26 @@ const BottomTabs = ({ setFilter }) => {
 			onChange={handleTabs}
 			variant="fullWidth"
 		>
-			<Tab value="not_started" icon={<FormatListBulleted />} />
-			<Tab value="in_progress" icon={<SportsEsports />} />
-			<Tab value="finished" icon={<CheckBox />} />
-			<Tab value="completed" icon={<EmojiEvents />} />
+			<Tab
+				value="not_started"
+				label={<Hidden smDown>Backlog</Hidden>}
+				icon={<FormatListBulleted />}
+			/>
+			<Tab
+				value="in_progress"
+				label={<Hidden smDown>In Progress</Hidden>}
+				icon={<SportsEsports />}
+			/>
+			<Tab
+				value="finished"
+				label={<Hidden smDown>Finished</Hidden>}
+				icon={<CheckBox />}
+			/>
+			<Tab
+				value="completed"
+				label={<Hidden smDown>Completed</Hidden>}
+				icon={<EmojiEvents />}
+			/>
 		</Tabs>
 	);
 };
