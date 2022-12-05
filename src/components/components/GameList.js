@@ -33,7 +33,6 @@ const ListGame = ({ game }) => (
 				<PlatformIcon label={game.platform} />
 			</ListItemIcon>
 			<Divider />
-
 			<ListItemText>{game.title}</ListItemText>
 			{game.starred ? <StarRate color="primary" /> : null}
 		</ListItemButton>

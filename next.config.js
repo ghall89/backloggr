@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	images: {
+		domains: ['s.gravatar.com'],
+	},
 	env: {
 		MONGODB_URI: process.env.MONGODB_URI,
 		RAWG_API_KEY: process.env.RAWG_API_KEY,

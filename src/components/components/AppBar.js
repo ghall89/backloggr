@@ -1,5 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Router from 'next/router';
 
 import {
@@ -80,7 +81,13 @@ const AppBarComponent = () => {
 							onClick={handleToggle}
 							size="large"
 						>
-							<AccountCircle fontSize="inherit" />
+							<Image
+								src={user?.picture}
+								alt={`${user?.nickname}'s avatar`}
+								width={35}
+								height={35}
+								style={{ borderRadius: 30 }}
+							/>
 						</IconButton>
 						<Popper
 							open={open}
