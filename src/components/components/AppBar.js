@@ -1,5 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Router from 'next/router';
 
 import {
@@ -16,7 +17,7 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material';
-import { AccountCircle, Logout } from '@mui/icons-material';
+import { AccountCircle, Logout, ManageAccounts } from '@mui/icons-material';
 
 const AppBarComponent = () => {
 	const { user } = useUser();
@@ -78,9 +79,19 @@ const AppBarComponent = () => {
 							aria-expanded={open ? 'true' : undefined}
 							aria-haspopup="true"
 							onClick={handleToggle}
-							size="large"
+							size="medium"
 						>
-							<AccountCircle fontSize="inherit" />
+							{!user.picture ? (
+								<AccountCircle fontSize="inherit" />
+							) : (
+								<Image
+									src={user?.picture}
+									alt={`${user?.nickname}'s avatar`}
+									width={35}
+									height={35}
+									style={{ borderRadius: 30 }}
+								/>
+							)}
 						</IconButton>
 						<Popper
 							open={open}
@@ -106,6 +117,12 @@ const AppBarComponent = () => {
 												aria-labelledby="user-button"
 												onKeyDown={handleListKeyDown}
 											>
+												{/* <MenuItem onClick={() => Router.push('/settings')}>
+													<ListItemIcon>
+														<ManageAccounts fontSize="small" />
+													</ListItemIcon>
+													<ListItemText>Settings</ListItemText>
+												</MenuItem> */}
 												<MenuItem
 													onClick={() => Router.push('/api/auth/logout')}
 												>
