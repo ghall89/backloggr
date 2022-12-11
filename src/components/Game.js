@@ -155,7 +155,13 @@ const Game = () => {
 					}}
 				>
 					<Box sx={{ maxWidth: 400 }}>
-						<img width="100%" src="/no-image.jpg" alt="placeholder image" />
+						<img
+							width="100%"
+							src={game.img ? game.img : '/no-image.jpg'}
+							alt={
+								game.img ? `cover image for ${game.title}` : 'placeholder image'
+							}
+						/>
 					</Box>
 					<Box
 						sx={{

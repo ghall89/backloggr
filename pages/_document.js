@@ -6,7 +6,7 @@ export default function Document() {
 			<Head>
 				<link rel="apple-touch-icon" sizes="180x180" href="/iphone180.png" />
 				<meta name="apple-mobile-web-app-capable" content="yes" />
-				<meta charset="UTF-8" />
+				<meta charSet="UTF-8" />
 			</Head>
 			<body>
 				<Main />

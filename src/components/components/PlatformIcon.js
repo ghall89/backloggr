@@ -9,15 +9,15 @@ import { GiRetroController } from 'react-icons/gi';
 
 const PlatformIcon = ({ label }) => {
 	switch (label) {
-		case 'Switch':
+		case 'Nintendo Switch':
 			return <SiNintendoswitch />;
-		case 'PS2':
+		case 'PlayStation 2':
 			return <SiPlaystation2 />;
-		case 'PS3':
+		case 'PlayStation 3':
 			return <SiPlaystation3 />;
-		case 'PS4':
+		case 'PlayStation 4':
 			return <SiPlaystation4 />;
-		case 'PS5':
+		case 'PlayStation 5':
 			return <SiPlaystation5 />;
 		default:
 			return <GiRetroController />;
