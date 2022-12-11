@@ -72,10 +72,14 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 	};
 
 	const handleSubmit = async () => {
+		const currentDateTime = new Date().toUTCString();
+
 		let gameData = {
 			status: 'not_started',
 			user_ref: user.sub,
 			starred: false,
+			added: currentDateTime,
+			replaying: false,
 		};
 
 		searchResults.forEach(game => {

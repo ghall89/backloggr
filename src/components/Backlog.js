@@ -43,6 +43,12 @@ const Backlog = () => {
 
 	const addAction = async submitBody => {
 		setLoading(true);
+		games.forEach(game => {
+			if (game.rawg_id === submitBody.rawg_id) {
+				alert('This game is already in your backlog!');
+				return;
+			}
+		});
 		await addGame(submitBody);
 		await handleApi();
 	};

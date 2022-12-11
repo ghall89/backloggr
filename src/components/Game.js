@@ -62,8 +62,41 @@ const Game = () => {
 		setLoading(false);
 	};
 
-	const setStatus = async newStatus => {
-		await updateGame(`{"id":"${id}","params":{"status": "${newStatus}"}}`);
+	const setStatus = async (newStatus, replaying) => {
+		let params = {
+			id: id,
+			params: {
+				status: newStatus,
+			},
+		};
+
+		const currentDateTime = new Date().toUTCString();
+
+		if (!replaying) {
+			switch (newStatus) {
+				case 'in_progress':
+					params.params = { ...params.params, started: currentDateTime };
+					break;
+				case 'finished':
+					params.params = { ...params.params, finished: currentDateTime };
+					break;
+				case 'completed':
+					params.params = { ...params.params, completed: currentDateTime };
+					break;
+				default:
+					break;
+			}
+		} else {
+			params.params = {
+				...params.params,
+				started: currentDateTime,
+				finished: null,
+				completed: null,
+				replaying: true,
+			};
+		}
+
+		await updateGame(JSON.stringify(params));
 		window.sessionStorage.clear();
 		Router.push(`/backlog?tab=${newStatus}`);
 	};
@@ -154,9 +187,9 @@ const Game = () => {
 						height: 200,
 					}}
 				>
-					<Box sx={{ maxWidth: 400 }}>
+					<Box sx={{ maxWidth: '100%', minHeight: 200 }}>
 						<img
-							width="100%"
+							height="100%"
 							src={game.img ? game.img : '/no-image.jpg'}
 							alt={
 								game.img ? `cover image for ${game.title}` : 'placeholder image'
@@ -190,7 +223,7 @@ const Game = () => {
 							color="secondary"
 							fullWidth
 							variant="contained"
-							onClick={() => setStatus('in_progress')}
+							onClick={() => setStatus('in_progress', true)}
 							startIcon={<Loop />}
 						>
 							Replaying

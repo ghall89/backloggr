@@ -3,6 +3,10 @@ let Schema = mongoose.Schema;
 
 let gameSchema = new Schema({
 	rawg_id: String,
+	added: Date,
+	started: Date,
+	finished: Date,
+	completed: Date,
 	title: String,
 	platform: String,
 	img: String,
@@ -13,6 +17,7 @@ let gameSchema = new Schema({
 	user_ref: String,
 	status: String,
 	starred: Boolean,
+	replaying: Boolean,
 });
 
 module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema);
