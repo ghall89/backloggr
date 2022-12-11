@@ -79,6 +79,7 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 			user_ref: user.sub,
 			starred: false,
 			added: currentDateTime,
+			replaying: false,
 		};
 
 		searchResults.forEach(game => {
