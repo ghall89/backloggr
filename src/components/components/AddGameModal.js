@@ -89,6 +89,7 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 					avg_playtime: game.playtime,
 					metacritic: game.metacritic,
 					genres: game.genres,
+					release_dt: game.released,
 				};
 				return;
 			}
