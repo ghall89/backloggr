@@ -3,6 +3,7 @@ let Schema = mongoose.Schema;
 
 let gameSchema = new Schema({
 	rawg_id: String,
+	added: Date,
 	title: String,
 	platform: String,
 	img: String,
