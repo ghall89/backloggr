@@ -4,7 +4,9 @@ export default function Document() {
 	return (
 		<Html>
 			<Head>
-				<link rel="apple-touch-icon" sizes="180x180" href="/iphone180.png" />
+				<link rel="manifest" href="/manifest.json" />
+				<link rel="apple-touch-icon" href="/icons/iphone180.png" />
+				<meta name="theme-color" content="#393a4c" />
 				<meta name="apple-mobile-web-app-capable" content="yes" />
 				<meta charSet="UTF-8" />
 			</Head>
