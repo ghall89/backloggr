@@ -1,8 +1,12 @@
+const withPWA = require('next-pwa')({
+	dest: 'public',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: ['s.gravatar.com'],
+		domains: ['s.gravatar.com', 'media.rawg.io'],
 	},
 	env: {
 		MONGODB_URI: process.env.MONGODB_URI,
@@ -15,4 +19,4 @@ const nextConfig = {
 	},
 };
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);

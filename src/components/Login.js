@@ -39,7 +39,7 @@ const Login = () => {
 				<CardMedia
 					component="img"
 					height="194"
-					image="igor-karimov-unsplash.jpg"
+					image="img/igor-karimov-unsplash.jpg"
 					alt="Hello world"
 				/>
 				<CardContent>

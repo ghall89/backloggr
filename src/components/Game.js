@@ -190,7 +190,7 @@ const Game = () => {
 					<Box sx={{ maxWidth: '100%', minHeight: 200 }}>
 						<img
 							height="100%"
-							src={game.img ? game.img : '/no-image.jpg'}
+							src={game.img ? game.img : 'img/no-image.jpg'}
 							alt={
 								game.img ? `cover image for ${game.title}` : 'placeholder image'
 							}
