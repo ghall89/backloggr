@@ -32,7 +32,7 @@ const Game = () => {
 	const router = useRouter();
 	const { id } = router.query;
 
-	const { games, user } = useAppContext();
+	const { games, user, handleApi } = useAppContext();
 
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [loading, setLoading] = useState(true);
@@ -100,18 +100,21 @@ const Game = () => {
 
 		await updateGame(JSON.stringify(params));
 		window.sessionStorage.clear();
+		handleApi();
 		Router.push(`/backlog?tab=${newStatus}`);
 	};
 
 	const setStarStatus = async bool => {
 		setGame({ ...game, starred: bool });
 		await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
+		handleApi();
 		window.sessionStorage.clear();
 	};
 
 	const deleteAction = async () => {
 		await deleteGame(id);
-		window.sessionStorage.clear();
+		await window.sessionStorage.clear();
+		handleApi();
 		Router.push('/backlog');
 	};
 
