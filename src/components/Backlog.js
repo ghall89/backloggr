@@ -92,7 +92,7 @@ const Backlog = () => {
 					</Head>
 
 					<AppBar />
-					<Box sx={{ width: '100%', paddingTop: 8, paddingBottom: 8 }}>
+					<Box sx={{ width: '100%', paddingY: 8, paddingBottom: 12 }}>
 						<Box sx={{ margin: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
 								Add Game
