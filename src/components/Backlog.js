@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
 import Router, { useRouter } from 'next/router';
 
 import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
+
+import { useAppContext } from '../AppContext';
 
 import { addGame, getGames, deleteGame } from '../lib/games';
 import {
@@ -23,49 +24,12 @@ const handleSorting = (a, b) => {
 };
 
 const Backlog = () => {
-	const { user } = useUser();
 	const { query } = useRouter();
+	const { games, handleApi, loading, user } = useAppContext();
 
-	const [games, setGames] = useState();
 	const [filter, setFilter] = useState(query.tab || 'not_started');
 	const [filteredGames, setFilteredGames] = useState();
-	const [loading, setLoading] = useState(true);
 	const [openModal, setOpenModal] = useState(false);
-
-	const handleApi = () => {
-		setTimeout(async () => {
-			const data = await getGames(user.sub);
-			setGames(data);
-			window.sessionStorage.setItem('games', JSON.stringify(data));
-			setLoading(false);
-		}, 1000);
-	};
-
-	const addAction = async submitBody => {
-		setLoading(true);
-		games.forEach(game => {
-			if (game.rawg_id === submitBody.rawg_id) {
-				alert('This game is already in your backlog!');
-				return;
-			}
-		});
-		await addGame(submitBody);
-		await handleApi();
-	};
-
-	useEffect(() => {
-		const session = window.sessionStorage.getItem('games');
-
-		if (session) {
-			setGames(JSON.parse(session));
-			setLoading(false);
-			return;
-		}
-
-		if (user) {
-			handleApi();
-		}
-	}, [user]);
 
 	useEffect(() => {
 		if (games) {
@@ -82,6 +46,17 @@ const Backlog = () => {
 			}
 		}
 	}, [games, filter]);
+
+	const addAction = async submitBody => {
+		games.forEach(game => {
+			if (game.rawg_id === submitBody.rawg_id) {
+				alert('This game is already in your backlog!');
+				return;
+			}
+		});
+		await addGame(submitBody);
+		await handleApi();
+	};
 
 	return (
 		<>
