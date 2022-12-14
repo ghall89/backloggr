@@ -66,7 +66,6 @@ const Backlog = () => {
 						<title>{`Backloggr - ${user.nickname}'s Backlog`}</title>
 					</Head>
 
-					<AppBar />
 					<Box sx={{ width: '100%', paddingY: 8, paddingBottom: 12 }}>
 						<Box sx={{ margin: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>

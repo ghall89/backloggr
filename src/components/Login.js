@@ -31,11 +31,6 @@ const Login = () => {
 			<Card
 				sx={{ maxWidth: 400, backgroundColor: '#363a4f', color: '#cad3f5' }}
 			>
-				<CardContent>
-					<Typography variant="h6" align="center" gutterBottom>
-						Welcome to Backloggr!
-					</Typography>
-				</CardContent>
 				<CardMedia
 					component="img"
 					height="194"

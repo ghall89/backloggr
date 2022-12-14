@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Router from 'next/router';
 
+import { useAppContext } from '../../AppContext';
+
 import {
 	AppBar,
 	ClickAwayListener,
@@ -17,12 +19,15 @@ import {
 	Toolbar,
 	Typography,
 } from '@mui/material';
-import { AccountCircle, Logout, ManageAccounts } from '@mui/icons-material';
+import {
+	AccountCircle,
+	BarChart,
+	Logout,
+	ManageAccounts,
+} from '@mui/icons-material';
 
 const AppBarComponent = () => {
-	const { user } = useUser();
-
-	const [name, setName] = useState('Your');
+	const { user } = useAppContext();
 
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef(null);
@@ -58,17 +63,16 @@ const AppBarComponent = () => {
 		prevOpen.current = open;
 	}, [open]);
 
-	useEffect(() => {
-		if (user?.nickname) {
-			setName(`${user.nickname}'s`);
-		}
-	}, [user]);
-
 	return (
 		<AppBar position="fixed" sx={{ backgroundColor: '#24273a' }}>
 			<Toolbar>
-				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-					{`${name} Backlog`}
+				<Typography
+					variant="h6"
+					component="div"
+					sx={{ flexGrow: 1 }}
+					href="/backlog"
+				>
+					{user ? `${user.nickname}'s Backlog` : 'Backloggr'}
 				</Typography>
 				{!user ? null : (
 					<div>
@@ -117,11 +121,11 @@ const AppBarComponent = () => {
 												aria-labelledby="user-button"
 												onKeyDown={handleListKeyDown}
 											>
-												{/* <MenuItem onClick={() => Router.push('/settings')}>
+												{/* <MenuItem onClick={() => Router.push('/stats')}>
 													<ListItemIcon>
-														<ManageAccounts fontSize="small" />
+														<BarChart fontSize="small" />
 													</ListItemIcon>
-													<ListItemText>Settings</ListItemText>
+													<ListItemText>Stats</ListItemText>
 												</MenuItem> */}
 												<MenuItem
 													onClick={() => Router.push('/api/auth/logout')}
