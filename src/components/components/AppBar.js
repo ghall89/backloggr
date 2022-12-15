@@ -3,8 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Router from 'next/router';
 
-import { useAppContext } from '../../AppContext';
-
 import {
 	AppBar,
 	ClickAwayListener,
@@ -27,7 +25,7 @@ import {
 } from '@mui/icons-material';
 
 const AppBarComponent = () => {
-	const { user } = useAppContext();
+	const { user } = useUser();
 
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef(null);

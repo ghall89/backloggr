@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { useEffect, useMemo, useState } from 'react';
 
+import { useUser } from '@auth0/nextjs-auth0';
+
 import Router, { useRouter } from 'next/router';
 
 import { useAppContext } from '../AppContext';
@@ -29,10 +31,12 @@ import { deleteGame, updateGame } from '../lib/games';
 import { ConfirmModal, PlatformIcon } from './components';
 
 const Game = () => {
+	const { user } = useUser();
+
 	const router = useRouter();
 	const { id } = router.query;
 
-	const { games, user, handleApi } = useAppContext();
+	const { games, handleApi } = useAppContext();
 
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [loading, setLoading] = useState(true);

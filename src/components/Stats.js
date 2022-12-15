@@ -1,12 +1,14 @@
 import { useMemo, useCallback } from 'react';
 import Router, { useRouter } from 'next/router';
+import { useUser } from '@auth0/nextjs-auth0';
 
 import { Box, Button, Grid, Typography } from '@mui/material';
 
 import { useAppContext } from '../AppContext';
 
 const Stats = () => {
-	const { games, user } = useAppContext();
+	const { user } = useUser();
+	const { games } = useAppContext();
 
 	const percentCalc = useCallback(
 		status => {

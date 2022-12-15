@@ -2,6 +2,8 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 
+import { useUser } from '@auth0/nextjs-auth0';
+
 import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 
@@ -24,8 +26,10 @@ const handleSorting = (a, b) => {
 };
 
 const Backlog = () => {
+	const { user } = useUser();
+
 	const { query } = useRouter();
-	const { games, handleApi, loading, user } = useAppContext();
+	const { games, handleApi, loading } = useAppContext();
 
 	const [filter, setFilter] = useState(query.tab || 'not_started');
 	const [filteredGames, setFilteredGames] = useState();
