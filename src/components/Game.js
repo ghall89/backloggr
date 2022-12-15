@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import { useEffect, useMemo, useState } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
 
 import Router, { useRouter } from 'next/router';
+
+import { useAppContext } from '../AppContext';
 
 import {
 	Box,
@@ -24,13 +25,14 @@ import {
 	StarRate,
 } from '@mui/icons-material';
 
-import { getGame, deleteGame, updateGame } from '../lib/games';
-import { AppBar, ConfirmModal, PlatformIcon } from './components';
+import { deleteGame, updateGame } from '../lib/games';
+import { ConfirmModal, PlatformIcon } from './components';
 
 const Game = () => {
-	const { user } = useUser();
 	const router = useRouter();
 	const { id } = router.query;
+
+	const { games, user, handleApi } = useAppContext();
 
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [loading, setLoading] = useState(true);
@@ -46,21 +48,21 @@ const Game = () => {
 		}
 	}, [game]);
 
-	const handleApi = async () => {
-		const session = await JSON.parse(window.sessionStorage.getItem('games'));
-
-		if (session) {
-			await session.forEach(item => {
-				if (item._id.includes(id)) {
-					setGame(item);
-				}
-			});
-		} else {
-			const data = await getGame(user.sub, id);
-			setGame(data[0]);
-		}
-		setLoading(false);
-	};
+	// 	const handleApi = async () => {
+	// 		const session = await JSON.parse(window.sessionStorage.getItem('games'));
+	//
+	// 		if (session) {
+	// 			await session.forEach(item => {
+	// 				if (item._id.includes(id)) {
+	// 					setGame(item);
+	// 				}
+	// 			});
+	// 		} else {
+	// 			const data = await getGame(user.sub, id);
+	// 			setGame(data[0]);
+	// 		}
+	// 		setLoading(false);
+	// 	};
 
 	const setStatus = async (newStatus, replaying) => {
 		let params = {
@@ -98,18 +100,21 @@ const Game = () => {
 
 		await updateGame(JSON.stringify(params));
 		window.sessionStorage.clear();
+		handleApi();
 		Router.push(`/backlog?tab=${newStatus}`);
 	};
 
 	const setStarStatus = async bool => {
 		setGame({ ...game, starred: bool });
 		await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
+		handleApi();
 		window.sessionStorage.clear();
 	};
 
 	const deleteAction = async () => {
 		await deleteGame(id);
-		window.sessionStorage.clear();
+		await window.sessionStorage.clear();
+		handleApi();
 		Router.push('/backlog');
 	};
 
@@ -117,7 +122,11 @@ const Game = () => {
 
 	useEffect(() => {
 		if (user) {
-			handleApi();
+			games.forEach(game => {
+				if (game._id === id) {
+					setGame(game);
+				}
+			});
 		}
 	}, [user]);
 
@@ -167,7 +176,6 @@ const Game = () => {
 			<Head>
 				<title>{`Backloggr - ${game?.title}`}</title>
 			</Head>
-			<AppBar />
 			<Box sx={{ padding: 2, paddingTop: 10 }}>
 				<Button
 					startIcon={<ArrowBackIosNew />}
