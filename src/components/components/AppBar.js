@@ -121,12 +121,12 @@ const AppBarComponent = () => {
 												aria-labelledby="user-button"
 												onKeyDown={handleListKeyDown}
 											>
-												{/* <MenuItem onClick={() => Router.push('/stats')}>
+												<MenuItem onClick={() => Router.push('/stats')}>
 													<ListItemIcon>
 														<BarChart fontSize="small" />
 													</ListItemIcon>
 													<ListItemText>Stats</ListItemText>
-												</MenuItem> */}
+												</MenuItem>
 												<MenuItem
 													onClick={() => Router.push('/api/auth/logout')}
 												>
