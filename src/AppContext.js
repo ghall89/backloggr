@@ -35,7 +35,7 @@ export const ContextWrapper = ({ children }) => {
 	}, [user]);
 
 	return (
-		<AppContext.Provider value={{ games, handleApi, user, loading }}>
+		<AppContext.Provider value={{ games, handleApi, loading }}>
 			{children}
 		</AppContext.Provider>
 	);
