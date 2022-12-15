@@ -8,18 +8,20 @@ import { useAppContext } from '../AppContext';
 const Stats = () => {
 	const { games, user } = useAppContext();
 
-	console.log(user);
-
 	const percentCalc = useCallback(
 		status => {
-			let total = 0;
-			games.forEach(game => {
-				if (game.status === status) {
-					total++;
-				}
-			});
+			if (games) {
+				let total = 0;
+				games.forEach(game => {
+					if (game.status === status) {
+						total++;
+					}
+				});
 
-			return Math.round((100 * total) / games.length);
+				return Math.round((100 * total) / games.length);
+			}
+
+			return 0;
 		},
 		[games],
 	);
@@ -57,7 +59,7 @@ const Stats = () => {
 			>
 				<Grid container spacing={3}>
 					<Grid item xs={4}>
-						<Typography sx={{ fontSize: 40 }}>{games.length}</Typography>
+						<Typography sx={{ fontSize: 40 }}>{games?.length || 0}</Typography>
 						<Typography>Total Games</Typography>
 					</Grid>
 					<Grid item xs={4}>
