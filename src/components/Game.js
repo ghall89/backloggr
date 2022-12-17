@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useUser } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
 
 import Router, { useRouter } from 'next/router';
 
@@ -31,7 +31,7 @@ import { deleteGame, updateGame } from '../lib/games';
 import { ConfirmModal, PlatformIcon } from './components';
 
 const Game = () => {
-	const { user } = useUser();
+	const { data, status } = useSession();
 
 	const router = useRouter();
 	const { id } = router.query;
@@ -125,17 +125,17 @@ const Game = () => {
 	const handleDelete = () => setOpenConfirm(true);
 
 	useEffect(() => {
-		if (user) {
+		if (status === 'authenticated') {
 			games.forEach(game => {
 				if (game._id === id) {
 					setGame(game);
 				}
 			});
 		}
-	}, [user]);
+	}, [status]);
 
-	const StatusButton = ({ status }) => {
-		switch (status) {
+	const StatusButton = ({ gameStatus }) => {
+		switch (gameStatus) {
 			case 'not_started':
 				return (
 					<Button
@@ -229,7 +229,7 @@ const Game = () => {
 							</IconButton>
 						</Box>
 					</Box>
-					<StatusButton status={game?.status} />
+					<StatusButton gameStatus={game?.status} />
 					{game?.status === 'finished' || game?.status === 'completed' ? (
 						<Button
 							color="secondary"

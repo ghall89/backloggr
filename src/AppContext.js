@@ -1,21 +1,21 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
 
 import { addGame, getGames, deleteGame } from './lib/games';
 
 const AppContext = createContext();
 
 export const ContextWrapper = ({ children }) => {
-	const { user } = useUser();
+	const { data, status } = useSession();
 	const [games, setGames] = useState();
 	const [loading, setLoading] = useState(true);
 
 	const handleApi = () => {
 		setLoading(true);
 		setTimeout(async () => {
-			const data = await getGames(user.sub);
-			setGames(data);
-			window.sessionStorage.setItem('games', JSON.stringify(data));
+			const res = await getGames(data?.user.id);
+			setGames(res);
+			window.sessionStorage.setItem('games', JSON.stringify(res));
 			setLoading(false);
 		}, 1000);
 	};
@@ -29,10 +29,10 @@ export const ContextWrapper = ({ children }) => {
 			return;
 		}
 
-		if (user) {
+		if (status === 'authenticated') {
 			handleApi();
 		}
-	}, [user]);
+	}, [status]);
 
 	return (
 		<AppContext.Provider value={{ games, handleApi, loading }}>
