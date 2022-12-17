@@ -1,6 +1,9 @@
 import NextAuth from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 
+// supposedly this will fix the timeout issue
+require('mongodb');
+
 export default NextAuth({
 	providers: [
 		GithubProvider({
