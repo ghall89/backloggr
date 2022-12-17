@@ -13,6 +13,7 @@ const nextConfig = {
 		RAWG_API_KEY: process.env.RAWG_API_KEY,
 		GITHUB_TOKEN: process.env.GITHUB_TOKEN,
 		GITHUB_SECRET: process.env.GITHUB_SECRET,
+		NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 	},
 };
 
