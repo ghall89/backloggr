@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import Router, { useRouter } from 'next/router';
 
-import { useUser } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
 
 import { Box, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
@@ -26,7 +26,7 @@ const handleSorting = (a, b) => {
 };
 
 const Backlog = () => {
-	const { user } = useUser();
+	const { data, status } = useSession();
 
 	const { query } = useRouter();
 	const { games, handleApi, loading } = useAppContext();
@@ -64,11 +64,15 @@ const Backlog = () => {
 
 	return (
 		<>
-			{!user ? null : (
+			{!status === 'authenticated' ? null : (
 				<>
-					<Head>
-						<title>{`Backloggr - ${user.nickname}'s Backlog`}</title>
-					</Head>
+					{data?.user.name ? (
+						<Head>
+							<title>{`Backloggr - ${
+								data?.user.name.split(' ')[0]
+							}'s Backlog`}</title>
+						</Head>
+					) : null}
 
 					<Box sx={{ width: '100%', paddingY: 8, paddingBottom: 12 }}>
 						<Box sx={{ margin: 2 }}>

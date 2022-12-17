@@ -1,5 +1,6 @@
-import { useUser } from '@auth0/nextjs-auth0';
 import Router from 'next/router';
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
 import {
 	Box,
@@ -12,11 +13,13 @@ import {
 } from '@mui/material';
 
 const Login = () => {
-	const { user } = useUser();
+	const { data, status } = useSession();
 
-	if (user) {
-		Router.push('/backlog');
-	}
+	useEffect(() => {
+		if (status === 'authenticated') {
+			Router.push('/backlog');
+		}
+	});
 
 	return (
 		<Box
@@ -41,7 +44,7 @@ const Login = () => {
 					<Typography align="center" gutterBottom>
 						Log in or sign up to create and manage your backlog.
 					</Typography>
-					<Button href="/api/auth/login" variant="contained" fullWidth>
+					<Button href="/api/auth/signin" variant="contained" fullWidth>
 						Login
 					</Button>
 				</CardContent>

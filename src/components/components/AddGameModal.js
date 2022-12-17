@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
+
 import {
 	Box,
 	Button,
@@ -25,7 +26,7 @@ const gameSearch = async query => {
 };
 
 const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
-	const { user } = useUser();
+	const { data } = useSession();
 
 	const [query, setQuery] = useState();
 	const [searchResults, setSearchResults] = useState([]);
@@ -76,7 +77,7 @@ const AddGameModal = ({ openModal, setOpenModal, addAction }) => {
 
 		let gameData = {
 			status: 'not_started',
-			user_ref: user.sub,
+			user_ref: data.user.id,
 			starred: false,
 			added: currentDateTime,
 			replaying: false,

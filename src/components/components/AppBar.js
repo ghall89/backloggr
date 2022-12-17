@@ -1,4 +1,4 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Router from 'next/router';
@@ -25,7 +25,7 @@ import {
 } from '@mui/icons-material';
 
 const AppBarComponent = () => {
-	const { user } = useUser();
+	const { data, status } = useSession();
 
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef(null);
@@ -70,9 +70,11 @@ const AppBarComponent = () => {
 					sx={{ flexGrow: 1 }}
 					href="/backlog"
 				>
-					{user ? `${user.nickname}'s Backlog` : 'Backloggr'}
+					{status === 'authenticated'
+						? `${data.user.name.split(' ')[0]}'s Backlog`
+						: 'Backloggr'}
 				</Typography>
-				{!user ? null : (
+				{!data?.user ? null : (
 					<div>
 						<IconButton
 							ref={anchorRef}
@@ -83,12 +85,12 @@ const AppBarComponent = () => {
 							onClick={handleToggle}
 							size="medium"
 						>
-							{!user.picture ? (
+							{!data?.user.image ? (
 								<AccountCircle fontSize="inherit" />
 							) : (
-								<Image
-									src={user?.picture}
-									alt={`${user?.nickname}'s avatar`}
+								<img
+									src={data?.user.image}
+									alt={`${data?.user.name}'s avatar`}
 									width={35}
 									height={35}
 									style={{ borderRadius: 30 }}
@@ -126,7 +128,7 @@ const AppBarComponent = () => {
 													<ListItemText>Stats</ListItemText>
 												</MenuItem>
 												<MenuItem
-													onClick={() => Router.push('/api/auth/logout')}
+													onClick={() => Router.push('/api/auth/signout')}
 												>
 													<ListItemIcon>
 														<Logout fontSize="small" />

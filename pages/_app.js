@@ -2,7 +2,8 @@ import '../styles/globals.css';
 
 import { useRouter } from 'next/router';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { UserProvider } from '@auth0/nextjs-auth0';
+import { SessionProvider } from 'next-auth/react';
+
 import { ContextWrapper } from '../src/AppContext';
 
 import { AppBar } from '../src/components/components';
@@ -36,14 +37,14 @@ function MyApp({ Component, pageProps }) {
 	});
 
 	return (
-		<UserProvider>
+		<SessionProvider>
 			<ThemeProvider theme={theme}>
 				<ContextWrapper>
 					<AppBar />
 					<Component {...pageProps} />
 				</ContextWrapper>
 			</ThemeProvider>
-		</UserProvider>
+		</SessionProvider>
 	);
 }
 
