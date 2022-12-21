@@ -7,8 +7,8 @@ const nextConfig = {
 	env: {
 		MONGODB_URI: process.env.MONGODB_URI,
 		RAWG_API_KEY: process.env.RAWG_API_KEY,
-		GITHUB_TOKEN: process.env.GITHUB_TOKEN,
-		GITHUB_SECRET: process.env.GITHUB_SECRET,
+		DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+		DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
 		NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 	},

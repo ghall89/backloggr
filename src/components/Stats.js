@@ -21,10 +21,12 @@ const Stats = () => {
 						total++;
 					}
 				});
-
-				return Math.round((100 * total) / games.length);
+				const percentage = Math.round((100 * total) / games.length);
+				if (isNaN(percentage)) {
+					return 0;
+				}
+				return percentage;
 			}
-
 			return 0;
 		},
 		[games],

@@ -177,6 +177,7 @@ const Game = () => {
 
 	return (
 		<>
+			<AppBar />
 			<Head>
 				<title>{`Backloggr - ${game?.title}`}</title>
 			</Head>
