@@ -6,8 +6,6 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 
 import { useAppContext } from '../AppContext';
 
-import { AppBar } from './components';
-
 const Stats = () => {
 	const { data } = useSession();
 	const { games } = useAppContext();
@@ -40,59 +38,54 @@ const Stats = () => {
 	);
 
 	return (
-		<>
-			<AppBar />
+		<Box
+			sx={{
+				paddingTop: 10,
+				paddingX: 4,
+			}}
+		>
+			<Typography
+				sx={{ fontWeight: 'medium', textAlign: 'center' }}
+				variant="h4"
+			>
+				Your Backlog Stats
+			</Typography>
 			<Box
 				sx={{
-					paddingTop: 10,
-					paddingX: 4,
+					display: 'flex',
+					flexDirection: 'column',
+					gap: 4,
+					marginTop: 4,
+					textAlign: 'center',
 				}}
 			>
-				<Typography
-					sx={{ fontWeight: 'medium', textAlign: 'center' }}
-					variant="h4"
-				>
-					Your Backlog Stats
-				</Typography>
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						gap: 4,
-						marginTop: 4,
-						textAlign: 'center',
-					}}
-				>
-					<Grid container spacing={3}>
-						<Grid item xs={4}>
-							<Typography sx={{ fontSize: 40 }}>
-								{games?.length || 0}
-							</Typography>
-							<Typography>Total Games</Typography>
-						</Grid>
-						<Grid item xs={4}>
-							<Typography sx={{ fontSize: 40 }}>
-								{finishedPercentMemo}%
-							</Typography>
-							<Typography>Finished</Typography>
-						</Grid>
-						<Grid item xs={4}>
-							<Typography sx={{ fontSize: 40 }}>
-								{completedPercentMemo}%
-							</Typography>
-							<Typography>Completed</Typography>
-						</Grid>
+				<Grid container spacing={3}>
+					<Grid item xs={4}>
+						<Typography sx={{ fontSize: 40 }}>{games?.length || 0}</Typography>
+						<Typography>Total Games</Typography>
 					</Grid>
-					<Button
-						variant="contained"
-						fullWidth
-						onClick={() => Router.push('/backlog')}
-					>
-						Return to Backlog
-					</Button>
-				</Box>
+					<Grid item xs={4}>
+						<Typography sx={{ fontSize: 40 }}>
+							{finishedPercentMemo}%
+						</Typography>
+						<Typography>Finished</Typography>
+					</Grid>
+					<Grid item xs={4}>
+						<Typography sx={{ fontSize: 40 }}>
+							{completedPercentMemo}%
+						</Typography>
+						<Typography>Completed</Typography>
+					</Grid>
+				</Grid>
+				<Button
+					variant="contained"
+					fullWidth
+					onClick={() => Router.push('/backlog')}
+				>
+					Return to Backlog
+				</Button>
 			</Box>
-		</>
+		</Box>
 	);
 };
 

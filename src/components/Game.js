@@ -28,7 +28,7 @@ import {
 } from '@mui/icons-material';
 
 import { deleteGame, updateGame } from '../lib/games';
-import { ConfirmModal, PlatformIcon, AppBar } from './components';
+import { ConfirmModal, PlatformIcon } from './components';
 
 const Game = () => {
 	const { data, status } = useSession();

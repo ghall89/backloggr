@@ -66,7 +66,6 @@ const Backlog = () => {
 		<>
 			{!status === 'authenticated' ? null : (
 				<>
-					<AppBar />
 					{data?.user.name ? (
 						<Head>
 							<title>{`Backloggr - ${
