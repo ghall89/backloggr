@@ -6,8 +6,6 @@ import { SessionProvider } from 'next-auth/react';
 
 import { ContextWrapper } from '../src/AppContext';
 
-import { AppBar } from '../src/components/components';
-
 function MyApp({ Component, pageProps }) {
 	const { route } = useRouter();
 
@@ -40,7 +38,6 @@ function MyApp({ Component, pageProps }) {
 		<SessionProvider>
 			<ThemeProvider theme={theme}>
 				<ContextWrapper>
-					<AppBar />
 					<Component {...pageProps} />
 				</ContextWrapper>
 			</ThemeProvider>
