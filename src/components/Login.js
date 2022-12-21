@@ -2,6 +2,10 @@ import Router from 'next/router';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
+import { FaDiscord } from 'react-icons/fa';
+
+import { signIn } from 'next-auth/react';
+
 import {
 	Box,
 	Button,
@@ -44,8 +48,16 @@ const Login = () => {
 					<Typography align="center" gutterBottom>
 						Log in or sign up to create and manage your backlog.
 					</Typography>
-					<Button href="/api/auth/signin" variant="contained" fullWidth>
-						Login
+					<Button
+						onClick={() => signIn('discord')}
+						variant="contained"
+						fullWidth
+						startIcon={<FaDiscord />}
+						disabled={status !== 'unauthenticated' ? true : false}
+					>
+						{status !== 'unauthenticated'
+							? 'Please Wait...'
+							: 'Sign In With Discord'}
 					</Button>
 				</CardContent>
 			</Card>

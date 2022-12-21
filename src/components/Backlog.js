@@ -28,6 +28,8 @@ const handleSorting = (a, b) => {
 const Backlog = () => {
 	const { data, status } = useSession();
 
+	console.log(data);
+
 	const { query } = useRouter();
 	const { games, handleApi, loading } = useAppContext();
 
