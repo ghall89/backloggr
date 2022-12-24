@@ -13,7 +13,7 @@ import { addGame, getGames, deleteGame } from '../lib/games';
 import {
 	AddGameModal,
 	AppBar,
-	BottomTabs,
+	NavTabs,
 	ConfirmModal,
 	GameList,
 	LoadingOverlay,
@@ -27,8 +27,6 @@ const handleSorting = (a, b) => {
 
 const Backlog = () => {
 	const { data, status } = useSession();
-
-	console.log(data);
 
 	const { query } = useRouter();
 	const { games, handleApi, loading } = useAppContext();
@@ -77,7 +75,14 @@ const Backlog = () => {
 						</Head>
 					) : null}
 
-					<Box sx={{ width: '100%', paddingY: 8, paddingBottom: 12 }}>
+					<Box
+						sx={{
+							width: '100%',
+							paddingY: 8,
+							paddingBottom: 12,
+							paddingLeft: { xs: 0, md: 31 },
+						}}
+					>
 						<Box sx={{ margin: 2 }}>
 							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
 								Add Game
@@ -94,9 +99,9 @@ const Backlog = () => {
 						setOpenModal={setOpenModal}
 						addAction={addAction}
 					/>
+					<NavTabs setFilter={setFilter} />
 				</>
 			)}
-			<BottomTabs setFilter={setFilter} />
 			<LoadingOverlay loading={loading} />
 		</>
 	);

@@ -1,6 +1,6 @@
 import AddGameModal from './AddGameModal';
 import AppBar from './AppBar';
-import BottomTabs from './BottomTabs';
+import NavTabs from './NavTabs';
 import ConfirmModal from './ConfirmModal';
 import GameList from './GameList';
 import LoadingOverlay from './Loading';
@@ -9,7 +9,7 @@ import PlatformIcon from './PlatformIcon';
 export {
 	AddGameModal,
 	AppBar,
-	BottomTabs,
+	NavTabs,
 	ConfirmModal,
 	GameList,
 	LoadingOverlay,

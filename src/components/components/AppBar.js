@@ -62,7 +62,13 @@ const AppBarComponent = () => {
 	}, [open]);
 
 	return (
-		<AppBar position="fixed" sx={{ backgroundColor: '#24273a' }}>
+		<AppBar
+			position="fixed"
+			sx={{
+				backgroundColor: '#24273a',
+				zIndex: theme => theme.zIndex.drawer + 1,
+			}}
+		>
 			<Toolbar>
 				<Typography
 					variant="h6"
