@@ -2,18 +2,18 @@ import { useState } from 'react';
 import Router, { useRouter } from 'next/router';
 
 import {
-	Tab,
-	Tabs,
-	Hidden,
 	Drawer,
 	DrawerHeader,
-	Divider,
+	Hidden,
 	IconButton,
-	ListItemText,
-	ListItem,
 	List,
+	ListItem,
 	ListItemButton,
 	ListItemIcon,
+	ListItemText,
+	Tab,
+	Tabs,
+	Toolbar,
 	useMediaQuery,
 } from '@mui/material';
 import { useTheme } from '@mui/styles';
@@ -50,7 +50,7 @@ const tabs = [
 const NavTabs = ({ setFilter }) => {
 	const { query } = useRouter();
 	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const [tabState, setTabState] = useState(query.tab || 'not_started');
 
 	const drawerWidth = 250;
@@ -100,10 +100,14 @@ const NavTabs = ({ setFilter }) => {
 					anchor="left"
 					open={true}
 				>
+					<Toolbar />
 					<List>
 						{tabs.map(({ value, label, icon }) => (
 							<ListItem key={value} disablePadding>
-								<ListItemButton onClick={() => handleTabs(null, value)}>
+								<ListItemButton
+									onClick={() => handleTabs(null, value)}
+									selected={tabState === value}
+								>
 									<ListItemIcon>{icon}</ListItemIcon>
 									<ListItemText primary={label} />
 								</ListItemButton>

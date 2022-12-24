@@ -80,7 +80,7 @@ const Backlog = () => {
 							width: '100%',
 							paddingY: 8,
 							paddingBottom: 12,
-							paddingLeft: { xs: 0, lg: 31 },
+							paddingLeft: { xs: 0, md: 31 },
 						}}
 					>
 						<Box sx={{ margin: 2 }}>
