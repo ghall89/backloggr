@@ -16,15 +16,7 @@ import { SentimentVeryDissatisfied, StarRate } from '@mui/icons-material';
 
 import PlatformIcon from './PlatformIcon';
 
-const filter = (games, bool) => {
-	const arr = [];
-	games.forEach(game => {
-		if (game.starred === bool) {
-			arr.push(game);
-		}
-	});
-	return arr;
-};
+import { starFilter } from '../../lib/functions';
 
 const ListGame = ({ game }) => (
 	<ListItem disableGutters>
@@ -45,8 +37,8 @@ const GameList = ({ games, loading }) => {
 
 	useEffect(() => {
 		if (games) {
-			setStarred(filter(games, true));
-			setUnstarred(filter(games, false));
+			setStarred(starFilter(games, true));
+			setUnstarred(starFilter(games, false));
 		}
 	}, [games]);
 
