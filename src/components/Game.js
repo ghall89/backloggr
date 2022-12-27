@@ -28,6 +28,7 @@ import {
 } from '@mui/icons-material';
 
 import { deleteGame, updateGame } from '../lib/games';
+import { setStatus } from '../lib/functions';
 import { ConfirmModal, PlatformIcon, AppBar } from './components';
 
 const Game = () => {
@@ -68,46 +69,6 @@ const Game = () => {
 	// 		setLoading(false);
 	// 	};
 
-	const setStatus = async (newStatus, replaying) => {
-		let params = {
-			id: id,
-			params: {
-				status: newStatus,
-			},
-		};
-
-		const currentDateTime = new Date().toUTCString();
-
-		if (!replaying) {
-			switch (newStatus) {
-				case 'in_progress':
-					params.params = { ...params.params, started: currentDateTime };
-					break;
-				case 'finished':
-					params.params = { ...params.params, finished: currentDateTime };
-					break;
-				case 'completed':
-					params.params = { ...params.params, completed: currentDateTime };
-					break;
-				default:
-					break;
-			}
-		} else {
-			params.params = {
-				...params.params,
-				started: currentDateTime,
-				finished: null,
-				completed: null,
-				replaying: true,
-			};
-		}
-
-		await updateGame(JSON.stringify(params));
-		window.sessionStorage.clear();
-		handleApi();
-		Router.push(`/backlog?tab=${newStatus}`);
-	};
-
 	const setStarStatus = async bool => {
 		setGame({ ...game, starred: bool });
 		await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
@@ -141,7 +102,7 @@ const Game = () => {
 					<Button
 						fullWidth
 						variant="contained"
-						onClick={() => setStatus('in_progress')}
+						onClick={() => setStatus(game._id, 'in_progress')}
 						startIcon={<SportsEsports />}
 					>
 						Playing
@@ -152,7 +113,7 @@ const Game = () => {
 					<Button
 						fullWidth
 						variant="contained"
-						onClick={() => setStatus('finished')}
+						onClick={() => setStatus(game._id, 'finished')}
 						startIcon={<CheckBox />}
 					>
 						Finished
@@ -163,7 +124,7 @@ const Game = () => {
 					<Button
 						fullWidth
 						variant="contained"
-						onClick={() => setStatus('completed')}
+						onClick={() => setStatus(game._id, 'completed')}
 						startIcon={<EmojiEvents />}
 					>
 						Completed
@@ -236,7 +197,7 @@ const Game = () => {
 							color="secondary"
 							fullWidth
 							variant="contained"
-							onClick={() => setStatus('in_progress', true)}
+							onClick={() => setStatus(game._id, 'in_progress', true)}
 							startIcon={<Loop />}
 						>
 							Replaying
