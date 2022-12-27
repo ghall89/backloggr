@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import Router from 'next/router';
 
 import {
 	Box,
@@ -13,10 +14,11 @@ import {
 	MenuList,
 	Paper,
 	Popper,
+	Tooltip,
 	Typography,
 } from '@mui/material';
 
-import { StarRate, MoreVert } from '@mui/icons-material';
+import { StarRate, MoreVert, Info } from '@mui/icons-material';
 
 import { starFilter } from '../../lib/functions';
 
@@ -132,11 +134,16 @@ const GameCard = ({ game, setStatus }) => (
 					width: '100%',
 					padding: 1,
 					position: 'absolute',
+					display: 'flex',
+					justifyContent: 'space-between',
 					background:
 						'linear-gradient(180deg, rgba(0,0,0,0.7684261204481793) 0%, rgba(0,0,0,0) 100%)',
 				}}
 			>
 				<GameMenu id={game._id} status={game.status} setStatus={setStatus} />
+				<IconButton onClick={() => Router.push(`/game/${game._id}`)}>
+					<Info />
+				</IconButton>
 			</Box>
 			<CardMedia
 				component="img"
@@ -144,9 +151,11 @@ const GameCard = ({ game, setStatus }) => (
 				image={game.img}
 				alt={game.title}
 			/>
-			<CardContent>
-				<Typography noWrap>{game.title}</Typography>
-			</CardContent>
+			<Tooltip title={`${game.title} - ${game.platform}`}>
+				<CardContent>
+					<Typography noWrap>{game.title}</Typography>
+				</CardContent>
+			</Tooltip>
 		</Card>
 	</Grid>
 );

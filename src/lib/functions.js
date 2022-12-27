@@ -49,4 +49,21 @@ const setStatus = async (id, newStatus, replaying) => {
 	Router.push(`/backlog?tab=${newStatus}`);
 };
 
-export { starFilter, setStatus };
+const counter = games => {
+	let totals = {};
+
+	const statusArr = ['not_started', 'in_progress', 'finished', 'completed'];
+
+	statusArr.forEach(status => {
+		let count = 0;
+		games.forEach(game => {
+			if (game.status === status) {
+				count++;
+			}
+		});
+		totals = { ...totals, [status]: count };
+	});
+	return totals;
+};
+
+export { starFilter, setStatus, counter };

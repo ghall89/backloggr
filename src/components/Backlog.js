@@ -9,6 +9,7 @@ import { Add, List, ViewModule } from '@mui/icons-material';
 
 import { useAppContext } from '../AppContext';
 
+import { counter } from '../lib/functions';
 import { addGame, getGames, deleteGame, updateGame } from '../lib/games';
 import {
 	AddGameModal,
@@ -36,6 +37,7 @@ const Backlog = () => {
 	const [filteredGames, setFilteredGames] = useState();
 	const [openModal, setOpenModal] = useState(false);
 	const [viewMode, setViewMode] = useState('grid');
+	const [statusCounter, setStatusCounter] = useState({});
 
 	useEffect(() => {
 		if (games) {
@@ -89,6 +91,15 @@ const Backlog = () => {
 		handleApi();
 		Router.push(`/backlog?tab=${newStatus}`);
 	};
+
+	useEffect(() => {
+		if (games) {
+			const statusCounts = counter(games);
+			setStatusCounter(statusCounts);
+		}
+	}, [games]);
+
+	useEffect(() => console.log(statusCounter), [statusCounter]);
 
 	const HandleView = () => {
 		switch (viewMode) {
@@ -173,7 +184,7 @@ const Backlog = () => {
 						setOpenModal={setOpenModal}
 						addAction={addAction}
 					/>
-					<NavTabs setFilter={setFilter} />
+					<NavTabs setFilter={setFilter} counts={statusCounter} />
 				</>
 			)}
 			<LoadingOverlay loading={loading} />

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Router, { useRouter } from 'next/router';
 
 import {
+	Badge,
+	Chip,
 	Drawer,
 	DrawerHeader,
 	Hidden,
@@ -47,7 +49,7 @@ const tabs = [
 	},
 ];
 
-const NavTabs = ({ setFilter }) => {
+const NavTabs = ({ setFilter, counts }) => {
 	const { query } = useRouter();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -110,6 +112,7 @@ const NavTabs = ({ setFilter }) => {
 								>
 									<ListItemIcon>{icon}</ListItemIcon>
 									<ListItemText primary={label} />
+									{counts[value] > 0 ? <Chip label={counts[value]} /> : null}
 								</ListItemButton>
 							</ListItem>
 						))}
