@@ -163,8 +163,6 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 			}
 		});
 
-		console.log(gameData);
-
 		await addAction(gameData);
 		handleModalClose();
 	};
