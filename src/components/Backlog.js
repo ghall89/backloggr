@@ -90,8 +90,6 @@ const Backlog = () => {
 		}
 	}, [games]);
 
-	useEffect(() => console.log(statusCounter), [statusCounter]);
-
 	return (
 		<>
 			{!status === 'authenticated' ? null : (
@@ -109,7 +107,7 @@ const Backlog = () => {
 						sx={{
 							width: '100%',
 							paddingY: 8,
-							paddingBottom: 12,
+							paddingBottom: { xs: 22, md: 9 },
 							paddingLeft: { xs: 0, md: 31 },
 						}}
 					>
@@ -127,7 +125,7 @@ const Backlog = () => {
 								variant={!isMobile ? 'extended' : null}
 								sx={{
 									position: 'fixed',
-									right: 20,
+									right: 28,
 									bottom: { xs: 120, md: 20 },
 								}}
 							>

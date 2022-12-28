@@ -151,11 +151,11 @@ const GameCard = ({ game, setStatus }) => (
 				image={game.img}
 				alt={game.title}
 			/>
-			<Tooltip title={`${game.title} - ${game.platform}`}>
-				<CardContent>
+			<CardContent>
+				<Tooltip title={`${game.title} - ${game.platform}`} placement="top">
 					<Typography noWrap>{game.title}</Typography>
-				</CardContent>
-			</Tooltip>
+				</Tooltip>
+			</CardContent>
 		</Card>
 	</Grid>
 );
