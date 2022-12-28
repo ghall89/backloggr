@@ -4,8 +4,9 @@ import Router, { useRouter } from 'next/router';
 
 import { useSession } from 'next-auth/react';
 
-import { Box, Button, ButtonGroup } from '@mui/material';
+import { Box, Button, ButtonGroup, Fab, useMediaQuery } from '@mui/material';
 import { Add, List, ViewModule } from '@mui/icons-material';
+import { useTheme } from '@mui/styles';
 
 import { useAppContext } from '../AppContext';
 
@@ -17,7 +18,6 @@ import {
 	NavTabs,
 	ConfirmModal,
 	GameCards,
-	GameList,
 	LoadingOverlay,
 } from './components';
 
@@ -29,6 +29,8 @@ const handleSorting = (a, b) => {
 
 const Backlog = () => {
 	const { data, status } = useSession();
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const { query } = useRouter();
 	const { games, handleApi, loading } = useAppContext();
@@ -54,17 +56,6 @@ const Backlog = () => {
 			}
 		}
 	}, [games, filter]);
-
-	const addAction = async submitBody => {
-		games.forEach(game => {
-			if (game.rawg_id === submitBody.rawg_id) {
-				alert('This game is already in your backlog!');
-				return;
-			}
-		});
-		await addGame(submitBody);
-		await handleApi();
-	};
 
 	const setStatus = async (id, newStatus, replaying) => {
 		let params = {
@@ -101,29 +92,6 @@ const Backlog = () => {
 
 	useEffect(() => console.log(statusCounter), [statusCounter]);
 
-	const HandleView = () => {
-		switch (viewMode) {
-			case 'grid':
-				return (
-					<GameCards
-						games={filteredGames?.sort((a, b) => handleSorting(a, b))}
-						loading={loading}
-						setStatus={setStatus}
-					/>
-				);
-			case 'list':
-				return (
-					<GameList
-						games={filteredGames?.sort((a, b) => handleSorting(a, b))}
-						loading={loading}
-						setStatus={setStatus}
-					/>
-				);
-			default:
-				return <h4>Error</h4>;
-		}
-	};
-
 	return (
 		<>
 			{!status === 'authenticated' ? null : (
@@ -152,38 +120,30 @@ const Backlog = () => {
 								justifyContent: 'space-between',
 							}}
 						>
-							<Button onClick={() => setOpenModal(true)} startIcon={<Add />}>
-								Add Game
-							</Button>
-							{/* <ButtonGroup
-								variant="outlined"
-								aria-label="outlined button group"
+							<Fab
+								color="primary"
+								aria-label="add game"
+								onClick={() => setOpenModal(true)}
+								variant={!isMobile ? 'extended' : null}
+								sx={{
+									position: 'fixed',
+									right: 20,
+									bottom: { xs: 120, md: 20 },
+								}}
 							>
-								<Button
-									variant={viewMode === 'grid' ? 'contained' : 'outlined'}
-									onClick={() => setViewMode('grid')}
-								>
-									<ViewModule />
-								</Button>
-								<Button
-									variant={viewMode === 'list' ? 'contained' : 'outlined'}
-									onClick={() => setViewMode('list')}
-								>
-									<List />
-								</Button>
-							</ButtonGroup> */}
+								<Add />
+								<Box sx={{ ml: 1, display: { xs: 'none', md: 'block' } }}>
+									Add Game
+								</Box>
+							</Fab>
 						</Box>
-						<HandleView
-							viewMode={viewMode}
-							games={filteredGames}
+						<GameCards
+							games={filteredGames?.sort((a, b) => handleSorting(a, b))}
 							loading={loading}
+							setStatus={setStatus}
 						/>
 					</Box>
-					<AddGameModal
-						openModal={openModal}
-						setOpenModal={setOpenModal}
-						addAction={addAction}
-					/>
+					<AddGameModal openModal={openModal} setOpenModal={setOpenModal} />
 					<NavTabs setFilter={setFilter} counts={statusCounter} />
 				</>
 			)}
