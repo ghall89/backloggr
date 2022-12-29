@@ -35,7 +35,7 @@ const tabs = [
 	},
 	{
 		value: 'in_progress',
-		label: 'In Progress',
+		label: 'Playing',
 		icon: <SportsEsports />,
 	},
 	{
@@ -72,21 +72,20 @@ const NavTabs = ({ setFilter, counts }) => {
 						bottom: 0,
 						left: 0,
 						right: 0,
-						backgroundColor: '#24273a',
+						backgroundColor: 'rgba(36, 39, 58, 0.9)',
 						paddingBottom: 3,
+						backdropFilter: 'blur(10px)',
+						boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+						'& .MuiTabs-indicator': {
+							display: 'none',
+						},
 					}}
 					value={tabState}
 					onChange={handleTabs}
 					variant="fullWidth"
 				>
 					{tabs.map(({ value, label, icon }) => (
-						<Tab
-							key={value}
-							value={value}
-							label={<Hidden mdDown>{label}</Hidden>}
-							icon={icon}
-							iconPosition="start"
-						/>
+						<Tab key={value} value={value} label={label} icon={icon} />
 					))}
 				</Tabs>
 			) : (
