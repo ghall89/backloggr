@@ -16,6 +16,7 @@ import {
 	ListItemText,
 	Tab,
 	Tabs,
+	Typography,
 	useMediaQuery,
 } from '@mui/material';
 
@@ -87,7 +88,21 @@ const NavTabs = ({ setFilter, counts }) => {
 					variant="fullWidth"
 				>
 					{tabs.map(({ value, label, icon }) => (
-						<Tab key={value} value={value} label={label} icon={icon} />
+						<Tab
+							key={value}
+							value={value}
+							label={
+								<Typography
+									sx={{
+										fontSize: { xs: 11, sm: 13 },
+										textTransform: 'none',
+									}}
+								>
+									{label}
+								</Typography>
+							}
+							icon={icon}
+						/>
 					))}
 				</Tabs>
 			) : (

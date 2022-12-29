@@ -36,6 +36,7 @@ const Backlog = () => {
 	const { games, handleApi, loading } = useAppContext();
 
 	const [filter, setFilter] = useState(query.tab || 'not_started');
+	const [title, setTitle] = useState('Backlog');
 	const [filteredGames, setFilteredGames] = useState();
 	const [openModal, setOpenModal] = useState(false);
 	const [viewMode, setViewMode] = useState('grid');
@@ -56,6 +57,23 @@ const Backlog = () => {
 			}
 		}
 	}, [games, filter]);
+
+	useEffect(() => {
+		switch (filter) {
+			case 'not_started':
+				setTitle('Backlog');
+				break;
+			case 'in_progress':
+				setTitle('Playing');
+				break;
+			case 'finished':
+				setTitle('Finished');
+				break;
+			case 'completed':
+				setTitle('Completed');
+				break;
+		}
+	});
 
 	const setStatus = async (id, newStatus, replaying) => {
 		let params = {
@@ -109,7 +127,7 @@ const Backlog = () => {
 							paddingLeft: { xs: 0, md: 31 },
 						}}
 					>
-						<AppBar />
+						<AppBar title={title} />
 						<Box
 							sx={{
 								margin: 2,

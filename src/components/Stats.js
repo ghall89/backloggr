@@ -43,19 +43,13 @@ const Stats = () => {
 
 	return (
 		<>
-			<AppBar />
+			<AppBar title="Stats" />
 			<Box
 				sx={{
 					paddingTop: 10,
 					paddingX: 4,
 				}}
 			>
-				<Typography
-					sx={{ fontWeight: 'medium', textAlign: 'center' }}
-					variant="h4"
-				>
-					Your Backlog Stats
-				</Typography>
 				<Box
 					sx={{
 						display: 'flex',
