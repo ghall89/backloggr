@@ -94,7 +94,6 @@ const Backlog = () => {
 		<>
 			{!status === 'authenticated' ? null : (
 				<>
-					<AppBar />
 					{data?.user.name ? (
 						<Head>
 							<title>{`Backloggr - ${
@@ -106,11 +105,11 @@ const Backlog = () => {
 					<Box
 						sx={{
 							width: '100%',
-							paddingY: 8,
 							paddingBottom: { xs: 22, md: 9 },
 							paddingLeft: { xs: 0, md: 31 },
 						}}
 					>
+						<AppBar />
 						<Box
 							sx={{
 								margin: 2,

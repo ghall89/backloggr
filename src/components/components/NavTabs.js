@@ -4,6 +4,7 @@ import Router, { useRouter } from 'next/router';
 import {
 	Badge,
 	Chip,
+	Divider,
 	Drawer,
 	DrawerHeader,
 	Hidden,
@@ -15,7 +16,6 @@ import {
 	ListItemText,
 	Tab,
 	Tabs,
-	Toolbar,
 	useMediaQuery,
 } from '@mui/material';
 
@@ -25,6 +25,8 @@ import {
 	EmojiEvents,
 	FormatListBulleted,
 	SportsEsports,
+	BarChart,
+	Logout,
 } from '@mui/icons-material';
 
 const tabs = [
@@ -35,7 +37,7 @@ const tabs = [
 	},
 	{
 		value: 'in_progress',
-		label: 'In Progress',
+		label: 'Playing',
 		icon: <SportsEsports />,
 	},
 	{
@@ -72,21 +74,20 @@ const NavTabs = ({ setFilter, counts }) => {
 						bottom: 0,
 						left: 0,
 						right: 0,
-						backgroundColor: '#24273a',
+						backgroundColor: 'rgba(36, 39, 58, 0.9)',
 						paddingBottom: 3,
+						backdropFilter: 'blur(10px)',
+						boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+						'& .MuiTabs-indicator': {
+							display: 'none',
+						},
 					}}
 					value={tabState}
 					onChange={handleTabs}
 					variant="fullWidth"
 				>
 					{tabs.map(({ value, label, icon }) => (
-						<Tab
-							key={value}
-							value={value}
-							label={<Hidden mdDown>{label}</Hidden>}
-							icon={icon}
-							iconPosition="start"
-						/>
+						<Tab key={value} value={value} label={label} icon={icon} />
 					))}
 				</Tabs>
 			) : (
@@ -103,7 +104,6 @@ const NavTabs = ({ setFilter, counts }) => {
 					anchor="left"
 					open={true}
 				>
-					<Toolbar />
 					<List>
 						{tabs.map(({ value, label, icon }) => (
 							<ListItem key={value} disablePadding>
@@ -117,6 +117,23 @@ const NavTabs = ({ setFilter, counts }) => {
 								</ListItemButton>
 							</ListItem>
 						))}
+						<Divider />
+						<ListItem disablePadding>
+							<ListItemButton onClick={() => Router.push('/stats')}>
+								<ListItemIcon>
+									<BarChart />
+								</ListItemIcon>
+								<ListItemText primary="Stats" />
+							</ListItemButton>
+						</ListItem>
+						<ListItem disablePadding>
+							<ListItemButton onClick={() => Router.push('/api/auth/signout')}>
+								<ListItemIcon>
+									<Logout />
+								</ListItemIcon>
+								<ListItemText primary="Logout" />
+							</ListItemButton>
+						</ListItem>
 					</List>
 				</Drawer>
 			)}
