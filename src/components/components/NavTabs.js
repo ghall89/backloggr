@@ -4,6 +4,7 @@ import Router, { useRouter } from 'next/router';
 import {
 	Badge,
 	Chip,
+	Divider,
 	Drawer,
 	DrawerHeader,
 	Hidden,
@@ -15,7 +16,6 @@ import {
 	ListItemText,
 	Tab,
 	Tabs,
-	Toolbar,
 	useMediaQuery,
 } from '@mui/material';
 
@@ -25,6 +25,8 @@ import {
 	EmojiEvents,
 	FormatListBulleted,
 	SportsEsports,
+	BarChart,
+	Logout,
 } from '@mui/icons-material';
 
 const tabs = [
@@ -102,7 +104,6 @@ const NavTabs = ({ setFilter, counts }) => {
 					anchor="left"
 					open={true}
 				>
-					<Toolbar />
 					<List>
 						{tabs.map(({ value, label, icon }) => (
 							<ListItem key={value} disablePadding>
@@ -116,6 +117,23 @@ const NavTabs = ({ setFilter, counts }) => {
 								</ListItemButton>
 							</ListItem>
 						))}
+						<Divider />
+						<ListItem disablePadding>
+							<ListItemButton onClick={() => Router.push('/stats')}>
+								<ListItemIcon>
+									<BarChart />
+								</ListItemIcon>
+								<ListItemText primary="Stats" />
+							</ListItemButton>
+						</ListItem>
+						<ListItem disablePadding>
+							<ListItemButton onClick={() => Router.push('/api/auth/signout')}>
+								<ListItemIcon>
+									<Logout />
+								</ListItemIcon>
+								<ListItemText primary="Logout" />
+							</ListItemButton>
+						</ListItem>
 					</List>
 				</Drawer>
 			)}

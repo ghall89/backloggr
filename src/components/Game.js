@@ -142,7 +142,7 @@ const Game = () => {
 			<Head>
 				<title>{`Backloggr - ${game?.title}`}</title>
 			</Head>
-			<Box sx={{ padding: 2, paddingTop: 10 }}>
+			<Box sx={{ padding: 2 }}>
 				<Button
 					startIcon={<ArrowBackIosNew />}
 					onClick={() => Router.push(`/backlog?tab=${game.status}`)}

@@ -62,95 +62,88 @@ const AppBarComponent = () => {
 	}, [open]);
 
 	return (
-		<AppBar
-			position="fixed"
-			sx={{
-				backgroundColor: '#24273a',
-				zIndex: theme => theme.zIndex.drawer + 1,
-			}}
-		>
-			<Toolbar>
-				<Typography
-					variant="h6"
-					component="div"
-					sx={{ flexGrow: 1 }}
-					href="/backlog"
-				>
-					{status === 'authenticated'
-						? `${data.user.name.split(' ')[0]}'s Backlog`
-						: 'Backloggr'}
-				</Typography>
-				{!data?.user ? null : (
-					<div>
-						<IconButton
-							ref={anchorRef}
-							id="composition-button"
-							aria-controls={open ? 'composition-menu' : undefined}
-							aria-expanded={open ? 'true' : undefined}
-							aria-haspopup="true"
-							onClick={handleToggle}
-							size="medium"
-						>
-							{!data?.user.image ? (
-								<AccountCircle fontSize="inherit" />
-							) : (
-								<img
-									src={data?.user.image}
-									alt={`${data?.user.name}'s avatar`}
-									width={35}
-									height={35}
-									style={{ borderRadius: 30 }}
-								/>
-							)}
-						</IconButton>
-						<Popper
-							open={open}
-							anchorEl={anchorRef.current}
-							role={undefined}
-							placement="bottom-start"
-							transition
-							disablePortal
-						>
-							{({ TransitionProps, placement }) => (
-								<Grow
-									{...TransitionProps}
-									style={{
-										transformOrigin:
-											placement === 'bottom-start' ? 'left top' : 'left bottom',
-									}}
-								>
-									<Paper>
-										<ClickAwayListener onClickAway={handleClose}>
-											<MenuList
-												autoFocusItem={open}
-												id="user-menu"
-												aria-labelledby="user-button"
-												onKeyDown={handleListKeyDown}
+		<Toolbar sx={{ padding: 2, zIndex: 100 }}>
+			<Typography
+				variant="h4"
+				component="div"
+				sx={{ flexGrow: 1 }}
+				href="/backlog"
+			>
+				{status === 'authenticated'
+					? `${data.user.name.split(' ')[0]}'s Games`
+					: 'Backloggr'}
+			</Typography>
+			{!data?.user ? null : (
+				<div>
+					<IconButton
+						ref={anchorRef}
+						id="composition-button"
+						aria-controls={open ? 'composition-menu' : undefined}
+						aria-expanded={open ? 'true' : undefined}
+						aria-haspopup="true"
+						onClick={handleToggle}
+						size="large"
+						sx={{ display: { xs: 'block', md: 'none' } }}
+					>
+						{!data?.user.image ? (
+							<AccountCircle fontSize="inherit" />
+						) : (
+							<img
+								src={data?.user.image}
+								alt={`${data?.user.name}'s avatar`}
+								width={45}
+								height={45}
+								style={{ borderRadius: 30 }}
+							/>
+						)}
+					</IconButton>
+					<Popper
+						open={open}
+						anchorEl={anchorRef.current}
+						role={undefined}
+						placement="bottom-start"
+						transition
+						disablePortal
+					>
+						{({ TransitionProps, placement }) => (
+							<Grow
+								{...TransitionProps}
+								style={{
+									transformOrigin:
+										placement === 'bottom-start' ? 'left top' : 'left bottom',
+								}}
+							>
+								<Paper>
+									<ClickAwayListener onClickAway={handleClose}>
+										<MenuList
+											autoFocusItem={open}
+											id="user-menu"
+											aria-labelledby="user-button"
+											onKeyDown={handleListKeyDown}
+										>
+											<MenuItem onClick={() => Router.push('/stats')}>
+												<ListItemIcon>
+													<BarChart fontSize="small" />
+												</ListItemIcon>
+												<ListItemText>Stats</ListItemText>
+											</MenuItem>
+											<MenuItem
+												onClick={() => Router.push('/api/auth/signout')}
 											>
-												<MenuItem onClick={() => Router.push('/stats')}>
-													<ListItemIcon>
-														<BarChart fontSize="small" />
-													</ListItemIcon>
-													<ListItemText>Stats</ListItemText>
-												</MenuItem>
-												<MenuItem
-													onClick={() => Router.push('/api/auth/signout')}
-												>
-													<ListItemIcon>
-														<Logout fontSize="small" />
-													</ListItemIcon>
-													<ListItemText>Logout</ListItemText>
-												</MenuItem>
-											</MenuList>
-										</ClickAwayListener>
-									</Paper>
-								</Grow>
-							)}
-						</Popper>
-					</div>
-				)}
-			</Toolbar>
-		</AppBar>
+												<ListItemIcon>
+													<Logout fontSize="small" />
+												</ListItemIcon>
+												<ListItemText>Logout</ListItemText>
+											</MenuItem>
+										</MenuList>
+									</ClickAwayListener>
+								</Paper>
+							</Grow>
+						)}
+					</Popper>
+				</div>
+			)}
+		</Toolbar>
 	);
 };
 
