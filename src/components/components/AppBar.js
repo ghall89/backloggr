@@ -24,7 +24,7 @@ import {
 	ManageAccounts,
 } from '@mui/icons-material';
 
-const AppBarComponent = () => {
+const AppBarComponent = ({ title, button }) => {
 	const { data, status } = useSession();
 
 	const [open, setOpen] = useState(false);
@@ -69,9 +69,8 @@ const AppBarComponent = () => {
 				sx={{ flexGrow: 1 }}
 				href="/backlog"
 			>
-				{status === 'authenticated'
-					? `${data.user.name.split(' ')[0]}'s Games`
-					: 'Backloggr'}
+				{title ? title : ''}
+				{button ? button : null}
 			</Typography>
 			{!data?.user ? null : (
 				<div>
@@ -88,7 +87,7 @@ const AppBarComponent = () => {
 						{!data?.user.image ? (
 							<AccountCircle fontSize="inherit" />
 						) : (
-							<img
+							<Image
 								src={data?.user.image}
 								alt={`${data?.user.name}'s avatar`}
 								width={45}

@@ -138,18 +138,20 @@ const Game = () => {
 
 	return (
 		<>
-			<AppBar />
+			<AppBar
+				button={
+					<Button
+						startIcon={<ArrowBackIosNew />}
+						onClick={() => Router.push(`/backlog?tab=${game.status}`)}
+					>
+						Back
+					</Button>
+				}
+			/>
 			<Head>
 				<title>{`Backloggr - ${game?.title}`}</title>
 			</Head>
-			<Box sx={{ padding: 2 }}>
-				<Button
-					startIcon={<ArrowBackIosNew />}
-					onClick={() => Router.push(`/backlog?tab=${game.status}`)}
-				>
-					Back
-				</Button>
-			</Box>
+
 			{loading && !game ? null : (
 				<Box
 					sx={{

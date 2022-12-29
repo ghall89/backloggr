@@ -2,7 +2,7 @@
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: ['s.gravatar.com', 'media.rawg.io'],
+		domains: ['s.gravatar.com', 'media.rawg.io', 'cdn.discordapp.com'],
 	},
 	env: {
 		MONGODB_URI: process.env.MONGODB_URI,
