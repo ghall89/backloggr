@@ -1,34 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![](./backloggr_logo.png)
 
-## Getting Started
+![](https://img.shields.io/github/package-json/v/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/netlify/b56fde21-6856-462e-ac6b-7a2e35fb6db3?style=flat-square) ![](https://img.shields.io/github/license/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/commit-activity/m/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/stars/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/forks/ghall89/backloggr?style=flat-square)
 
-First, run the development server:
+## About
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+The mission behind Backloggr is a simple one: to provide a free, open-source tool to manage your gaming backlog.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Unlike other backlogging services, Backloggr gives you the opportunity to own your data by making it easy to export your entire backlog to a standard csv file (coming soon!). Also, the license allows you to fork and deploy to any hosting service that supports web apps built with [Next.js](https://nextjs.org/) (I suggest [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)), and connect to a database on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+![](./screenshot.png)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Using Backloggr
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The easiest way to use Backloggr is to visit [Backloggr.net](https://backloggr.net), and sign in with your Discord account.
 
-## Learn More
+### Installing PWA
 
-To learn more about Next.js, take a look at the following resources:
+Backloggr is a PWA, or Progressive Web App, which you can install in Chrome, or on your mobile device.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploying Your Own Version
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To deploy your own version of Backloggr, you will need the following:
 
-## Deploy on Vercel
+- Familiarity with Next.js or React
+- A hosting provider like [Vercel]((https://vercel.com/) or [Netlify](https://www.netlify.com/)
+- An account with [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)\*
+- An API key from [RAWG API](https://api.rawg.io/docs/)\*
+- A developer key from [Discord](https://discord.com/developers)\*
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+\* Feel free to modify your fork to use other alternatives, but these are what Backloggr is built around.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You will need to supply the following environmental variables in your environment:
+
+- `MONGODB_URI` - Authenticated URL to your MongoDB database
+- `RAWG_API_KEY` - Your unique API key from RAWG API
+- `NEXTAUTH_SECRET` - A random, cryptographically strong key for authenticating with NextAuth
+- `NEXTAUTH_URL` - The URL that NextAuth should redirect to when a user has logged in
+- `DISCORD_CLIENT_ID` - Your app ID from Discord
+- `DISCORD_CLIENT_SECRET` - A random, cryptographically strong key for authenticating with Discord
+
+## License
+
+Backloggr
+
+Copyright (C) 2022-2023 Graham Hall
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+## Questions
+
+If you have any questions, concerns, comments, etc., feel free to [reach out to me on Mastodon](https://home.social/@ghalldev).
