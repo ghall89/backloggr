@@ -127,7 +127,7 @@ const Backlog = () => {
 							paddingLeft: { xs: 0, md: 31 },
 						}}
 					>
-						<AppBar title={title} />
+						{isMobile ? <AppBar title={title} /> : null}
 						<Box
 							sx={{
 								margin: 2,

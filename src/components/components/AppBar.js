@@ -82,7 +82,6 @@ const AppBarComponent = ({ title, button }) => {
 						aria-haspopup="true"
 						onClick={handleToggle}
 						size="large"
-						sx={{ display: { xs: 'block', md: 'none' } }}
 					>
 						{!data?.user.image ? (
 							<AccountCircle fontSize="inherit" />
