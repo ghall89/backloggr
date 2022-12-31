@@ -6,6 +6,8 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 
 import { useAppContext } from '../AppContext';
 
+import { exportJson } from '../lib/functions';
+
 import { AppBar } from './components';
 
 const Stats = () => {
@@ -85,6 +87,13 @@ const Stats = () => {
 						onClick={() => Router.push('/backlog')}
 					>
 						Return to Backlog
+					</Button>
+					<Button
+						variant="contained"
+						fullWidth
+						onClick={() => exportJson('Test', games)}
+					>
+						Export Data
 					</Button>
 				</Box>
 			</Box>
