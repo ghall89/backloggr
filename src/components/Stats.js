@@ -12,7 +12,7 @@ import { AppBar } from './components';
 
 const Stats = () => {
 	const { data } = useSession();
-	const { games } = useAppContext();
+	const { games, user } = useAppContext();
 
 	const percentCalc = useCallback(
 		status => {
@@ -91,7 +91,7 @@ const Stats = () => {
 					<Button
 						variant="contained"
 						fullWidth
-						onClick={() => exportJson('Test', games)}
+						onClick={() => exportJson(user.name, games)}
 					>
 						Export Data
 					</Button>
