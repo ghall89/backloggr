@@ -23,6 +23,7 @@ import {
 import { useTheme } from '@mui/styles';
 import {
 	CheckBox,
+	Coffee,
 	EmojiEvents,
 	FormatListBulleted,
 	SportsEsports,
@@ -139,6 +140,14 @@ const NavTabs = ({ setFilter, counts }) => {
 									<BarChart />
 								</ListItemIcon>
 								<ListItemText primary="Stats" />
+							</ListItemButton>
+						</ListItem>
+						<ListItem disablePadding>
+							<ListItemButton href="https://ko-fi.com/backloggr">
+								<ListItemIcon>
+									<Coffee />
+								</ListItemIcon>
+								<ListItemText primary="Support on ko-fi" />
 							</ListItemButton>
 						</ListItem>
 						<ListItem disablePadding>

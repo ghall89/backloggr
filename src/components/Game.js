@@ -10,6 +10,7 @@ import { useAppContext } from '../AppContext';
 import {
 	Box,
 	Button,
+	Chip,
 	FormControl,
 	IconButton,
 	MenuItem,
@@ -182,7 +183,17 @@ const Game = () => {
 					>
 						<Box>
 							<Typography variant="h5">{game?.title}</Typography>
-							<Typography variant="h6">{game?.platform}</Typography>
+							<Box
+								sx={{
+									display: 'flex',
+									gap: 1,
+									alignItems: 'center',
+									fontSize: '1.5rem',
+								}}
+							>
+								<PlatformIcon label={game?.platform} />
+								<Typography variant="h6">{game?.platform}</Typography>
+							</Box>
 						</Box>
 						<Box>
 							<IconButton
@@ -192,6 +203,18 @@ const Game = () => {
 								{starredMemo ? <StarRate color="primary" /> : <StarOutline />}
 							</IconButton>
 						</Box>
+					</Box>
+					<Box
+						sx={{
+							display: 'flex',
+							gap: 2,
+							margin: '1rem 0',
+							justifyContent: 'left',
+						}}
+					>
+						{game?.genres.map(genre => (
+							<Chip label={genre.name} key={genre.id} />
+						))}
 					</Box>
 					<StatusButton gameStatus={game?.status} />
 					{game?.status === 'finished' || game?.status === 'completed' ? (

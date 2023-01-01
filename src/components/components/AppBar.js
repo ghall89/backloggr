@@ -1,6 +1,5 @@
 import { useSession } from 'next-auth/react';
 import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import Router from 'next/router';
 
 import {
@@ -20,6 +19,7 @@ import {
 import {
 	AccountCircle,
 	BarChart,
+	Coffee,
 	Logout,
 	ManageAccounts,
 } from '@mui/icons-material';
@@ -86,7 +86,7 @@ const AppBarComponent = ({ title, button }) => {
 						{!data?.user.image ? (
 							<AccountCircle fontSize="inherit" />
 						) : (
-							<Image
+							<img
 								src={data?.user.image}
 								alt={`${data?.user.name}'s avatar`}
 								width={45}
@@ -124,6 +124,12 @@ const AppBarComponent = ({ title, button }) => {
 													<BarChart fontSize="small" />
 												</ListItemIcon>
 												<ListItemText>Stats</ListItemText>
+											</MenuItem>
+											<MenuItem onClick={() => Router.push('/stats')}>
+												<ListItemIcon>
+													<Coffee fontSize="small" />
+												</ListItemIcon>
+												<ListItemText>Support on ko-fi</ListItemText>
 											</MenuItem>
 											<MenuItem
 												onClick={() => Router.push('/api/auth/signout')}
