@@ -10,10 +10,12 @@ export const ContextWrapper = ({ children }) => {
 	const [games, setGames] = useState();
 	const [loading, setLoading] = useState(true);
 
+	const user = data?.user;
+
 	const handleApi = () => {
 		setLoading(true);
 		setTimeout(async () => {
-			const res = await getGames(data?.user.id);
+			const res = await getGames(user?.id);
 			setGames(res);
 			window.sessionStorage.setItem('games', JSON.stringify(res));
 			setLoading(false);
@@ -35,7 +37,7 @@ export const ContextWrapper = ({ children }) => {
 	}, [status]);
 
 	return (
-		<AppContext.Provider value={{ games, handleApi, loading }}>
+		<AppContext.Provider value={{ games, handleApi, loading, user }}>
 			{children}
 		</AppContext.Provider>
 	);
