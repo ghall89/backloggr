@@ -2,11 +2,13 @@
 
 ![](https://img.shields.io/github/package-json/v/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/netlify/b56fde21-6856-462e-ac6b-7a2e35fb6db3?style=flat-square) ![](https://img.shields.io/github/license/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/commit-activity/m/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/stars/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/forks/ghall89/backloggr?style=flat-square)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T66ELM7)
+
 ## About
 
 The mission behind Backloggr is a simple one: to provide a free, open-source tool to manage your gaming backlog.
 
-Unlike other backlogging services, Backloggr gives you the opportunity to own your data by making it easy to export your entire backlog to a standard csv file (coming soon!). Also, the license allows you to fork and deploy to any hosting service that supports web apps built with [Next.js](https://nextjs.org/) (I suggest [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)), and connect to a database on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+Unlike other backlogging services, Backloggr gives you the opportunity to own your data by making it easy to export your entire backlog to a JSON file. Also, the license allows you to fork and deploy to any hosting service that supports web apps built with [Next.js](https://nextjs.org/) (I suggest [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)), and connect to a database on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 
 ![](./screenshot.png)
 
@@ -23,7 +25,7 @@ Backloggr is a PWA, or Progressive Web App, which you can install in Chrome, or 
 To deploy your own version of Backloggr, you will need the following:
 
 - Familiarity with Next.js or React
-- A hosting provider like [Vercel]((https://vercel.com/) or [Netlify](https://www.netlify.com/)
+- A hosting provider like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)
 - An account with [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)\*
 - An API key from [RAWG API](https://api.rawg.io/docs/)\*
 - A developer key from [Discord](https://discord.com/developers)\*
