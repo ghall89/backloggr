@@ -41,6 +41,24 @@ You will need to supply the following environmental variables in your environmen
 - `DISCORD_CLIENT_ID` - Your app ID from Discord
 - `DISCORD_CLIENT_SECRET` - A random, cryptographically strong key for authenticating with Discord
 
+## FAQs
+
+Q: I added/updated/deleted a game on my phone and it's not showing up on my computer. What's up with that?
+
+A: To improve performance, and limit calls to the database, Backloggr uses session storage to temporarily cache your data inside your browser. This is only synced with the server when you change data locally. You can clear local storage by closing the tab running Backloggr. If you're running Backloggr as a PWA on your mobile device, you can achieve the same thing by force force-quitting the app.
+
+Q: Why do I need a Discord account to register/log in?
+
+A: Backloggr is (at the moment) a solo project, and I'm not comfortable storing personal information like emails and passwords. I wanted to use a third-party login system and Discord seemed like the obvious choice for a gaming-focused app. I do want to add more login methods in the future, but it will involve better account management on my end (which is coming down the road).
+
+Q. Can I follow my friends' gaming lists, or share my own?
+
+A: Right now, social features are not a priority. However, in the future I would like to add the ability to share your backlog with others via a public link. That will probably have to come after the improved account system.
+
+Q: I'm trying to add [your game here] to my backlog, but it's not showing up for my platform, or at all. What gives?
+
+A: I've run into this a lot, especially with smaller releases, and it is very annoying. Backloggr uses the [RAWG API](https://rawg.io/apidocs) to pull game data, so if something is missing or inaccurate it's an issue on that end. Unfortunately, the only way to fix this is by trying to edit the game at [rawg.io](https://rawg.io), which I've had mixes results with.
+
 ## License
 
 Backloggr
