@@ -54,22 +54,6 @@ const Game = () => {
 		}
 	}, [game]);
 
-	// 	const handleApi = async () => {
-	// 		const session = await JSON.parse(window.sessionStorage.getItem('games'));
-	//
-	// 		if (session) {
-	// 			await session.forEach(item => {
-	// 				if (item._id.includes(id)) {
-	// 					setGame(item);
-	// 				}
-	// 			});
-	// 		} else {
-	// 			const data = await getGame(user.sub, id);
-	// 			setGame(data[0]);
-	// 		}
-	// 		setLoading(false);
-	// 	};
-
 	const setStarStatus = async bool => {
 		setGame({ ...game, starred: bool });
 		await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
@@ -162,9 +146,20 @@ const Game = () => {
 						alignItems: 'center',
 						gap: 2,
 						height: 200,
+						width: { xs: '100%', sm: '600px' },
+						marginX: 'auto',
 					}}
 				>
-					<Box sx={{ maxWidth: '100%', minHeight: 200 }}>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							maxWidth: '100%',
+							minHeight: 200,
+							overflow: 'hidden',
+							margin: { sx: 0, md: 4 },
+						}}
+					>
 						<img
 							height="100%"
 							src={game.img ? game.img : 'img/no-image.jpg'}

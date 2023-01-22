@@ -125,7 +125,11 @@ const AppBarComponent = ({ title, button }) => {
 												</ListItemIcon>
 												<ListItemText>Stats</ListItemText>
 											</MenuItem>
-											<MenuItem onClick={() => Router.push('/stats')}>
+											<MenuItem
+												onClick={() =>
+													window.open('https://ko-fi.com/backloggr')
+												}
+											>
 												<ListItemIcon>
 													<Coffee fontSize="small" />
 												</ListItemIcon>

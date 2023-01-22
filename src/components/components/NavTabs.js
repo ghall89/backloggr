@@ -143,7 +143,10 @@ const NavTabs = ({ setFilter, counts }) => {
 							</ListItemButton>
 						</ListItem>
 						<ListItem disablePadding>
-							<ListItemButton href="https://ko-fi.com/backloggr">
+							<ListItemButton
+								href="https://ko-fi.com/backloggr"
+								target="_blank"
+							>
 								<ListItemIcon>
 									<Coffee />
 								</ListItemIcon>
