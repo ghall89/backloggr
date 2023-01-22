@@ -1,4 +1,5 @@
 import Router from 'next/router';
+import Image from 'next/image';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
@@ -35,32 +36,39 @@ const Login = () => {
 				backgroundColor: '#1e2030',
 			}}
 		>
-			<Card
-				sx={{ maxWidth: 400, backgroundColor: '#363a4f', color: '#cad3f5' }}
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'center',
+					alignItems: 'center',
+					flexDirection: 'column',
+					gap: 3,
+					padding: 3,
+				}}
 			>
-				<CardMedia
-					component="img"
-					height="194"
-					image="img/igor-karimov-unsplash.jpg"
-					alt="Hello world"
+				<Image
+					src="/icons/icon-512x512.png"
+					alt=""
+					height={200}
+					width={200}
+					style={{ borderRadius: 100 }}
 				/>
-				<CardContent>
-					<Typography align="center" gutterBottom>
-						Log in or sign up to create and manage your backlog.
-					</Typography>
-					<Button
-						onClick={() => signIn('discord')}
-						variant="contained"
-						fullWidth
-						startIcon={<FaDiscord />}
-						disabled={status !== 'unauthenticated' ? true : false}
-					>
-						{status !== 'unauthenticated'
-							? 'Please Wait...'
-							: 'Sign In With Discord'}
-					</Button>
-				</CardContent>
-			</Card>
+
+				<Typography align="center" gutterBottom>
+					Log in or sign up to create and manage your backlog.
+				</Typography>
+				<Button
+					onClick={() => signIn('discord')}
+					variant="contained"
+					fullWidth
+					startIcon={<FaDiscord />}
+					disabled={status !== 'unauthenticated' ? true : false}
+				>
+					{status !== 'unauthenticated'
+						? 'Please Wait...'
+						: 'Sign In With Discord'}
+				</Button>
+			</Box>
 		</Box>
 	);
 };

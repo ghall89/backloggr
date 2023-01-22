@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
 		palette: {
 			mode: 'dark',
 			primary: {
-				main: '#7dc4e4',
+				main: '#4692ff',
 				contrastText: 'white',
 			},
 			secondary: {

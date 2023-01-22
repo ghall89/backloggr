@@ -59,6 +59,8 @@ const Stats = () => {
 						gap: 4,
 						marginTop: 4,
 						textAlign: 'center',
+						width: { xs: '100%', sm: '540px' },
+						marginX: 'auto',
 					}}
 				>
 					<Grid container spacing={3}>
