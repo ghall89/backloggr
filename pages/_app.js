@@ -17,11 +17,11 @@ function MyApp({ Component, pageProps }) {
 				contrastText: 'white',
 			},
 			secondary: {
-				main: '#f5a97f',
+				main: '#c99151',
 				contrastText: 'white',
 			},
 			error: {
-				main: '#ed8796',
+				main: '#f0646f',
 				contrastText: 'white',
 			},
 			background: {
