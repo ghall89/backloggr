@@ -2,17 +2,20 @@ import { useMemo, useCallback } from 'react';
 import Router, { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
+import { ArrowBackIosNew } from '@mui/icons-material';
 import { Box, Button, Grid, Typography } from '@mui/material';
 
 import { useAppContext } from '../AppContext';
 
 import { exportJson } from '../lib/functions';
 
-import { AppBar } from './components';
+import { AppBar, NavTabs } from './components';
 
 const Stats = () => {
 	const { data } = useSession();
 	const { games, user } = useAppContext();
+
+	const handleNavTabs = filter => Router.push(`/backlog?tab=${filter}`);
 
 	const percentCalc = useCallback(
 		status => {
@@ -45,11 +48,19 @@ const Stats = () => {
 
 	return (
 		<>
-			<AppBar title="Stats" />
+			<AppBar
+				button={
+					<Button startIcon={<ArrowBackIosNew />} onClick={() => Router.back()}>
+						Back
+					</Button>
+				}
+			/>
 			<Box
 				sx={{
-					paddingTop: 10,
-					paddingX: 4,
+					display: 'flex',
+					alignItems: 'center',
+					height: { xs: '60vh', md: '100vh' },
+					paddingLeft: { xs: 0, md: 31 },
 				}}
 			>
 				<Box
@@ -61,6 +72,7 @@ const Stats = () => {
 						textAlign: 'center',
 						width: { xs: '100%', sm: '540px' },
 						marginX: 'auto',
+						padding: 4,
 					}}
 				>
 					<Grid container spacing={3}>
@@ -86,19 +98,13 @@ const Stats = () => {
 					<Button
 						variant="contained"
 						fullWidth
-						onClick={() => Router.push('/backlog')}
-					>
-						Return to Backlog
-					</Button>
-					<Button
-						variant="contained"
-						fullWidth
 						onClick={() => exportJson(user.name, games)}
 					>
 						Export Data
 					</Button>
 				</Box>
 			</Box>
+			<NavTabs setFilter={handleNavTabs} />
 		</>
 	);
 };

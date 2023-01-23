@@ -127,7 +127,7 @@ const Backlog = () => {
 							paddingLeft: { xs: 0, md: 31 },
 						}}
 					>
-						{isMobile ? <AppBar title={title} /> : null}
+						<AppBar title={title} />
 						<Box
 							sx={{
 								margin: 2,
@@ -159,7 +159,7 @@ const Backlog = () => {
 						/>
 					</Box>
 					<AddGameModal openModal={openModal} setOpenModal={setOpenModal} />
-					<NavTabs setFilter={setFilter} counts={statusCounter} />
+					<NavTabs setFilter={setFilter} />
 				</>
 			)}
 			<LoadingOverlay loading={loading} />

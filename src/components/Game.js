@@ -30,7 +30,7 @@ import {
 
 import { deleteGame, updateGame } from '../lib/games';
 import { setStatus } from '../lib/functions';
-import { ConfirmModal, PlatformIcon, AppBar } from './components';
+import { ConfirmModal, PlatformIcon, AppBar, NavTabs } from './components';
 
 const Game = () => {
 	const { data, status } = useSession();
@@ -69,6 +69,8 @@ const Game = () => {
 	};
 
 	const handleDelete = () => setOpenConfirm(true);
+
+	const handleNavTabs = filter => Router.push(`/backlog?tab=${filter}`);
 
 	useEffect(() => {
 		if (status === 'authenticated') {
@@ -123,6 +125,9 @@ const Game = () => {
 
 	return (
 		<>
+			<Head>
+				<title>{`Backloggr - ${game?.title}`}</title>
+			</Head>
 			<AppBar
 				button={
 					<Button
@@ -133,107 +138,109 @@ const Game = () => {
 					</Button>
 				}
 			/>
-			<Head>
-				<title>{`Backloggr - ${game?.title}`}</title>
-			</Head>
 
 			{loading && !game ? null : (
-				<Box
-					sx={{
-						padding: 2,
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						gap: 2,
-						height: 200,
-						width: { xs: '100%', sm: '600px' },
-						marginX: 'auto',
-					}}
-				>
+				<Box sx={{ paddingLeft: { xs: 0, md: 31 } }}>
 					<Box
 						sx={{
+							padding: 2,
 							display: 'flex',
-							justifyContent: 'center',
-							maxWidth: '100%',
-							minHeight: 200,
-							overflow: 'hidden',
-							margin: { sx: 0, md: 4 },
-						}}
-					>
-						<img
-							height="100%"
-							src={game.img ? game.img : 'img/no-image.jpg'}
-							alt={
-								game.img ? `cover image for ${game.title}` : 'placeholder image'
-							}
-						/>
-					</Box>
-					<Box
-						sx={{
-							display: 'flex',
-							justifyContent: 'space-between',
-							width: '100%',
+							flexDirection: 'column',
 							alignItems: 'center',
+							gap: 2,
+							height: 200,
+							width: { xs: '100%', sm: '600px' },
+							marginX: 'auto',
 						}}
 					>
-						<Box>
-							<Typography variant="h5">{game?.title}</Typography>
-							<Box
-								sx={{
-									display: 'flex',
-									gap: 1,
-									alignItems: 'center',
-									fontSize: '1.5rem',
-								}}
-							>
-								<PlatformIcon label={game?.platform} />
-								<Typography variant="h6">{game?.platform}</Typography>
+						<Box
+							sx={{
+								display: 'flex',
+								justifyContent: 'center',
+								maxWidth: '100%',
+								minHeight: 200,
+								overflow: 'hidden',
+								margin: { sx: 0, md: 4 },
+							}}
+						>
+							<img
+								height="100%"
+								src={game.img ? game.img : 'img/no-image.jpg'}
+								alt={
+									game.img
+										? `cover image for ${game.title}`
+										: 'placeholder image'
+								}
+							/>
+						</Box>
+						<Box
+							sx={{
+								display: 'flex',
+								justifyContent: 'space-between',
+								width: '100%',
+								alignItems: 'center',
+							}}
+						>
+							<Box>
+								<Typography variant="h5">{game?.title}</Typography>
+								<Box
+									sx={{
+										display: 'flex',
+										gap: 1,
+										alignItems: 'center',
+										fontSize: '1.5rem',
+									}}
+								>
+									<PlatformIcon label={game?.platform} />
+									<Typography variant="h6">{game?.platform}</Typography>
+								</Box>
+							</Box>
+							<Box>
+								<IconButton
+									onClick={() => setStarStatus(!starredMemo)}
+									size="medium"
+								>
+									{starredMemo ? <StarRate color="primary" /> : <StarOutline />}
+								</IconButton>
 							</Box>
 						</Box>
-						<Box>
-							<IconButton
-								onClick={() => setStarStatus(!starredMemo)}
-								size="medium"
-							>
-								{starredMemo ? <StarRate color="primary" /> : <StarOutline />}
-							</IconButton>
-						</Box>
-					</Box>
-					<Box
-						sx={{
-							display: 'flex',
-							gap: 2,
-							margin: '1rem 0',
-							justifyContent: 'left',
-						}}
-					>
-						{game?.genres.map(genre => (
-							<Chip label={genre.name} key={genre.id} />
-						))}
-					</Box>
-					<StatusButton gameStatus={game?.status} />
-					{game?.status === 'finished' || game?.status === 'completed' ? (
-						<Button
-							color="secondary"
-							fullWidth
-							variant="contained"
-							onClick={() => setStatus(game._id, 'in_progress', true)}
-							startIcon={<Loop />}
+						<Box
+							sx={{
+								display: 'flex',
+								gap: 2,
+								margin: '1rem 0',
+								justifyContent: 'left',
+							}}
 						>
-							Replaying
+							{game?.genres.map(genre => (
+								<Chip label={genre.name} key={genre.id} />
+							))}
+						</Box>
+						<StatusButton gameStatus={game?.status} />
+						{game?.status === 'finished' || game?.status === 'completed' ? (
+							<Button
+								color="secondary"
+								fullWidth
+								variant="contained"
+								onClick={() => setStatus(game._id, 'in_progress', true)}
+								startIcon={<Loop />}
+							>
+								Replaying
+							</Button>
+						) : null}
+						<Button
+							variant="contained"
+							color="error"
+							fullWidth
+							onClick={handleDelete}
+							startIcon={<Delete />}
+						>
+							Delete
 						</Button>
-					) : null}
-					<Button
-						variant="contained"
-						color="error"
-						fullWidth
-						onClick={handleDelete}
-						startIcon={<Delete />}
-					>
-						Delete
-					</Button>
+					</Box>
 				</Box>
 			)}
+			<NavTabs setFilter={handleNavTabs} />
 			<ConfirmModal
 				open={openConfirm}
 				setOpen={setOpenConfirm}
