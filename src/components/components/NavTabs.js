@@ -55,7 +55,7 @@ const tabs = [
 ];
 
 const NavTabs = ({ setFilter }) => {
-	const { query } = useRouter();
+	const { query, pathname } = useRouter();
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const [tabState, setTabState] = useState(query.tab || 'not_started');
@@ -125,7 +125,7 @@ const NavTabs = ({ setFilter }) => {
 							<ListItem key={value} disablePadding>
 								<ListItemButton
 									onClick={() => handleTabs(null, value)}
-									selected={tabState === value && Router.pathname !== '/stats'}
+									selected={tabState === value && pathname !== '/stats'}
 								>
 									<ListItemIcon>{icon}</ListItemIcon>
 									<ListItemText primary={label} />
@@ -136,7 +136,7 @@ const NavTabs = ({ setFilter }) => {
 						<ListItem disablePadding>
 							<ListItemButton
 								onClick={() => Router.push('/stats')}
-								selected={Router.pathname === '/stats'}
+								selected={pathname === '/stats'}
 							>
 								<ListItemIcon>
 									<BarChart />
