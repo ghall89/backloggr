@@ -49,25 +49,7 @@ const setStatus = async (id, newStatus, replaying) => {
 	Router.push(`/backlog?tab=${newStatus}`);
 };
 
-const counter = games => {
-	let totals = {};
-
-	const statusArr = ['not_started', 'in_progress', 'finished', 'completed'];
-
-	statusArr.forEach(status => {
-		let count = 0;
-		games.forEach(game => {
-			if (game.status === status) {
-				count++;
-			}
-		});
-		totals = { ...totals, [status]: count };
-	});
-	return totals;
-};
-
 // Export user's data as a JSON file
-
 const exportJson = (username, obj) => {
 	const filename = `${username}s-backlog-data.json`;
 	const jsonStr = JSON.stringify(obj);
@@ -87,4 +69,11 @@ const exportJson = (username, obj) => {
 	document.body.removeChild(element);
 };
 
-export { counter, exportJson, setStatus, starFilter };
+// sort games by
+const handleSorting = (a, b) => {
+	var titleA = a.title.toUpperCase();
+	var titleB = b.title.toUpperCase();
+	return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+};
+
+export { exportJson, setStatus, starFilter };

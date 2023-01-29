@@ -8,6 +8,7 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { useAppContext } from '../AppContext';
 
 import { exportJson } from '../lib/functions';
+import percentageCalc from '../lib/percentageCalc.js';
 
 import { AppBar, NavTabs } from './components';
 
@@ -17,33 +18,18 @@ const Stats = () => {
 
 	const handleNavTabs = filter => Router.push(`/backlog?tab=${filter}`);
 
-	const percentCalc = useCallback(
-		status => {
-			if (games) {
-				let total = 0;
-				games.forEach(game => {
-					if (game.status === status) {
-						total++;
-					}
-				});
-				const percentage = Math.round((100 * total) / games.length);
-				if (isNaN(percentage)) {
-					return 0;
-				}
-				return percentage;
-			}
-			return 0;
-		},
+	const percentCallback = useCallback(
+		status => percentageCalc(status, games),
 		[games],
 	);
 
 	const finishedPercentMemo = useMemo(
-		() => percentCalc('finished'),
-		[percentCalc],
+		() => percentCallback('finished'),
+		[percentCallback],
 	);
 	const completedPercentMemo = useMemo(
-		() => percentCalc('completed'),
-		[percentCalc],
+		() => percentCallback('completed'),
+		[percentCallback],
 	);
 
 	return (

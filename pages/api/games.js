@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 			}
 
 			try {
-				let games = await Game.find(query);
+				let games = await Game.find(query).sort({ title: 1 });
 				res.status(200).json({
 					success: true,
 					data: games,

@@ -30,17 +30,9 @@ import { useAppContext } from '../../../AppContext';
 
 import { addGame } from '../../../lib/games';
 
+import gameSearch from '../../../lib/gameSearch';
+
 import AddButton from './components/AddButton';
-
-const gameSearch = async query => {
-	const res = await fetch(
-		`https://api.rawg.io/api/games?key=${process.env.RAWG_API_KEY}&search=${query}`,
-	)
-		.then(response => response.json())
-		.catch(err => console.error(err));
-
-	return res;
-};
 
 const AddGameModal = ({ openModal, setOpenModal }) => {
 	const { data } = useSession();
