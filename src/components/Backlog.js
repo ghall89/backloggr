@@ -10,8 +10,9 @@ import { useTheme } from '@mui/styles';
 
 import { useAppContext } from '../AppContext';
 
-import { counter } from '../lib/functions';
 import { addGame, getGames, deleteGame, updateGame } from '../lib/games';
+import { setStatus } from '../lib/functions';
+
 import {
 	AddGameModal,
 	AppBar,
@@ -20,12 +21,6 @@ import {
 	GameCards,
 	LoadingOverlay,
 } from './components';
-
-const handleSorting = (a, b) => {
-	var titleA = a.title.toUpperCase();
-	var titleB = b.title.toUpperCase();
-	return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
-};
 
 const Backlog = () => {
 	const { data, status } = useSession();
@@ -40,7 +35,6 @@ const Backlog = () => {
 	const [filteredGames, setFilteredGames] = useState();
 	const [openModal, setOpenModal] = useState(false);
 	const [viewMode, setViewMode] = useState('grid');
-	const [statusCounter, setStatusCounter] = useState({});
 
 	useEffect(() => {
 		if (games) {
@@ -73,40 +67,7 @@ const Backlog = () => {
 				setTitle('Completed');
 				break;
 		}
-	});
-
-	const setStatus = async (id, newStatus, replaying) => {
-		let params = {
-			id: id,
-			params: {
-				status: newStatus,
-			},
-		};
-
-		const currentDateTime = new Date().toUTCString();
-
-		if (!replaying) {
-			params.params = { ...params.params, updated: currentDateTime };
-		} else {
-			params.params = {
-				...params.params,
-				updated: currentDateTime,
-				replaying: true,
-			};
-		}
-
-		await updateGame(JSON.stringify(params));
-		window.sessionStorage.clear();
-		handleApi();
-		Router.push(`/backlog?tab=${newStatus}`);
-	};
-
-	useEffect(() => {
-		if (games) {
-			const statusCounts = counter(games);
-			setStatusCounter(statusCounts);
-		}
-	}, [games]);
+	}, [filter]);
 
 	return (
 		<>
@@ -153,9 +114,9 @@ const Backlog = () => {
 							</Fab>
 						</Box>
 						<GameCards
-							games={filteredGames?.sort((a, b) => handleSorting(a, b))}
+							games={filteredGames}
 							loading={loading}
-							setStatus={setStatus}
+							handleApi={handleApi}
 						/>
 					</Box>
 					<AddGameModal openModal={openModal} setOpenModal={setOpenModal} />

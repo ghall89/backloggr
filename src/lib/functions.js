@@ -1,15 +1,17 @@
 import Router, { useRouter } from 'next/router';
 
+import { useAppContext } from '../AppContext';
+
 import { addGame, getGames, deleteGame, updateGame } from './games';
 
-// get user's games
-const handleApi = () => {
-	setTimeout(async () => {
-		const res = await getGames(data?.user.id);
-		setGames(res);
-		window.sessionStorage.setItem('games', JSON.stringify(res));
-	}, 1000);
-};
+// // get user's games
+// const handleApi = () => {
+// 	setTimeout(async () => {
+// 		const res = await getGames(data?.user.id);
+// 		setGames(res);
+// 		window.sessionStorage.setItem('games', JSON.stringify(res));
+// 	}, 1000);
+// };
 
 // filter game by starred status
 const starFilter = (games, bool) => {
@@ -23,7 +25,7 @@ const starFilter = (games, bool) => {
 };
 
 // set play status of game
-const setStatus = async (id, newStatus, replaying) => {
+const setStatus = async (id, newStatus, replaying, handleApi) => {
 	let params = {
 		id: id,
 		params: {
@@ -49,25 +51,21 @@ const setStatus = async (id, newStatus, replaying) => {
 	Router.push(`/backlog?tab=${newStatus}`);
 };
 
-const counter = games => {
-	let totals = {};
+const setStarStatus = async (bool, id, game, setGame, handleApi) => {
+	setGame({ ...game, starred: bool });
+	await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
+	handleApi();
+	window.sessionStorage.clear();
+};
 
-	const statusArr = ['not_started', 'in_progress', 'finished', 'completed'];
-
-	statusArr.forEach(status => {
-		let count = 0;
-		games.forEach(game => {
-			if (game.status === status) {
-				count++;
-			}
-		});
-		totals = { ...totals, [status]: count };
-	});
-	return totals;
+const deleteAction = async (id, handleApi) => {
+	await deleteGame(id);
+	await window.sessionStorage.clear();
+	handleApi();
+	Router.push('/backlog');
 };
 
 // Export user's data as a JSON file
-
 const exportJson = (username, obj) => {
 	const filename = `${username}s-backlog-data.json`;
 	const jsonStr = JSON.stringify(obj);
@@ -87,4 +85,11 @@ const exportJson = (username, obj) => {
 	document.body.removeChild(element);
 };
 
-export { counter, exportJson, setStatus, starFilter };
+// sort games by
+const handleSorting = (a, b) => {
+	var titleA = a.title.toUpperCase();
+	var titleB = b.title.toUpperCase();
+	return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+};
+
+export { exportJson, setStatus, starFilter, deleteAction, setStarStatus };
