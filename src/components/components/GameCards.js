@@ -20,9 +20,13 @@ import {
 
 import { StarRate, MoreVert, Info } from '@mui/icons-material';
 
-import { starFilter } from '../../lib/functions';
+import { useAppContext } from '../../AppContext';
 
-const GameMenu = ({ id, status, setStatus }) => {
+import { starFilter, setStatus } from '../../lib/functions';
+
+const GameMenu = ({ id, status }) => {
+	const { handleApi } = useAppContext();
+
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef(null);
 
@@ -95,23 +99,35 @@ const GameMenu = ({ id, status, setStatus }) => {
 									onKeyDown={handleListKeyDown}
 								>
 									{status === 'in_progress' ? null : (
-										<MenuItem onClick={() => setStatus(id, 'in_progress')}>
+										<MenuItem
+											onClick={() =>
+												setStatus(id, 'in_progress', null, handleApi)
+											}
+										>
 											Playing
 										</MenuItem>
 									)}
 									{status === 'finished' ? null : (
-										<MenuItem onClick={() => setStatus(id, 'finished')}>
+										<MenuItem
+											onClick={() => setStatus(id, 'finished', null, handleApi)}
+										>
 											Finished
 										</MenuItem>
 									)}
 									{status === 'completed' ? null : (
-										<MenuItem onClick={() => setStatus(id, 'completed')}>
+										<MenuItem
+											onClick={() =>
+												setStatus(id, 'completed', null, handleApi)
+											}
+										>
 											Completed
 										</MenuItem>
 									)}
 									{status === 'finished' || status === 'completed' ? (
 										<MenuItem
-											onClick={() => setStatus(id, 'in_progress', true)}
+											onClick={() =>
+												setStatus(id, 'in_progress', true, handleApi)
+											}
 										>
 											Replaying
 										</MenuItem>

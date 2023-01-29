@@ -11,6 +11,8 @@ import { useTheme } from '@mui/styles';
 import { useAppContext } from '../AppContext';
 
 import { addGame, getGames, deleteGame, updateGame } from '../lib/games';
+import { setStatus } from '../lib/functions';
+
 import {
 	AddGameModal,
 	AppBar,
@@ -65,33 +67,7 @@ const Backlog = () => {
 				setTitle('Completed');
 				break;
 		}
-	});
-
-	const setStatus = async (id, newStatus, replaying) => {
-		let params = {
-			id: id,
-			params: {
-				status: newStatus,
-			},
-		};
-
-		const currentDateTime = new Date().toUTCString();
-
-		if (!replaying) {
-			params.params = { ...params.params, updated: currentDateTime };
-		} else {
-			params.params = {
-				...params.params,
-				updated: currentDateTime,
-				replaying: true,
-			};
-		}
-
-		await updateGame(JSON.stringify(params));
-		window.sessionStorage.clear();
-		handleApi();
-		Router.push(`/backlog?tab=${newStatus}`);
-	};
+	}, [filter]);
 
 	return (
 		<>
@@ -140,7 +116,7 @@ const Backlog = () => {
 						<GameCards
 							games={filteredGames}
 							loading={loading}
-							setStatus={setStatus}
+							handleApi={handleApi}
 						/>
 					</Box>
 					<AddGameModal openModal={openModal} setOpenModal={setOpenModal} />

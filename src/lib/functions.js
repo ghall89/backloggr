@@ -1,15 +1,17 @@
 import Router, { useRouter } from 'next/router';
 
+import { useAppContext } from '../AppContext';
+
 import { addGame, getGames, deleteGame, updateGame } from './games';
 
-// get user's games
-const handleApi = () => {
-	setTimeout(async () => {
-		const res = await getGames(data?.user.id);
-		setGames(res);
-		window.sessionStorage.setItem('games', JSON.stringify(res));
-	}, 1000);
-};
+// // get user's games
+// const handleApi = () => {
+// 	setTimeout(async () => {
+// 		const res = await getGames(data?.user.id);
+// 		setGames(res);
+// 		window.sessionStorage.setItem('games', JSON.stringify(res));
+// 	}, 1000);
+// };
 
 // filter game by starred status
 const starFilter = (games, bool) => {
@@ -23,7 +25,7 @@ const starFilter = (games, bool) => {
 };
 
 // set play status of game
-const setStatus = async (id, newStatus, replaying) => {
+const setStatus = async (id, newStatus, replaying, handleApi) => {
 	let params = {
 		id: id,
 		params: {
@@ -47,6 +49,20 @@ const setStatus = async (id, newStatus, replaying) => {
 	window.sessionStorage.clear();
 	handleApi();
 	Router.push(`/backlog?tab=${newStatus}`);
+};
+
+const setStarStatus = async (bool, id, game, setGame, handleApi) => {
+	setGame({ ...game, starred: bool });
+	await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
+	handleApi();
+	window.sessionStorage.clear();
+};
+
+const deleteAction = async (id, handleApi) => {
+	await deleteGame(id);
+	await window.sessionStorage.clear();
+	handleApi();
+	Router.push('/backlog');
 };
 
 // Export user's data as a JSON file
@@ -76,4 +92,4 @@ const handleSorting = (a, b) => {
 	return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
 };
 
-export { exportJson, setStatus, starFilter };
+export { exportJson, setStatus, starFilter, deleteAction, setStarStatus };

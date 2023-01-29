@@ -28,8 +28,7 @@ import {
 	StarRate,
 } from '@mui/icons-material';
 
-import { deleteGame, updateGame } from '../lib/games';
-import { setStatus } from '../lib/functions';
+import { setStatus, deleteAction, setStarStatus } from '../lib/functions';
 import { ConfirmModal, PlatformIcon, AppBar, NavTabs } from './components';
 
 const Game = () => {
@@ -53,20 +52,6 @@ const Game = () => {
 			return false;
 		}
 	}, [game]);
-
-	const setStarStatus = async bool => {
-		setGame({ ...game, starred: bool });
-		await updateGame(`{"id":"${id}","params":{"starred": "${bool}"}}`);
-		handleApi();
-		window.sessionStorage.clear();
-	};
-
-	const deleteAction = async () => {
-		await deleteGame(id);
-		await window.sessionStorage.clear();
-		handleApi();
-		Router.push('/backlog');
-	};
 
 	const handleDelete = () => setOpenConfirm(true);
 
@@ -197,7 +182,9 @@ const Game = () => {
 							</Box>
 							<Box>
 								<IconButton
-									onClick={() => setStarStatus(!starredMemo)}
+									onClick={() =>
+										setStarStatus(!starredMemo, id, game, setGame, handleApi)
+									}
 									size="medium"
 								>
 									{starredMemo ? <StarRate color="primary" /> : <StarOutline />}
@@ -244,7 +231,7 @@ const Game = () => {
 			<ConfirmModal
 				open={openConfirm}
 				setOpen={setOpenConfirm}
-				confirmAction={deleteAction}
+				confirmAction={() => deleteAction(id, handleApi)}
 			/>
 		</>
 	);
