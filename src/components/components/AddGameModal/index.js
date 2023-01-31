@@ -88,8 +88,8 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 
 	const handleSearch = async () => {
 		const res = await gameSearch(query);
-		await setSearchResults(res.results);
-		setSelectedGame(res.results[0].id);
+		await setSearchResults(res);
+		setSelectedGame(res[0].id);
 	};
 
 	const handleChange = async event => await setPlatform(event.target.value);
@@ -98,7 +98,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 		searchResults.forEach(game => {
 			if (selectedGame === game.id) {
 				setGamePlatforms(game.platforms);
-				setSelectedPlatform(game.platforms[0].platform.name);
+				setSelectedPlatform(game.platforms[0]);
 			}
 		});
 	}, [selectedGame]);
@@ -203,7 +203,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 								</MenuItem>
 							))}
 						</Select>
-						<Select
+						{/* <Select
 							labelId="platform-select-label"
 							id="platform-select"
 							value={selectedPlatform ? selectedPlatform : ''}
@@ -211,11 +211,11 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 							onChange={({ target }) => setSelectedPlatform(target.value)}
 						>
 							{gamePlatforms?.map(({ platform }) => (
-								<MenuItem key={platform.id} value={platform.name}>
-									{platform.name}
+								<MenuItem key={platform} value={platform}>
+									{platform}
 								</MenuItem>
 							))}
-						</Select>
+						</Select> */}
 						<Button
 							onClick={handleClearState}
 							variant="contained"
