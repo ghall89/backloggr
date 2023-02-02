@@ -1,3 +1,21 @@
+const getParams = (search, action) => {
+	let url;
+	let params;
+
+	switch (action) {
+		case 'searchGames':
+			url = 'https://api.igdb.com/v4/games';
+			params = `search "${search}"; fields name,genres.name,platforms.name,cover.image_id; where category = 0;`;
+			break;
+		case 'coverById':
+			url = 'https://api.igdb.com/v4/covers';
+			params = `where game = (${search}); fields *;`;
+			break;
+	}
+
+	return { url, params };
+};
+
 export default async function handler(req, res) {
 	const { method, body } = req;
 
@@ -13,21 +31,22 @@ export default async function handler(req, res) {
 
 		const { access_token } = await auth.json();
 
-		const data = await fetch('https://api.igdb.com/v4/games', {
+		const { url, params } = await getParams(req.query.search, req.query.action);
+
+		console.log(url, params);
+
+		const data = await fetch(url, {
 			method: 'POST',
 			headers: {
 				'Client-ID': clientId,
 				Authorization: `Bearer ${access_token}`,
 			},
-			body: `search "${req.query.search}"; fields name,genres,platforms,cover;`,
+			body: params,
 		});
 
 		result = await data.json();
 	} catch (err) {
-		res.status(400).json({
-			success: false,
-			data: err,
-		});
+		console.error(err);
 	} finally {
 		console.log(result);
 		res.status(200).json(result);

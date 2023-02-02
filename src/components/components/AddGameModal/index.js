@@ -30,7 +30,7 @@ import { useAppContext } from '../../../AppContext';
 
 import { addGame } from '../../../lib/games';
 
-import gameSearch from '../../../lib/gameSearch';
+import handleIgdb from '../../../lib/handleIgdb';
 
 import AddButton from './components/AddButton';
 
@@ -87,7 +87,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 	}, [selectedGame, searchResults]);
 
 	const handleSearch = async () => {
-		const res = await gameSearch(query);
+		const res = await handleIgdb(query, 'searchGames');
 		await setSearchResults(res);
 		setSelectedGame(res[0].id);
 	};
@@ -98,7 +98,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 		searchResults.forEach(game => {
 			if (selectedGame === game.id) {
 				setGamePlatforms(game.platforms);
-				setSelectedPlatform(game.platforms[0]);
+				setSelectedPlatform(game.platforms[0].name);
 			}
 		});
 	}, [selectedGame]);
@@ -142,14 +142,11 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 			if (selectedGame === game.id) {
 				gameData = {
 					...gameData,
-					rawg_id: game.id,
+					igdb_id: game.id,
 					title: game.name,
 					platform: selectedPlatform,
-					img: game.background_image,
-					avg_playtime: game.playtime,
-					metacritic: game.metacritic,
+					img: `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.png`,
 					genres: game.genres,
-					release_dt: game.released,
 				};
 				return;
 			}
@@ -203,19 +200,20 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 								</MenuItem>
 							))}
 						</Select>
-						{/* <Select
+						<Select
 							labelId="platform-select-label"
 							id="platform-select"
 							value={selectedPlatform ? selectedPlatform : ''}
 							label="Platform"
 							onChange={({ target }) => setSelectedPlatform(target.value)}
 						>
-							{gamePlatforms?.map(({ platform }) => (
-								<MenuItem key={platform} value={platform}>
-									{platform}
+							{gamePlatforms?.map(platform => (
+								<MenuItem key={platform.id} value={platform?.name}>
+									{platform?.name}
 								</MenuItem>
 							))}
-						</Select> */}
+						</Select>
+
 						<Button
 							onClick={handleClearState}
 							variant="contained"

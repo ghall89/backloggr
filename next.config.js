@@ -6,7 +6,6 @@ const nextConfig = {
 	},
 	env: {
 		MONGODB_URI: process.env.MONGODB_URI,
-		RAWG_API_KEY: process.env.RAWG_API_KEY,
 		DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
 		DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
 		TWITCH_CLIENT_SECRET: process.env.TWITCH_CLIENT_SECRET,
