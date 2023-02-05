@@ -240,8 +240,8 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 			<Box sx={{ paddingY: 1, textAlign: 'center' }}>
 				<Typography>
 					Results provided by{' '}
-					<Link href="https://rawg.io/apidocs" target="blank">
-						RAWG API
+					<Link href="https://api-docs.igdb.com/" target="blank">
+						IGDB API
 					</Link>
 				</Typography>
 			</Box>

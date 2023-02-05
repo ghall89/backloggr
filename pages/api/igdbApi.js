@@ -5,11 +5,11 @@ const getParams = (search, action) => {
 	switch (action) {
 		case 'searchGames':
 			url = 'https://api.igdb.com/v4/games';
-			params = `search "${search}"; fields name,genres.name,platforms.name,cover.image_id; where category = 0;`;
+			params = `search "${search}"; fields name,genres.name,platforms.name,cover.image_id; limit 15;`;
 			break;
 		case 'gameById':
 			url = 'https://api.igdb.com/v4/games';
-			params = `where id = "${search}"; fields name,genres.name,platforms.name,cover.image_id; where category = 0;`;
+			params = `where id = "${search}"; fields name,genres.name,platforms.name,cover.image_id;`;
 			break;
 		case 'coverById':
 			url = 'https://api.igdb.com/v4/covers';
