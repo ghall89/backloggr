@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
-import { FaDiscord } from 'react-icons/fa';
+import { FaDiscord, FaTwitch } from 'react-icons/fa';
 
 import { signIn } from 'next-auth/react';
 
@@ -57,16 +57,25 @@ const Login = () => {
 				<Typography align="center" gutterBottom>
 					Log in or sign up to create and manage your backlog.
 				</Typography>
+
 				<Button
+					fullWidth
 					onClick={() => signIn('discord')}
 					variant="contained"
-					fullWidth
 					startIcon={<FaDiscord />}
 					disabled={status !== 'unauthenticated' ? true : false}
 				>
-					{status !== 'unauthenticated'
-						? 'Please Wait...'
-						: 'Sign In With Discord'}
+					Discord Login
+				</Button>
+
+				<Button
+					fullWidth
+					onClick={() => signIn('twitch')}
+					variant="contained"
+					startIcon={<FaTwitch />}
+					disabled={status !== 'unauthenticated' ? true : false}
+				>
+					Twitch Login
 				</Button>
 			</Box>
 		</Box>
