@@ -27,7 +27,7 @@ To deploy your own version of Backloggr, you will need the following:
 - Familiarity with Next.js or React
 - A hosting provider like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)
 - An account with [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)\*
-- An API key from [RAWG API](https://api.rawg.io/docs/)\*
+- A Twitch account and developer key for using [IGDB API](https://api-docs.igdb.com/#getting-started)\*
 - A developer key from [Discord](https://discord.com/developers)\*
 
 \* Feel free to modify your fork to use other alternatives, but these are what Backloggr is built around.
@@ -35,9 +35,10 @@ To deploy your own version of Backloggr, you will need the following:
 You will need to supply the following environmental variables in your environment:
 
 - `MONGODB_URI` - Authenticated URL to your MongoDB database
-- `RAWG_API_KEY` - Your unique API key from RAWG API
 - `NEXTAUTH_SECRET` - A random, cryptographically strong key for authenticating with NextAuth
 - `NEXTAUTH_URL` - The URL that NextAuth should redirect to when a user has logged in
+- `TWITCH_CLIENT_ID` - Your app ID from Twitch
+- `TWITCH_CLIENT_SECRET` - A random, cryptographically strong key for authenticating with Discord
 - `DISCORD_CLIENT_ID` - Your app ID from Discord
 - `DISCORD_CLIENT_SECRET` - A random, cryptographically strong key for authenticating with Discord
 
@@ -54,10 +55,6 @@ A: Backloggr is (at the moment) a solo project, and I'm not comfortable storing 
 Q. Can I follow my friends' gaming lists, or share my own?
 
 A: Right now, social features are not a priority. However, in the future I would like to add the ability to share your backlog with others via a public link. That will probably have to come after the improved account system.
-
-Q: I'm trying to add [your game here] to my backlog, but it's not showing up for my platform, or at all. What gives?
-
-A: I've run into this a lot, especially with smaller releases, and it is very annoying. Backloggr uses the [RAWG API](https://rawg.io/apidocs) to pull game data, so if something is missing or inaccurate it's an issue on that end. Unfortunately, the only way to fix this is by trying to edit the game at [rawg.io](https://rawg.io), which I've had mixes results with.
 
 ## License
 
