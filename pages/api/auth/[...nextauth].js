@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
+import TwitchProvider from 'next-auth/providers/twitch';
 
 const scopes = ['identify'].join(' ');
 
@@ -9,6 +10,10 @@ export default NextAuth({
 			clientId: process.env.DISCORD_CLIENT_ID,
 			clientSecret: process.env.DISCORD_CLIENT_SECRET,
 			authorization: { params: { scope: scopes } },
+		}),
+		TwitchProvider({
+			clientId: process.env.TWITCH_CLIENT_ID,
+			clientSecret: process.env.TWITCH_CLIENT_SECRET,
 		}),
 	],
 	callbacks: {
