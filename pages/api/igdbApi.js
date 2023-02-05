@@ -7,6 +7,10 @@ const getParams = (search, action) => {
 			url = 'https://api.igdb.com/v4/games';
 			params = `search "${search}"; fields name,genres.name,platforms.name,cover.image_id; where category = 0;`;
 			break;
+		case 'gameById':
+			url = 'https://api.igdb.com/v4/games';
+			params = `where id = "${search}"; fields name,genres.name,platforms.name,cover.image_id; where category = 0;`;
+			break;
 		case 'coverById':
 			url = 'https://api.igdb.com/v4/covers';
 			params = `where game = (${search}); fields *;`;

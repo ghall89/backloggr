@@ -191,7 +191,7 @@ const Game = () => {
 								</IconButton>
 							</Box>
 						</Box>
-						<Box
+						{/* <Box
 							sx={{
 								display: 'flex',
 								gap: 2,
@@ -202,7 +202,7 @@ const Game = () => {
 							{game?.genres.map(genre => (
 								<Chip label={genre.name} key={genre.id} />
 							))}
-						</Box>
+						</Box> */}
 						<StatusButton gameStatus={game?.status} />
 						{game?.status === 'finished' || game?.status === 'completed' ? (
 							<Button

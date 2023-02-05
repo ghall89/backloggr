@@ -47,6 +47,8 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef(null);
 
+	const [noResults, setNoResults] = useState(false);
+
 	const handleToggle = () => {
 		setOpen(prevOpen => !prevOpen);
 	};
@@ -88,8 +90,13 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 
 	const handleSearch = async () => {
 		const res = await handleIgdb(query, 'searchGames');
-		await setSearchResults(res);
-		setSelectedGame(res[0].id);
+		if (res.length >= 1) {
+			await setSearchResults(res);
+			setSelectedGame(res[0].id);
+			setNoResults(false);
+		} else {
+			setNoResults(true);
+		}
 	};
 
 	const handleChange = async event => await setPlatform(event.target.value);
@@ -118,7 +125,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 
 	const addAction = async submitBody => {
 		games.forEach(game => {
-			if (game.rawg_id === submitBody.rawg_id) {
+			if (game.igdb_id === submitBody.igdb_id) {
 				alert('This game is already in your backlog!');
 				return;
 			}
@@ -176,6 +183,11 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 							label="Title"
 							variant="outlined"
 						/>
+						{noResults ? (
+							<Typography color="error" sx={{ textAlign: 'center' }}>
+								No results. Try again!
+							</Typography>
+						) : null}
 						<Button
 							disabled={query?.length > 0 ? false : true}
 							onClick={() => handleSearch()}
