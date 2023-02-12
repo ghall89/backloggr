@@ -1,9 +1,7 @@
 const getGames = async user_ref => {
 	const options = {
 		method: 'GET',
-		headers: {
-			secret: process.env.BACKLOGGR_SECRET,
-		},
+		headers: {},
 	};
 
 	const res = await fetch(`/api/games?user_ref=${user_ref}`, options)
@@ -18,9 +16,7 @@ const getGame = async (user_ref, id) => {
 
 	const options = {
 		method: 'GET',
-		headers: {
-			secret: process.env.BACKLOGGR_SECRET,
-		},
+		headers: {},
 	};
 
 	const res = await fetch(url, options)
@@ -34,7 +30,6 @@ const deleteGame = async id => {
 	const options = {
 		method: 'DELETE',
 		headers: {
-			secret: process.env.BACKLOGGR_SECRET,
 			'Content-Type': 'application/json',
 		},
 		body: `{"id":"${id}"}`,
@@ -49,7 +44,6 @@ const addGame = async body => {
 	const options = {
 		method: 'POST',
 		headers: {
-			secret: process.env.BACKLOGGR_SECRET,
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(body),
@@ -64,7 +58,6 @@ const updateGame = async body => {
 	const options = {
 		method: 'PUT',
 		headers: {
-			secret: process.env.BACKLOGGR_SECRET,
 			'Content-Type': 'application/json',
 		},
 		body,
