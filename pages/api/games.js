@@ -1,81 +1,89 @@
+import { getToken } from 'next-auth/jwt';
 import dbConnect from '../../src/db/dbConnect';
 const Game = require('../../src/db/models/Game');
 
 export default async function handler(req, res) {
-	const { method, body } = req;
+	const token = await getToken({ req });
 
-	await dbConnect();
+	if (token) {
+		const { method, body } = req;
 
-	switch (method) {
-		case 'GET':
-			let query = { user_ref: req.query.user_ref };
+		await dbConnect();
 
-			if (req.query.filter) {
-				query = { ...query, status: req.query.filter };
-			}
+		switch (method) {
+			case 'GET':
+				let query = { user_ref: req.query.user_ref };
 
-			if (req.query.id) {
-				query = { ...query, _id: { $eq: req.query.id } };
-			}
+				if (req.query.filter) {
+					query = { ...query, status: req.query.filter };
+				}
 
-			try {
-				let games = await Game.find(query).sort({ title: 1 });
-				res.status(200).json({
-					success: true,
-					data: games,
-				});
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-					data: err,
-				});
-			}
-			break;
-		case 'POST':
-			try {
-				let game = new Game(req.body);
-				game = await game.save();
-				res.status(200).json({
-					success: true,
-					data: game,
-				});
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-				});
-			}
-			break;
-		case 'PUT':
-			try {
-				let game = await Game.findByIdAndUpdate(body.id, body.params, {
-					new: true,
-				});
+				if (req.query.id) {
+					query = { ...query, _id: { $eq: req.query.id } };
+				}
 
-				res.status(200).json({
-					success: true,
-					data: game,
-				});
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-				});
-			}
-			break;
-		case 'DELETE':
-			try {
-				let games = await Game.findByIdAndRemove(body.id);
-				res.status(200).json({
-					success: true,
-					message: `${games.title} deleted!`,
-				});
-			} catch (err) {
-				res.status(400).json({
-					success: false,
-				});
-			}
-			break;
-		default:
-			res.status(400).json({ success: false });
-			break;
+				try {
+					let games = await Game.find(query).sort({ title: 1 });
+					res.status(200).json({
+						success: true,
+						data: games,
+					});
+				} catch (err) {
+					res.status(400).json({
+						success: false,
+						data: err,
+					});
+				}
+				break;
+			case 'POST':
+				try {
+					let game = new Game(req.body);
+					game = await game.save();
+					res.status(200).json({
+						success: true,
+						data: game,
+					});
+				} catch (err) {
+					res.status(400).json({
+						success: false,
+					});
+				}
+				break;
+			case 'PUT':
+				try {
+					let game = await Game.findByIdAndUpdate(body.id, body.params, {
+						new: true,
+					});
+
+					res.status(200).json({
+						success: true,
+						data: game,
+					});
+				} catch (err) {
+					res.status(400).json({
+						success: false,
+					});
+				}
+				break;
+			case 'DELETE':
+				try {
+					let games = await Game.findByIdAndRemove(body.id);
+					res.status(200).json({
+						success: true,
+						message: `${games.title} deleted!`,
+					});
+				} catch (err) {
+					res.status(400).json({
+						success: false,
+					});
+				}
+				break;
+			default:
+				res.status(400).json({ success: false });
+				break;
+		}
+	} else {
+		console.log('Unauthorized API call');
+		res.status(401).json({ message: `It's a secret to everyone...` });
 	}
 }
