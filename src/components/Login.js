@@ -26,6 +26,8 @@ const Login = () => {
 		}
 	});
 
+	useEffect(() => window.sessionStorage.clear(), []);
+
 	return (
 		<Box
 			sx={{
