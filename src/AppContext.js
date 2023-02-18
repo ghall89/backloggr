@@ -2,11 +2,13 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
 import { addGame, getGames, deleteGame } from './lib/games';
+import userHandler from './lib/users';
 
 const AppContext = createContext();
 
 export const ContextWrapper = ({ children }) => {
 	const { data, status } = useSession();
+	const [userData, setUserData] = useState();
 	const [games, setGames] = useState();
 	const [loading, setLoading] = useState(true);
 
@@ -35,6 +37,14 @@ export const ContextWrapper = ({ children }) => {
 			handleApi();
 		}
 	}, [status]);
+
+	useEffect(() => {
+		if (user) {
+			userHandler(user, setUserData);
+		}
+	}, [user]);
+
+	// useEffect(() => console.log(userData), [userData]);
 
 	return (
 		<AppContext.Provider value={{ games, handleApi, loading, user }}>
