@@ -14,6 +14,7 @@ let gameSchema = new Schema({
 	status: String,
 	starred: Boolean,
 	replaying: Boolean,
+	archived: Boolean,
 });
 
 module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema);
