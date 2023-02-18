@@ -24,9 +24,9 @@ const userHandler = async (user, setUserData) => {
 			body: JSON.stringify({ username: name, img_url: image, auth_id: id }),
 		});
 
-		setUserData(newUser.json());
+		setUserData(newUser.json().data[0]);
 	} else {
-		setUserData(res);
+		setUserData(res.data[0]);
 	}
 };
 
