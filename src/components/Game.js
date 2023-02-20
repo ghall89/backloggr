@@ -29,7 +29,15 @@ import {
 } from '@mui/icons-material';
 
 import { setStatus, deleteAction, setStarStatus } from '../lib/functions';
+import handleIgdb from '../lib/handleIgdb';
+
 import { ConfirmModal, PlatformIcon, AppBar, NavTabs } from './components';
+
+const getDameDetails = async (id, setGameDetails) => {
+	const game = await handleIgdb(id, 'gameById');
+	setGameDetails(game[0]);
+	return;
+};
 
 const Game = () => {
 	const { data, status } = useSession();
@@ -42,6 +50,7 @@ const Game = () => {
 	const [openConfirm, setOpenConfirm] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [game, setGame] = useState();
+	const [gameDetails, setGameDetails] = useState();
 	const [statusSelect, setStatusSelect] = useState();
 	// const [starred, setStarred] = useState();
 
@@ -53,19 +62,41 @@ const Game = () => {
 		}
 	}, [game]);
 
+	const statusMemo = useMemo(() => {
+		if (!game) {
+			return;
+		}
+		switch (game.status) {
+			case 'not_started':
+				return 'Owned';
+			case 'in_progress':
+				return 'Playing';
+			case 'finished':
+				return 'Played';
+			case 'completed':
+				return 'Conquered';
+		}
+	}, [game]);
+
 	const handleDelete = () => setOpenConfirm(true);
 
-	const handleNavTabs = filter => Router.push(`/backlog?tab=${filter}`);
+	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`);
 
 	useEffect(() => {
 		if (status === 'authenticated') {
-			games.forEach(game => {
+			games.forEach((game) => {
 				if (game._id === id) {
 					setGame(game);
 				}
 			});
 		}
 	}, [status]);
+
+	useEffect(() => {
+		if (game) {
+			getDameDetails(game.igdb_id, setGameDetails);
+		}
+	}, [game]);
 
 	const StatusButton = ({ gameStatus }) => {
 		switch (gameStatus) {
@@ -124,7 +155,7 @@ const Game = () => {
 				}
 			/>
 
-			{loading && !game ? null : (
+			{loading && !game && !gameDetails ? null : (
 				<Box sx={{ paddingLeft: { xs: 0, md: 31 } }}>
 					<Box
 						sx={{
@@ -138,26 +169,6 @@ const Game = () => {
 							marginX: 'auto',
 						}}
 					>
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-								maxWidth: '100%',
-								minHeight: 200,
-								overflow: 'hidden',
-								margin: { sx: 0, md: 4 },
-							}}
-						>
-							<img
-								height="100%"
-								src={game.img ? game.img : 'img/no-image.jpg'}
-								alt={
-									game.img
-										? `cover image for ${game.title}`
-										: 'placeholder image'
-								}
-							/>
-						</Box>
 						<Box
 							sx={{
 								display: 'flex',
@@ -176,8 +187,9 @@ const Game = () => {
 										fontSize: '1.5rem',
 									}}
 								>
-									<PlatformIcon label={game?.platform} />
-									<Typography variant="h6">{game?.platform}</Typography>
+									<Typography variant="h6" color="primary">
+										{statusMemo} on {game?.platform}
+									</Typography>
 								</Box>
 							</Box>
 							<Box>
@@ -191,6 +203,29 @@ const Game = () => {
 								</IconButton>
 							</Box>
 						</Box>
+						<Box
+							sx={{
+								display: 'flex',
+								justifyContent: 'center',
+								maxWidth: '100%',
+								minHeight: 200,
+								margin: { sx: 0, md: 4 },
+							}}
+						>
+							<img
+								height="100%"
+								src={game.img ? game.img : 'img/no-image.jpg'}
+								alt={
+									game.img
+										? `cover image for ${game.title}`
+										: 'placeholder image'
+								}
+							/>
+							<Typography sx={{ padding: 2, overflow: 'scroll' }}>
+								{gameDetails?.summary}
+							</Typography>
+						</Box>
+
 						{/* <Box
 							sx={{
 								display: 'flex',

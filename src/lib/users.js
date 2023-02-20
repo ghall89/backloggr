@@ -1,4 +1,4 @@
-const saveUser = user => {};
+const saveUser = (user) => {};
 
 const userHandler = async (user, setUserData) => {
 	if (!user) {
@@ -15,7 +15,6 @@ const userHandler = async (user, setUserData) => {
 	res = await res.json();
 
 	if (res.data.length === 0) {
-		console.log('No Data');
 		const newUser = fetch('/api/users', {
 			method: 'POST',
 			headers: {
