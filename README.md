@@ -1,6 +1,6 @@
 ![](./backloggr_logo.png)
 
-![](https://img.shields.io/github/package-json/v/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/netlify/b56fde21-6856-462e-ac6b-7a2e35fb6db3?style=flat-square) ![](https://img.shields.io/github/license/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/commit-activity/m/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/stars/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/forks/ghall89/backloggr?style=flat-square)
+![](https://img.shields.io/github/package-json/v/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/netlify/b56fde21-6856-462e-ac6b-7a2e35fb6db3?style=flat-square) ![](https://img.shields.io/github/license/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/commit-activity/m/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/stars/ghall89/backloggr?style=flat-square) ![](https://img.shields.io/github/forks/ghall89/backloggr?style=flat-square) [![CodeFactor](https://www.codefactor.io/repository/github/ghall89/backloggr/badge)](https://www.codefactor.io/repository/github/ghall89/backloggr)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T66ELM7)
 
