@@ -47,7 +47,7 @@ export const ContextWrapper = ({ children }) => {
 	// useEffect(() => console.log(userData), [userData]);
 
 	return (
-		<AppContext.Provider value={{ games, handleApi, loading, user }}>
+		<AppContext.Provider value={{ games, handleApi, loading, user, userData }}>
 			{children}
 		</AppContext.Provider>
 	);

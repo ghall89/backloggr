@@ -1,9 +1,17 @@
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useState } from 'react';
 import Router, { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 import { ArrowBackIosNew } from '@mui/icons-material';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import {
+	Avatar,
+	Box,
+	Button,
+	FormControl,
+	Grid,
+	TextField,
+	Typography,
+} from '@mui/material';
 
 import { useAppContext } from '../AppContext';
 
@@ -12,25 +20,45 @@ import percentageCalc from '../lib/percentageCalc.js';
 
 import { AppBar, NavTabs } from './components';
 
+const handleSaveUsername = async (id, newName) => {
+	const body = {
+		id,
+		params: { username: newName },
+	};
+
+	const res = fetch('/api/users', {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(body),
+	});
+};
 const Stats = () => {
 	const { data } = useSession();
-	const { games, user } = useAppContext();
+	const { games, user, userData } = useAppContext();
 
-	const handleNavTabs = filter => Router.push(`/backlog?tab=${filter}`);
+	const [usernameField, setUsernameField] = useState();
+
+	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`);
 
 	const percentCallback = useCallback(
-		status => percentageCalc(status, games),
-		[games],
+		(status) => percentageCalc(status, games),
+		[games]
 	);
 
 	const finishedPercentMemo = useMemo(
 		() => percentCallback('finished'),
-		[percentCallback],
+		[percentCallback]
 	);
 	const completedPercentMemo = useMemo(
 		() => percentCallback('completed'),
-		[percentCallback],
+		[percentCallback]
 	);
+
+	const handleUsername = ({ target }) => setUsernameField(target.value);
+
+	const saveUsername = () => handleSaveUsername(userData.id, usernameField);
 
 	return (
 		<>
@@ -44,11 +72,30 @@ const Stats = () => {
 			<Box
 				sx={{
 					display: 'flex',
+					flexDirection: 'column',
 					alignItems: 'center',
+					justifyContent: 'center',
 					height: { xs: '60vh', md: '100vh' },
 					paddingLeft: { xs: 0, md: 31 },
+					gap: 6,
 				}}
 			>
+				<Avatar src={userData.img_url} sx={{ height: 100, width: 100 }} />
+				<Typography variant="h5">{userData.username}</Typography>
+				{/* <Box sx={{ display: 'flex', gap: 2 }}>
+					<FormControl>
+						<TextField
+							size="small"
+							defaultValue={userData.username}
+							label="Username"
+							onChange={handleUsername}
+						/>
+					</FormControl>
+					<Button variant="contained" onClick={saveUsername}>
+						Save
+					</Button>
+				</Box> */}
+
 				<Box
 					sx={{
 						display: 'flex',
@@ -61,6 +108,7 @@ const Stats = () => {
 						padding: 4,
 					}}
 				>
+					<Typography variant="h4">Your Data</Typography>
 					<Grid container spacing={3}>
 						<Grid item xs={4}>
 							<Typography sx={{ fontSize: 40 }}>
