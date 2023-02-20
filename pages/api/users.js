@@ -13,7 +13,9 @@ export default async function handler(req, res) {
 		switch (method) {
 			case 'GET':
 				try {
-					let user = await User.find({ auth_id: req.query.user_ref });
+					let user = await User.find({ auth_id: req.query.user_ref }).select(
+						'-auth_id',
+					);
 					res.status(200).json({
 						success: true,
 						data: user,
@@ -33,14 +35,27 @@ export default async function handler(req, res) {
 						data: user,
 					});
 				} catch (err) {
-					console.log(err);
 					res.status(400).json({
 						success: false,
 					});
 				}
 				break;
 			case 'PUT':
-				// update user document by id
+				try {
+					let user = await User.findByIdAndUpdate(body.id, body.params, {
+						new: true,
+					});
+
+					res.status(200).json({
+						success: true,
+						data: user,
+					});
+				} catch (err) {
+					res.status(400).json({
+						success: false,
+					});
+				}
+
 				break;
 		}
 	} else {
