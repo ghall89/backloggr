@@ -80,8 +80,8 @@ const Stats = () => {
 					gap: 6,
 				}}
 			>
-				<Avatar src={userData.img_url} sx={{ height: 100, width: 100 }} />
-				<Typography variant="h5">{userData.username}</Typography>
+				<Avatar src={userData?.img_url} sx={{ height: 100, width: 100 }} />
+				<Typography variant="h5">{userData?.username}</Typography>
 				{/* <Box sx={{ display: 'flex', gap: 2 }}>
 					<FormControl>
 						<TextField
