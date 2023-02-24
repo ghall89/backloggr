@@ -1,11 +1,11 @@
-import Router from 'next/router';
-import Image from 'next/image';
-import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import Router from 'next/router'
+import Image from 'next/image'
+import { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
-import { FaDiscord, FaTwitch } from 'react-icons/fa';
+import { FaDiscord, FaTwitch } from 'react-icons/fa'
 
-import { signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react'
 
 import {
 	Box,
@@ -15,18 +15,18 @@ import {
 	CardMedia,
 	Link,
 	Typography,
-} from '@mui/material';
+} from '@mui/material'
 
 const Login = () => {
-	const { data, status } = useSession();
+	const { data, status } = useSession()
 
 	useEffect(() => {
 		if (status === 'authenticated') {
-			Router.push('/backlog');
+			Router.push('/backlog')
 		}
-	});
+	})
 
-	useEffect(() => window.sessionStorage.clear(), []);
+	useEffect(() => window.sessionStorage.clear(), [])
 
 	return (
 		<Box
@@ -81,7 +81,7 @@ const Login = () => {
 				</Button>
 			</Box>
 		</Box>
-	);
-};
+	)
+}
 
-export default Login;
+export default Login

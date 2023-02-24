@@ -1,17 +1,17 @@
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import Router, { useRouter } from 'next/router';
+import Head from 'next/head'
+import { useState, useEffect } from 'react'
+import Router, { useRouter } from 'next/router'
 
-import { useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react'
 
-import { Box, Button, ButtonGroup, Fab, useMediaQuery } from '@mui/material';
-import { Add, List, ViewModule } from '@mui/icons-material';
-import { useTheme } from '@mui/styles';
+import { Box, Button, ButtonGroup, Fab, useMediaQuery } from '@mui/material'
+import { Add, List, ViewModule } from '@mui/icons-material'
+import { useTheme } from '@mui/styles'
 
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../AppContext'
 
-import { addGame, getGames, deleteGame, updateGame } from '../lib/games';
-import { setStatus } from '../lib/functions';
+import { addGame, getGames, deleteGame, updateGame } from '../lib/games'
+import { setStatus } from '../lib/functions'
 
 import {
 	AddGameModal,
@@ -20,54 +20,54 @@ import {
 	ConfirmModal,
 	GameCards,
 	LoadingOverlay,
-} from './components';
+} from './components'
 
 const Backlog = () => {
-	const { data, status } = useSession();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const { data, status } = useSession()
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-	const { query } = useRouter();
-	const { games, handleApi, loading } = useAppContext();
+	const { query } = useRouter()
+	const { games, handleApi, loading } = useAppContext()
 
-	const [filter, setFilter] = useState(query.tab || 'not_started');
-	const [title, setTitle] = useState('Backlog');
-	const [filteredGames, setFilteredGames] = useState();
-	const [openModal, setOpenModal] = useState(false);
-	const [viewMode, setViewMode] = useState('grid');
+	const [filter, setFilter] = useState(query.tab || 'not_started')
+	const [title, setTitle] = useState('Backlog')
+	const [filteredGames, setFilteredGames] = useState()
+	const [openModal, setOpenModal] = useState(false)
+	const [viewMode, setViewMode] = useState('grid')
 
 	useEffect(() => {
 		if (games) {
 			if (filter === 'all') {
-				setFilteredGames(games);
+				setFilteredGames(games)
 			} else {
-				const filteredArr = [];
-				games.forEach(game => {
+				const filteredArr = []
+				games.forEach((game) => {
 					if (game.status.includes(filter)) {
-						filteredArr.push(game);
+						filteredArr.push(game)
 					}
-				});
-				setFilteredGames(filteredArr);
+				})
+				setFilteredGames(filteredArr)
 			}
 		}
-	}, [games, filter]);
+	}, [games, filter])
 
 	useEffect(() => {
 		switch (filter) {
 			case 'not_started':
-				setTitle('Backlog');
-				break;
+				setTitle('Backlog')
+				break
 			case 'in_progress':
-				setTitle('Playing');
-				break;
+				setTitle('Playing')
+				break
 			case 'finished':
-				setTitle('Finished');
-				break;
+				setTitle('Finished')
+				break
 			case 'completed':
-				setTitle('Completed');
-				break;
+				setTitle('Completed')
+				break
 		}
-	}, [filter]);
+	}, [filter])
 
 	return (
 		<>
@@ -125,7 +125,7 @@ const Backlog = () => {
 			)}
 			<LoadingOverlay loading={loading} />
 		</>
-	);
-};
+	)
+}
 
-export default Backlog;
+export default Backlog

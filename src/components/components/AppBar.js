@@ -1,8 +1,8 @@
-import { useSession } from 'next-auth/react';
-import { useState, useEffect, useRef } from 'react';
-import Router from 'next/router';
+import { useSession } from 'next-auth/react'
+import { useState, useEffect, useRef } from 'react'
+import Router from 'next/router'
 
-import { useTheme } from '@mui/styles';
+import { useTheme } from '@mui/styles'
 
 import {
 	AppBar,
@@ -18,53 +18,53 @@ import {
 	Toolbar,
 	Typography,
 	useMediaQuery,
-} from '@mui/material';
+} from '@mui/material'
 import {
 	AccountCircle,
 	BarChart,
 	Coffee,
 	Logout,
 	ManageAccounts,
-} from '@mui/icons-material';
+} from '@mui/icons-material'
 
 const AppBarComponent = ({ title, button }) => {
-	const { data, status } = useSession();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const { data, status } = useSession()
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-	const [open, setOpen] = useState(false);
-	const anchorRef = useRef(null);
+	const [open, setOpen] = useState(false)
+	const anchorRef = useRef(null)
 
 	const handleToggle = () => {
-		setOpen(prevOpen => !prevOpen);
-	};
+		setOpen((prevOpen) => !prevOpen)
+	}
 
-	const handleClose = event => {
+	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return;
+			return
 		}
 
-		setOpen(false);
-	};
+		setOpen(false)
+	}
 
 	function handleListKeyDown(event) {
 		if (event.key === 'Tab') {
-			event.preventDefault();
-			setOpen(false);
+			event.preventDefault()
+			setOpen(false)
 		} else if (event.key === 'Escape') {
-			setOpen(false);
+			setOpen(false)
 		}
 	}
 
 	// return focus to the button when we transitioned from !open -> open
-	const prevOpen = useRef(open);
+	const prevOpen = useRef(open)
 	useEffect(() => {
 		if (prevOpen.current === true && open === false) {
-			anchorRef.current.focus();
+			anchorRef.current.focus()
 		}
 
-		prevOpen.current = open;
-	}, [open]);
+		prevOpen.current = open
+	}, [open])
 
 	return (
 		<>
@@ -163,7 +163,7 @@ const AppBarComponent = ({ title, button }) => {
 				</Toolbar>
 			) : null}
 		</>
-	);
-};
+	)
+}
 
-export default AppBarComponent;
+export default AppBarComponent

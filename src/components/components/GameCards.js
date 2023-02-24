@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from 'react';
-import Router from 'next/router';
+import { useEffect, useState, useRef } from 'react'
+import Router from 'next/router'
 
 import {
 	Box,
@@ -16,50 +16,50 @@ import {
 	Popper,
 	Tooltip,
 	Typography,
-} from '@mui/material';
+} from '@mui/material'
 
-import { StarRate, MoreVert, Info } from '@mui/icons-material';
+import { StarRate, MoreVert, Info } from '@mui/icons-material'
 
-import { useAppContext } from '../../AppContext';
+import { useAppContext } from '../../AppContext'
 
-import { starFilter, setStatus } from '../../lib/functions';
+import { starFilter, setStatus } from '../../lib/functions'
 
 const GameMenu = ({ id, status }) => {
-	const { handleApi } = useAppContext();
+	const { handleApi } = useAppContext()
 
-	const [open, setOpen] = useState(false);
-	const anchorRef = useRef(null);
+	const [open, setOpen] = useState(false)
+	const anchorRef = useRef(null)
 
 	const handleToggle = () => {
-		setOpen(prevOpen => !prevOpen);
-	};
+		setOpen((prevOpen) => !prevOpen)
+	}
 
-	const handleClose = event => {
+	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return;
+			return
 		}
 
-		setOpen(false);
-	};
+		setOpen(false)
+	}
 
 	function handleListKeyDown(event) {
 		if (event.key === 'Tab') {
-			event.preventDefault();
-			setOpen(false);
+			event.preventDefault()
+			setOpen(false)
 		} else if (event.key === 'Escape') {
-			setOpen(false);
+			setOpen(false)
 		}
 	}
 
 	// return focus to the button when we transitioned from !open -> open
-	const prevOpen = useRef(open);
+	const prevOpen = useRef(open)
 	useEffect(() => {
 		if (prevOpen.current === true && open === false) {
-			anchorRef.current.focus();
+			anchorRef.current.focus()
 		}
 
-		prevOpen.current = open;
-	}, [open]);
+		prevOpen.current = open
+	}, [open])
 
 	return (
 		<>
@@ -139,8 +139,8 @@ const GameMenu = ({ id, status }) => {
 				)}
 			</Popper>
 		</>
-	);
-};
+	)
+}
 
 const GameCard = ({ game, setStatus }) => (
 	<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
@@ -174,35 +174,35 @@ const GameCard = ({ game, setStatus }) => (
 			</CardContent>
 		</Card>
 	</Grid>
-);
+)
 
 const GameCards = ({ games, loading, setStatus }) => {
-	const [starred, setStarred] = useState([]);
-	const [unstarred, setUnstarred] = useState([]);
+	const [starred, setStarred] = useState([])
+	const [unstarred, setUnstarred] = useState([])
 
 	useEffect(() => {
 		if (games) {
-			setStarred(starFilter(games, true));
-			setUnstarred(starFilter(games, false));
+			setStarred(starFilter(games, true))
+			setUnstarred(starFilter(games, false))
 		}
-	}, [games]);
+	}, [games])
 
 	return (
 		<Box sx={{ padding: 2 }}>
 			{loading ? null : (
 				<>
 					<Grid container spacing={2}>
-						{starred?.map(game => (
+						{starred?.map((game) => (
 							<GameCard game={game} key={game._id} setStatus={setStatus} />
 						))}
-						{unstarred?.map(game => (
+						{unstarred?.map((game) => (
 							<GameCard game={game} key={game._id} setStatus={setStatus} />
 						))}
 					</Grid>
 				</>
 			)}
 		</Box>
-	);
-};
+	)
+}
 
-export default GameCards;
+export default GameCards

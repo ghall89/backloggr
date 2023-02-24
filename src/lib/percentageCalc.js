@@ -1,18 +1,18 @@
 const percentageCalc = (status, games) => {
 	if (games) {
-		let total = 0;
-		games.forEach(game => {
+		let total = 0
+		games.forEach((game) => {
 			if (game.status === status) {
-				total++;
+				total++
 			}
-		});
-		const percentage = Math.round((100 * total) / games.length);
+		})
+		const percentage = Math.round((100 * total) / games.length)
 		if (isNaN(percentage)) {
-			return 0;
+			return 0
 		}
-		return percentage;
+		return percentage
 	}
-	return 0;
-};
+	return 0
+}
 
-export default percentageCalc;
+export default percentageCalc

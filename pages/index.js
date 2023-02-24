@@ -1,5 +1,5 @@
-import Head from 'next/head';
-import Login from '../src/components/Login';
+import Head from 'next/head'
+import Login from '../src/components/Login'
 
 const LoginPage = () => (
 	<div>
@@ -14,6 +14,6 @@ const LoginPage = () => (
 			<Login />
 		</main>
 	</div>
-);
+)
 
-export default LoginPage;
+export default LoginPage

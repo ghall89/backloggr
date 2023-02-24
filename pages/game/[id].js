@@ -1,7 +1,7 @@
-import Game from '../../src/components/Game';
+import Game from '../../src/components/Game'
 
 const GamePage = () => {
-	return <Game />;
-};
+	return <Game />
+}
 
-export default GamePage;
+export default GamePage

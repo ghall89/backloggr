@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useState } from 'react'
+import Router, { useRouter } from 'next/router'
 
 import {
 	Badge,
@@ -18,9 +18,9 @@ import {
 	Tabs,
 	Typography,
 	useMediaQuery,
-} from '@mui/material';
+} from '@mui/material'
 
-import { useTheme } from '@mui/styles';
+import { useTheme } from '@mui/styles'
 import {
 	AccountCircle,
 	CheckBox,
@@ -30,7 +30,7 @@ import {
 	SportsEsports,
 	BarChart,
 	Logout,
-} from '@mui/icons-material';
+} from '@mui/icons-material'
 
 const tabs = [
 	{
@@ -53,20 +53,20 @@ const tabs = [
 		label: 'Completed',
 		icon: <EmojiEvents />,
 	},
-];
+]
 
 const NavTabs = ({ setFilter }) => {
-	const { query, pathname } = useRouter();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-	const [tabState, setTabState] = useState(query.tab || 'not_started');
+	const { query, pathname } = useRouter()
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+	const [tabState, setTabState] = useState(query.tab || 'not_started')
 
-	const drawerWidth = 250;
+	const drawerWidth = 250
 
 	const handleTabs = (event, newValue) => {
-		setTabState(newValue);
-		setFilter(newValue);
-	};
+		setTabState(newValue)
+		setFilter(newValue)
+	}
 
 	return (
 		<>
@@ -172,7 +172,7 @@ const NavTabs = ({ setFilter }) => {
 				</Drawer>
 			)}
 		</>
-	);
-};
+	)
+}
 
-export default NavTabs;
+export default NavTabs

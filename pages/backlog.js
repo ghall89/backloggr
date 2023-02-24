@@ -1,5 +1,5 @@
-import Backlog from '../src/components/Backlog';
+import Backlog from '../src/components/Backlog'
 
-const BacklogPage = () => <Backlog />;
+const BacklogPage = () => <Backlog />
 
-export default BacklogPage;
+export default BacklogPage

@@ -1,18 +1,18 @@
-const saveUser = (user) => {};
+const saveUser = (user) => {}
 
 const userHandler = async (user, setUserData) => {
 	if (!user) {
-		return 'Error: No user object provided';
+		return 'Error: No user object provided'
 	}
 
-	const { id, name, image } = user;
+	const { id, name, image } = user
 
 	let res = await fetch(`/api/users?user_ref=${id}`, {
 		method: 'GET',
 		headers: {},
-	});
+	})
 
-	res = await res.json();
+	res = await res.json()
 
 	if (res.data.length === 0) {
 		const newUser = fetch('/api/users', {
@@ -21,12 +21,12 @@ const userHandler = async (user, setUserData) => {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({ username: name, img_url: image, auth_id: id }),
-		});
+		})
 
-		setUserData(newUser.json().data[0]);
+		setUserData(newUser.json().data[0])
 	} else {
-		setUserData(res.data[0]);
+		setUserData(res.data[0])
 	}
-};
+}
 
-export default userHandler;
+export default userHandler

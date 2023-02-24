@@ -1,48 +1,48 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import { createContext, useContext, useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 
-import { addGame, getGames, deleteGame } from './lib/games';
-import userHandler from './lib/users';
+import { addGame, getGames, deleteGame } from './lib/games'
+import userHandler from './lib/users'
 
-const AppContext = createContext();
+const AppContext = createContext()
 
 export const ContextWrapper = ({ children }) => {
-	const { data, status } = useSession();
-	const [userData, setUserData] = useState();
-	const [games, setGames] = useState();
-	const [loading, setLoading] = useState(true);
+	const { data, status } = useSession()
+	const [userData, setUserData] = useState()
+	const [games, setGames] = useState()
+	const [loading, setLoading] = useState(true)
 
-	const user = data?.user;
+	const user = data?.user
 
 	const handleApi = () => {
-		setLoading(true);
+		setLoading(true)
 		setTimeout(async () => {
-			const res = await getGames(user?.id);
-			setGames(res);
-			window.sessionStorage.setItem('games', JSON.stringify(res));
-			setLoading(false);
-		}, 1000);
-	};
+			const res = await getGames(user?.id)
+			setGames(res)
+			window.sessionStorage.setItem('games', JSON.stringify(res))
+			setLoading(false)
+		}, 1000)
+	}
 
 	useEffect(() => {
-		const session = window.sessionStorage.getItem('games');
+		const session = window.sessionStorage.getItem('games')
 
 		if (session) {
-			setGames(JSON.parse(session));
-			setLoading(false);
-			return;
+			setGames(JSON.parse(session))
+			setLoading(false)
+			return
 		}
 
 		if (status === 'authenticated') {
-			handleApi();
+			handleApi()
 		}
-	}, [status]);
+	}, [status])
 
 	useEffect(() => {
 		if (user) {
-			userHandler(user, setUserData);
+			userHandler(user, setUserData)
 		}
-	}, [user]);
+	}, [user])
 
 	// useEffect(() => console.log(userData), [userData]);
 
@@ -50,7 +50,7 @@ export const ContextWrapper = ({ children }) => {
 		<AppContext.Provider value={{ games, handleApi, loading, user, userData }}>
 			{children}
 		</AppContext.Provider>
-	);
-};
+	)
+}
 
-export const useAppContext = () => useContext(AppContext);
+export const useAppContext = () => useContext(AppContext)

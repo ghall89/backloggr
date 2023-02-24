@@ -1,8 +1,8 @@
-import NextAuth from 'next-auth';
-import DiscordProvider from 'next-auth/providers/discord';
-import TwitchProvider from 'next-auth/providers/twitch';
+import NextAuth from 'next-auth'
+import DiscordProvider from 'next-auth/providers/discord'
+import TwitchProvider from 'next-auth/providers/twitch'
 
-const scopes = ['identify'].join(' ');
+const scopes = ['identify'].join(' ')
 
 export default NextAuth({
 	providers: [
@@ -19,18 +19,18 @@ export default NextAuth({
 	callbacks: {
 		session: async ({ session, token }) => {
 			if (session?.user) {
-				session.user.id = token.uid;
+				session.user.id = token.uid
 			}
-			return session;
+			return session
 		},
 		jwt: async ({ user, token }) => {
 			if (user) {
-				token.uid = user.id;
+				token.uid = user.id
 			}
-			return token;
+			return token
 		},
 	},
 	session: {
 		strategy: 'jwt',
 	},
-});
+})

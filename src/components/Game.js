@@ -1,11 +1,11 @@
-import Head from 'next/head';
-import { useEffect, useMemo, useState } from 'react';
+import Head from 'next/head'
+import { useEffect, useMemo, useState } from 'react'
 
-import { useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react'
 
-import Router, { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router'
 
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../AppContext'
 
 import {
 	Box,
@@ -16,7 +16,7 @@ import {
 	MenuItem,
 	Select,
 	Typography,
-} from '@mui/material';
+} from '@mui/material'
 import {
 	ArrowBackIosNew,
 	CheckBox,
@@ -26,77 +26,77 @@ import {
 	SportsEsports,
 	StarOutline,
 	StarRate,
-} from '@mui/icons-material';
+} from '@mui/icons-material'
 
-import { setStatus, deleteAction, setStarStatus } from '../lib/functions';
-import handleIgdb from '../lib/handleIgdb';
+import { setStatus, deleteAction, setStarStatus } from '../lib/functions'
+import handleIgdb from '../lib/handleIgdb'
 
-import { ConfirmModal, PlatformIcon, AppBar, NavTabs } from './components';
+import { ConfirmModal, PlatformIcon, AppBar, NavTabs } from './components'
 
 const getDameDetails = async (id, setGameDetails) => {
-	const game = await handleIgdb(id, 'gameById');
-	setGameDetails(game[0]);
-	return;
-};
+	const game = await handleIgdb(id, 'gameById')
+	setGameDetails(game[0])
+	return
+}
 
 const Game = () => {
-	const { data, status } = useSession();
+	const { data, status } = useSession()
 
-	const router = useRouter();
-	const { id } = router.query;
+	const router = useRouter()
+	const { id } = router.query
 
-	const { games, handleApi } = useAppContext();
+	const { games, handleApi } = useAppContext()
 
-	const [openConfirm, setOpenConfirm] = useState(false);
-	const [loading, setLoading] = useState(true);
-	const [game, setGame] = useState();
-	const [gameDetails, setGameDetails] = useState();
-	const [statusSelect, setStatusSelect] = useState();
+	const [openConfirm, setOpenConfirm] = useState(false)
+	const [loading, setLoading] = useState(true)
+	const [game, setGame] = useState()
+	const [gameDetails, setGameDetails] = useState()
+	const [statusSelect, setStatusSelect] = useState()
 	// const [starred, setStarred] = useState();
 
 	const starredMemo = useMemo(() => {
 		if (game?.starred) {
-			return true;
+			return true
 		} else {
-			return false;
+			return false
 		}
-	}, [game]);
+	}, [game])
 
 	const statusMemo = useMemo(() => {
 		if (!game) {
-			return;
+			return
 		}
 		switch (game.status) {
 			case 'not_started':
-				return 'Owned';
+				return 'Owned'
 			case 'in_progress':
-				return 'Playing';
+				return 'Playing'
 			case 'finished':
-				return 'Played';
+				return 'Played'
 			case 'completed':
-				return 'Conquered';
+				return 'Conquered'
 		}
-	}, [game]);
+	}, [game])
 
-	const handleDelete = () => setOpenConfirm(true);
+	const handleDelete = () => setOpenConfirm(true)
 
-	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`);
+	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`)
 
 	useEffect(() => {
 		if (status === 'authenticated') {
 			games.forEach((game) => {
 				if (game._id === id) {
-					setGame(game);
+					setGame(game)
 				}
-			});
+			})
 		}
-	}, [status]);
+	}, [status])
 
 	useEffect(() => {
 		if (game) {
-			getDameDetails(game.igdb_id, setGameDetails);
+			getDameDetails(game.igdb_id, setGameDetails)
 		}
-	}, [game]);
+	}, [game])
 
 	const StatusButton = ({ gameStatus }) => {
 		switch (gameStatus) {
@@ -110,7 +110,7 @@ const Game = () => {
 					>
 						Playing
 					</Button>
-				);
+				)
 			case 'in_progress':
 				return (
 					<Button
@@ -121,7 +121,7 @@ const Game = () => {
 					>
 						Finished
 					</Button>
-				);
+				)
 			case 'finished':
 				return (
 					<Button
@@ -132,12 +132,12 @@ const Game = () => {
 					>
 						Completed
 					</Button>
-				);
+				)
 			case 'completed':
 			default:
-				return;
+				return
 		}
-	};
+	}
 
 	return (
 		<>
@@ -269,7 +269,7 @@ const Game = () => {
 				confirmAction={() => deleteAction(id, handleApi)}
 			/>
 		</>
-	);
-};
+	)
+}
 
-export default Game;
+export default Game
