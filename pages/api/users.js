@@ -1,6 +1,6 @@
 import { getToken } from 'next-auth/jwt'
-import dbConnect from '../../src/db/dbConnect'
-const User = require('../../src/db/models/User')
+import dbConnect from '@db/dbConnect'
+const User = require('@db/models/User')
 
 export default async function handler(req, res) {
 	const token = await getToken({ req })

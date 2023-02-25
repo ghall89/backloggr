@@ -1,10 +1,10 @@
-import '../styles/globals.css'
+import '@styles/globals.css'
 
 import { useRouter } from 'next/router'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { SessionProvider } from 'next-auth/react'
 
-import { ContextWrapper } from '../src/AppContext'
+import { ContextWrapper } from '/src/AppContext'
 
 function MyApp({ Component, pageProps }) {
 	const { route } = useRouter()

@@ -3,12 +3,12 @@ import Router from 'next/router'
 import { useSession } from 'next-auth/react'
 
 import { ArrowBackIosNew } from '@mui/icons-material'
-import { Avatar, Box, Button, Typography } from '@mui/material'
+import { Avatar, Box, Button, Grid, Typography } from '@mui/material'
 
-import { useAppContext } from '../AppContext'
+import { useAppContext } from '/src/AppContext'
 
-import { exportJson } from '../lib/functions'
-import percentageCalc from '../lib/percentageCalc.js'
+import { exportJson } from '@lib/functions'
+import percentageCalc from '@lib/percentageCalc.js'
 
 import { AppBar, NavTabs } from './components'
 

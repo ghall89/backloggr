@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import Account from '../src/components/Account'
+import Account from '@components/Account'
 
 const AccountPage = () => (
 	<>

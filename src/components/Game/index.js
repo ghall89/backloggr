@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 
 import Router, { useRouter } from 'next/router'
 
-import { useAppContext } from '../../AppContext'
+import { useAppContext } from '/src/AppContext'
 
 import { Box, Button, IconButton, Typography } from '@mui/material'
 import {
@@ -17,10 +17,10 @@ import {
 	StarRate,
 } from '@mui/icons-material'
 
-import { setStatus, deleteAction, setStarStatus } from '/src/lib/functions'
-import handleIgdb from '/src/lib/handleIgdb'
+import { setStatus, deleteAction, setStarStatus } from '@lib/functions'
+import handleIgdb from '@lib/handleIgdb'
 
-import { AppBar, NavTabs } from '/src/components/components'
+import { AppBar, NavTabs } from '@components/components'
 import { ConfirmModal, StatusButton } from './components'
 
 const getDameDetails = async (id, setGameDetails) => {

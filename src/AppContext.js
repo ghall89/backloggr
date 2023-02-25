@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 
-import { getGames } from './lib/games'
-import userHandler from './lib/users'
+import { getGames } from '@lib/games'
+import userHandler from '@lib/users'
 
 const AppContext = createContext()
 
