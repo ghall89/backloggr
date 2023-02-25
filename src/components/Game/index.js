@@ -1,37 +1,27 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 
 import { useSession } from 'next-auth/react'
 
 import Router, { useRouter } from 'next/router'
 
-import { useAppContext } from '../AppContext'
+import { useAppContext } from '../../AppContext'
 
-import {
-	Box,
-	Button,
-	Chip,
-	FormControl,
-	IconButton,
-	MenuItem,
-	Select,
-	Typography,
-} from '@mui/material'
+import { Box, Button, IconButton, Typography } from '@mui/material'
 import {
 	ArrowBackIosNew,
-	CheckBox,
 	Delete,
-	EmojiEvents,
 	Loop,
-	SportsEsports,
 	StarOutline,
 	StarRate,
 } from '@mui/icons-material'
 
-import { setStatus, deleteAction, setStarStatus } from '../lib/functions'
-import handleIgdb from '../lib/handleIgdb'
+import { setStatus, deleteAction, setStarStatus } from '/src/lib/functions'
+import handleIgdb from '/src/lib/handleIgdb'
 
-import { ConfirmModal, PlatformIcon, AppBar, NavTabs } from './components'
+import { AppBar, NavTabs } from '/src/components/components'
+import { ConfirmModal, StatusButton } from './components'
 
 const getDameDetails = async (id, setGameDetails) => {
 	const game = await handleIgdb(id, 'gameById')
@@ -97,47 +87,6 @@ const Game = () => {
 			getDameDetails(game.igdb_id, setGameDetails)
 		}
 	}, [game])
-
-	const StatusButton = ({ gameStatus }) => {
-		switch (gameStatus) {
-			case 'not_started':
-				return (
-					<Button
-						fullWidth
-						variant="contained"
-						onClick={() => setStatus(game._id, 'in_progress')}
-						startIcon={<SportsEsports />}
-					>
-						Playing
-					</Button>
-				)
-			case 'in_progress':
-				return (
-					<Button
-						fullWidth
-						variant="contained"
-						onClick={() => setStatus(game._id, 'finished')}
-						startIcon={<CheckBox />}
-					>
-						Finished
-					</Button>
-				)
-			case 'finished':
-				return (
-					<Button
-						fullWidth
-						variant="contained"
-						onClick={() => setStatus(game._id, 'completed')}
-						startIcon={<EmojiEvents />}
-					>
-						Completed
-					</Button>
-				)
-			case 'completed':
-			default:
-				return
-		}
-	}
 
 	return (
 		<>
@@ -212,8 +161,9 @@ const Game = () => {
 								margin: { sx: 0, md: 4 },
 							}}
 						>
-							<img
-								height="100%"
+							<Image
+								height={200}
+								width={150}
 								src={game.img ? game.img : 'img/no-image.jpg'}
 								alt={
 									game.img
@@ -221,6 +171,7 @@ const Game = () => {
 										: 'placeholder image'
 								}
 							/>
+
 							<Typography sx={{ padding: 2, overflow: 'scroll' }}>
 								{gameDetails?.summary}
 							</Typography>

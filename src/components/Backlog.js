@@ -1,23 +1,19 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import { useSession } from 'next-auth/react'
 
-import { Box, Button, ButtonGroup, Fab, useMediaQuery } from '@mui/material'
-import { Add, List, ViewModule } from '@mui/icons-material'
+import { Box, Fab, useMediaQuery } from '@mui/material'
+import { Add } from '@mui/icons-material'
 import { useTheme } from '@mui/styles'
 
 import { useAppContext } from '../AppContext'
-
-import { addGame, getGames, deleteGame, updateGame } from '../lib/games'
-import { setStatus } from '../lib/functions'
 
 import {
 	AddGameModal,
 	AppBar,
 	NavTabs,
-	ConfirmModal,
 	GameCards,
 	LoadingOverlay,
 } from './components'

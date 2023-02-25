@@ -5,7 +5,6 @@ import Router from 'next/router'
 import { useTheme } from '@mui/styles'
 
 import {
-	AppBar,
 	ClickAwayListener,
 	Grow,
 	IconButton,
@@ -19,13 +18,7 @@ import {
 	Typography,
 	useMediaQuery,
 } from '@mui/material'
-import {
-	AccountCircle,
-	BarChart,
-	Coffee,
-	Logout,
-	ManageAccounts,
-} from '@mui/icons-material'
+import { AccountCircle, Coffee, Logout } from '@mui/icons-material'
 
 const AppBarComponent = ({ title, button }) => {
 	const { data, status } = useSession()

@@ -1,17 +1,9 @@
 import { useMemo, useCallback, useState } from 'react'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 import { useSession } from 'next-auth/react'
 
 import { ArrowBackIosNew } from '@mui/icons-material'
-import {
-	Avatar,
-	Box,
-	Button,
-	FormControl,
-	Grid,
-	TextField,
-	Typography,
-} from '@mui/material'
+import { Avatar, Box, Button, Typography } from '@mui/material'
 
 import { useAppContext } from '../AppContext'
 

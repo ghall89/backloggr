@@ -18,7 +18,7 @@ import {
 	Typography,
 } from '@mui/material'
 
-import { StarRate, MoreVert, Info } from '@mui/icons-material'
+import { MoreVert, Info } from '@mui/icons-material'
 
 import { useAppContext } from '../../AppContext'
 

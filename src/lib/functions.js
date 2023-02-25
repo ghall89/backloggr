@@ -1,8 +1,6 @@
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 
-import { useAppContext } from '../AppContext'
-
-import { addGame, getGames, deleteGame, updateGame } from './games'
+import { deleteGame, updateGame } from './games'
 
 // // get user's games
 // const handleApi = () => {

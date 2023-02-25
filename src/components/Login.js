@@ -7,15 +7,7 @@ import { FaDiscord, FaTwitch } from 'react-icons/fa'
 
 import { signIn } from 'next-auth/react'
 
-import {
-	Box,
-	Button,
-	Card,
-	CardContent,
-	CardMedia,
-	Link,
-	Typography,
-} from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 
 const Login = () => {
 	const { data, status } = useSession()

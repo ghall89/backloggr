@@ -1,4 +1,4 @@
-import { Box, Dialog, Typography } from '@mui/material'
+import { Box, Dialog } from '@mui/material'
 
 const Loading = ({ loading }) => (
 	<Dialog open={loading}>

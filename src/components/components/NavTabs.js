@@ -2,13 +2,8 @@ import { useState } from 'react'
 import Router, { useRouter } from 'next/router'
 
 import {
-	Badge,
-	Chip,
 	Divider,
 	Drawer,
-	DrawerHeader,
-	Hidden,
-	IconButton,
 	List,
 	ListItem,
 	ListItemButton,
@@ -28,7 +23,6 @@ import {
 	EmojiEvents,
 	FormatListBulleted,
 	SportsEsports,
-	BarChart,
 	Logout,
 } from '@mui/icons-material'
 
