@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+let Schema = mongoose.Schema
 
 let cachedItemSchema = new Schema({
 	igdb_id: String,
@@ -13,7 +13,7 @@ let cachedItemSchema = new Schema({
 	storyline: String,
 	summary: String,
 	videos: Array,
-});
+})
 
 module.exports =
-	mongoose.models.CachedItem || mongoose.model('CachedItem', cachedItemSchema);
+	mongoose.models.CachedItem || mongoose.model('CachedItem', cachedItemSchema)

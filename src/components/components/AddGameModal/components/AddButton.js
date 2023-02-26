@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from 'react'
 import {
 	Button,
 	ButtonGroup,
@@ -8,40 +8,40 @@ import {
 	ClickAwayListener,
 	MenuItem,
 	MenuList,
-} from '@mui/material';
-import { Add, MoreHoriz } from '@mui/icons-material';
+} from '@mui/material'
+import { Add, MoreHoriz } from '@mui/icons-material'
 
 const options = [
 	{ option: 'Add to Playing', status: 'in_progress' },
 	{ option: 'Add to Finished', status: 'finished' },
 	{ option: 'Add to Completed', status: 'completed' },
-];
+]
 
 const AddButton = ({ handleSubmit }) => {
-	const [open, setOpen] = useState(false);
-	const anchorRef = useRef(null);
-	const [selectedIndex, setSelectedIndex] = useState(1);
+	const [open, setOpen] = useState(false)
+	const anchorRef = useRef(null)
+	const [selectedIndex, setSelectedIndex] = useState(1)
 
 	const handleClick = () => {
-		console.info(`You clicked ${options[selectedIndex]}`);
-	};
+		console.info(`You clicked ${options[selectedIndex]}`)
+	}
 
 	const handleMenuItemClick = (event, index) => {
-		setSelectedIndex(index);
-		setOpen(false);
-	};
+		setSelectedIndex(index)
+		setOpen(false)
+	}
 
 	const handleToggle = () => {
-		setOpen(prevOpen => !prevOpen);
-	};
+		setOpen((prevOpen) => !prevOpen)
+	}
 
-	const handleClose = event => {
+	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return;
+			return
 		}
 
-		setOpen(false);
-	};
+		setOpen(false)
+	}
 
 	return (
 		<>
@@ -99,7 +99,7 @@ const AddButton = ({ handleSubmit }) => {
 				)}
 			</Popper>
 		</>
-	);
-};
+	)
+}
 
-export default AddButton;
+export default AddButton

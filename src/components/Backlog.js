@@ -1,76 +1,75 @@
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
-import Router, { useRouter } from 'next/router';
+import Head from 'next/head'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
-import { useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react'
 
-import { Box, Button, ButtonGroup, Fab, useMediaQuery } from '@mui/material';
-import { Add, List, ViewModule } from '@mui/icons-material';
-import { useTheme } from '@mui/styles';
+import { Box, Fab, useMediaQuery } from '@mui/material'
+import { Add } from '@mui/icons-material'
+import { useTheme } from '@mui/styles'
 
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '/src/AppContext'
+import Layout from '@components/layout'
 
-import { addGame, getGames, deleteGame, updateGame } from '../lib/games';
-import { setStatus } from '../lib/functions';
-
-import {
-	AddGameModal,
-	AppBar,
-	NavTabs,
-	ConfirmModal,
-	GameCards,
-	LoadingOverlay,
-} from './components';
+import { AddGameModal, GameCards, LoadingOverlay } from './components'
+import GameModal from './GameModal'
 
 const Backlog = () => {
-	const { data, status } = useSession();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const { data, status } = useSession()
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-	const { query } = useRouter();
-	const { games, handleApi, loading } = useAppContext();
+	const { query } = useRouter()
+	const { games, handleApi, loading, filter } = useAppContext()
 
-	const [filter, setFilter] = useState(query.tab || 'not_started');
-	const [title, setTitle] = useState('Backlog');
-	const [filteredGames, setFilteredGames] = useState();
-	const [openModal, setOpenModal] = useState(false);
-	const [viewMode, setViewMode] = useState('grid');
+	const [title, setTitle] = useState('Backlog')
+	const [filteredGames, setFilteredGames] = useState()
+	const [openModal, setOpenModal] = useState(false)
+	const [viewMode, setViewMode] = useState('grid')
+
+	const [modalId, setModalId] = useState()
+	const [gameModalOpen, setGameModalOpen] = useState(false)
 
 	useEffect(() => {
 		if (games) {
 			if (filter === 'all') {
-				setFilteredGames(games);
+				setFilteredGames(games)
 			} else {
-				const filteredArr = [];
-				games.forEach(game => {
+				const filteredArr = []
+				games.forEach((game) => {
 					if (game.status.includes(filter)) {
-						filteredArr.push(game);
+						filteredArr.push(game)
 					}
-				});
-				setFilteredGames(filteredArr);
+				})
+				setFilteredGames(filteredArr)
 			}
 		}
-	}, [games, filter]);
+	}, [games, filter])
 
 	useEffect(() => {
 		switch (filter) {
 			case 'not_started':
-				setTitle('Backlog');
-				break;
+				setTitle('Backlog')
+				break
 			case 'in_progress':
-				setTitle('Playing');
-				break;
+				setTitle('Playing')
+				break
 			case 'finished':
-				setTitle('Finished');
-				break;
+				setTitle('Finished')
+				break
 			case 'completed':
-				setTitle('Completed');
-				break;
+				setTitle('Completed')
+				break
 		}
-	}, [filter]);
+	}, [filter])
+
+	const closeGameModal = () => {
+		setGameModalOpen(false)
+		setModalId(null)
+	}
 
 	return (
-		<>
+		<Layout title={title}>
 			{!status === 'authenticated' ? null : (
 				<>
 					{data?.user.name ? (
@@ -85,10 +84,8 @@ const Backlog = () => {
 						sx={{
 							width: '100%',
 							paddingBottom: { xs: 22, md: 9 },
-							paddingLeft: { xs: 0, md: 31 },
 						}}
 					>
-						<AppBar title={title} />
 						<Box
 							sx={{
 								margin: 2,
@@ -116,16 +113,21 @@ const Backlog = () => {
 						<GameCards
 							games={filteredGames}
 							loading={loading}
-							handleApi={handleApi}
+							setModalId={setModalId}
+							setModalOpen={setGameModalOpen}
 						/>
 					</Box>
 					<AddGameModal openModal={openModal} setOpenModal={setOpenModal} />
-					<NavTabs setFilter={setFilter} />
+					<GameModal
+						id={modalId}
+						open={gameModalOpen}
+						modalClose={closeGameModal}
+					/>
 				</>
 			)}
 			<LoadingOverlay loading={loading} />
-		</>
-	);
-};
+		</Layout>
+	)
+}
 
-export default Backlog;
+export default Backlog

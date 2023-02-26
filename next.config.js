@@ -2,7 +2,7 @@
 const nextConfig = {
 	reactStrictMode: true,
 	images: {
-		domains: ['s.gravatar.com', 'media.rawg.io', 'cdn.discordapp.com'],
+		domains: ['s.gravatar.com', 'images.igdb.com', 'cdn.discordapp.com'],
 	},
 	env: {
 		MONGODB_URI: process.env.MONGODB_URI,
@@ -13,6 +13,6 @@ const nextConfig = {
 		NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 	},
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

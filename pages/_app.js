@@ -1,13 +1,13 @@
-import '../styles/globals.css';
+import '@styles/globals.css'
 
-import { useRouter } from 'next/router';
-import { createTheme, ThemeProvider } from '@mui/material';
-import { SessionProvider } from 'next-auth/react';
+import { useRouter } from 'next/router'
+import { createTheme, ThemeProvider } from '@mui/material'
+import { SessionProvider } from 'next-auth/react'
 
-import { ContextWrapper } from '../src/AppContext';
+import { ContextWrapper } from '/src/AppContext'
 
 function MyApp({ Component, pageProps }) {
-	const { route } = useRouter();
+	const { route } = useRouter()
 
 	const theme = createTheme({
 		palette: {
@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }) {
 				primary: '#cad3f5',
 			},
 		},
-	});
+	})
 
 	return (
 		<SessionProvider>
@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }) {
 				</ContextWrapper>
 			</ThemeProvider>
 		</SessionProvider>
-	);
+	)
 }
 
-export default MyApp;
+export default MyApp

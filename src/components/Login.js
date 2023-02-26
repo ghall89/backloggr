@@ -1,43 +1,17 @@
-import Router from 'next/router';
-import Image from 'next/image';
-import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 
-import { FaDiscord, FaTwitch } from 'react-icons/fa';
+import { FaDiscord, FaTwitch } from 'react-icons/fa'
 
-import { signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react'
 
-import {
-	Box,
-	Button,
-	Card,
-	CardContent,
-	CardMedia,
-	Link,
-	Typography,
-} from '@mui/material';
+import { Box, Button, Dialog, Typography } from '@mui/material'
 
-const Login = () => {
-	const { data, status } = useSession();
-
-	useEffect(() => {
-		if (status === 'authenticated') {
-			Router.push('/backlog');
-		}
-	});
-
-	useEffect(() => window.sessionStorage.clear(), []);
+const Login = ({ open }) => {
+	const { data, status } = useSession()
 
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				height: '100vh',
-				backgroundColor: '#1e2030',
-			}}
-		>
+		<Dialog open={open}>
 			<Box
 				sx={{
 					display: 'flex',
@@ -80,8 +54,8 @@ const Login = () => {
 					Twitch Login
 				</Button>
 			</Box>
-		</Box>
-	);
-};
+		</Dialog>
+	)
+}
 
-export default Login;
+export default Login

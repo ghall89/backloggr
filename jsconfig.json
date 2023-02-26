@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"baseUrl": ".",
+		"paths": {
+			"@components/*": ["src/components/*"],
+			"@db/*": ["src/db/*"],
+			"@lib/*": ["src/lib/*"],
+			"@styles/*": ["src/styles/*"]
+		},
+		"moduleResolution": "Node"
+	},
+	"exclude": ["node_modules", ".next"]
+}

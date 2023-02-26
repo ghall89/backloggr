@@ -1,56 +1,76 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
+import {
+	createContext,
+	useContext,
+	useState,
+	useEffect,
+	useCallback,
+} from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
-import { addGame, getGames, deleteGame } from './lib/games';
-import userHandler from './lib/users';
+import { getGames } from '@lib/games'
+import userHandler from '@lib/users'
 
-const AppContext = createContext();
+const AppContext = createContext()
 
 export const ContextWrapper = ({ children }) => {
-	const { data, status } = useSession();
-	const [userData, setUserData] = useState();
-	const [games, setGames] = useState();
-	const [loading, setLoading] = useState(true);
+	const { data, status } = useSession()
+	const { query, pathname } = useRouter()
+	const [userData, setUserData] = useState()
+	const [games, setGames] = useState()
+	const [loading, setLoading] = useState(true)
+	const [filter, setFilter] = useState(query.tab || 'not_started')
+	const [tabState, setTabState] = useState(query.tab || 'not_started')
 
-	const user = data?.user;
+	const user = data?.user
 
-	const handleApi = () => {
-		setLoading(true);
+	const handleApi = useCallback(() => {
+		setLoading(true)
 		setTimeout(async () => {
-			const res = await getGames(user?.id);
-			setGames(res);
-			window.sessionStorage.setItem('games', JSON.stringify(res));
-			setLoading(false);
-		}, 1000);
-	};
+			const res = await getGames(user?.id)
+			setGames(res)
+			window.sessionStorage.setItem('games', JSON.stringify(res))
+			setLoading(false)
+		}, 1000)
+	}, [user])
 
 	useEffect(() => {
-		const session = window.sessionStorage.getItem('games');
+		const session = window.sessionStorage.getItem('games')
 
 		if (session) {
-			setGames(JSON.parse(session));
-			setLoading(false);
-			return;
+			setGames(JSON.parse(session))
+			setLoading(false)
+			return
 		}
 
 		if (status === 'authenticated') {
-			handleApi();
+			handleApi()
 		}
-	}, [status]);
+	}, [status, handleApi])
 
 	useEffect(() => {
 		if (user) {
-			userHandler(user, setUserData);
+			userHandler(user, setUserData)
 		}
-	}, [user]);
-
-	// useEffect(() => console.log(userData), [userData]);
+	}, [user])
 
 	return (
-		<AppContext.Provider value={{ games, handleApi, loading, user, userData }}>
+		<AppContext.Provider
+			value={{
+				games,
+				handleApi,
+				loading,
+				user,
+				userData,
+				filter,
+				setFilter,
+				tabState,
+				setTabState,
+			}}
+		>
 			{children}
 		</AppContext.Provider>
-	);
-};
+	)
+}
 
-export const useAppContext = () => useContext(AppContext);
+export const useAppContext = () => useContext(AppContext)

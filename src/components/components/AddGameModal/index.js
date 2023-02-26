@@ -1,141 +1,128 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
-import { useSession } from 'next-auth/react';
+import { useState, useMemo, useEffect, useRef } from 'react'
+import { useSession } from 'next-auth/react'
 
 import {
 	Box,
 	Button,
-	ButtonGroup,
-	ClickAwayListener,
 	Dialog,
-	FormControl,
-	Grid,
-	Grow,
-	IconButton,
-	InputLabel,
 	Link,
-	List,
-	ListItemText,
-	ListSubheader,
 	MenuItem,
-	MenuList,
-	Paper,
-	Popper,
 	Select,
 	TextField,
 	Typography,
-} from '@mui/material';
-import { Add, Cached, MoreHoriz, Search } from '@mui/icons-material';
+} from '@mui/material'
+import { Cached, Search } from '@mui/icons-material'
 
-import { useAppContext } from '../../../AppContext';
+import { useAppContext } from '../../../AppContext'
 
-import { addGame } from '../../../lib/games';
+import { addGame } from '../../../lib/games'
 
-import handleIgdb from '../../../lib/handleIgdb';
+import handleIgdb from '../../../lib/handleIgdb'
 
-import AddButton from './components/AddButton';
+import AddButton from './components/AddButton'
 
 const AddGameModal = ({ openModal, setOpenModal }) => {
-	const { data } = useSession();
-	const { games, handleApi } = useAppContext();
+	const { data } = useSession()
+	const { games, handleApi } = useAppContext()
 
-	const [query, setQuery] = useState();
-	const [searchResults, setSearchResults] = useState([]);
-	const [selectedGame, setSelectedGame] = useState();
-	const [gamePlatforms, setGamePlatforms] = useState([]);
-	const [selectedPlatform, setSelectedPlatform] = useState();
+	const [query, setQuery] = useState()
+	const [searchResults, setSearchResults] = useState([])
+	const [selectedGame, setSelectedGame] = useState()
+	const [gamePlatforms, setGamePlatforms] = useState([])
+	const [selectedPlatform, setSelectedPlatform] = useState()
 
-	const [open, setOpen] = useState(false);
-	const anchorRef = useRef(null);
+	const [open, setOpen] = useState(false)
+	const anchorRef = useRef(null)
 
-	const [noResults, setNoResults] = useState(false);
+	const [noResults, setNoResults] = useState(false)
 
 	const handleToggle = () => {
-		setOpen(prevOpen => !prevOpen);
-	};
+		setOpen((prevOpen) => !prevOpen)
+	}
 
-	const handleClose = event => {
+	const handleClose = (event) => {
 		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return;
+			return
 		}
 
-		setOpen(false);
-	};
+		setOpen(false)
+	}
 
 	function handleListKeyDown(event) {
 		if (event.key === 'Tab') {
-			event.preventDefault();
-			setOpen(false);
+			event.preventDefault()
+			setOpen(false)
 		} else if (event.key === 'Escape') {
-			setOpen(false);
+			setOpen(false)
 		}
 	}
 
 	// return focus to the button when we transitioned from !open -> open
-	const prevOpen = useRef(open);
+	const prevOpen = useRef(open)
 	useEffect(() => {
 		if (prevOpen.current === true && open === false) {
-			anchorRef.current.focus();
+			anchorRef.current.focus()
 		}
 
-		prevOpen.current = open;
-	}, [open]);
+		prevOpen.current = open
+	}, [open])
 
 	const gamePlatformsMemo = useMemo(() => {
-		searchResults.forEach(game => {
+		searchResults.forEach((game) => {
 			if (selectedGame === game.id) {
-				return game.platforms;
+				return game.platforms
 			}
-		});
-	}, [selectedGame, searchResults]);
+		})
+	}, [selectedGame, searchResults])
 
 	const handleSearch = async () => {
-		const res = await handleIgdb(query, 'searchGames');
+		const res = await handleIgdb(query, 'searchGames')
 		if (res.length >= 1) {
-			await setSearchResults(res);
-			setSelectedGame(res[0].id);
-			setNoResults(false);
+			await setSearchResults(res)
+			setSelectedGame(res[0].id)
+			setNoResults(false)
 		} else {
-			setNoResults(true);
+			setNoResults(true)
 		}
-	};
+	}
 
-	const handleChange = async event => await setPlatform(event.target.value);
+	const handleChange = async (event) => await setPlatform(event.target.value)
 
 	useEffect(() => {
-		searchResults.forEach(game => {
+		searchResults.forEach((game) => {
 			if (selectedGame === game.id) {
-				setGamePlatforms(game.platforms);
-				setSelectedPlatform(game.platforms[0].name);
+				setGamePlatforms(game.platforms)
+				setSelectedPlatform(game.platforms[0].name)
 			}
-		});
-	}, [selectedGame]);
+		})
+	}, [selectedGame])
 
 	const handleClearState = () => {
-		setQuery();
-		setSearchResults([]);
-		setSelectedGame();
-		setGamePlatforms([]);
-		setSelectedPlatform();
-	};
+		setQuery()
+		setSearchResults([])
+		setSelectedGame()
+		setGamePlatforms([])
+		setSelectedPlatform()
+	}
 
 	const handleModalClose = () => {
-		handleClearState();
-		setOpenModal(false);
-	};
+		handleClearState()
+		setOpenModal(false)
+	}
 
-	const addAction = async submitBody => {
-		games.forEach(game => {
+	const addAction = async (submitBody) => {
+		games.forEach((game) => {
 			if (game.igdb_id === submitBody.igdb_id) {
-				alert('This game is already in your backlog!');
-				return;
+				alert('This game is already in your backlog!')
+				return
 			}
-		});
-		await addGame(submitBody);
-		await handleApi();
-	};
+		})
+		await addGame(submitBody)
+		await handleApi()
+	}
 
-	const handleSubmit = async status => {
-		const currentDateTime = new Date().toUTCString();
+	const handleSubmit = async (status) => {
+		const currentDateTime = new Date().toUTCString()
 
 		let gameData = {
 			status,
@@ -143,9 +130,9 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 			starred: false,
 			added: currentDateTime,
 			replaying: false,
-		};
+		}
 
-		searchResults.forEach(game => {
+		searchResults.forEach((game) => {
 			if (selectedGame === game.id) {
 				gameData = {
 					...gameData,
@@ -154,14 +141,14 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 					platform: selectedPlatform,
 					img: `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.png`,
 					genres: game.genres,
-				};
-				return;
+				}
+				return
 			}
-		});
+		})
 
-		await addAction(gameData);
-		handleModalClose();
-	};
+		await addAction(gameData)
+		handleModalClose()
+	}
 
 	return (
 		<Dialog onClose={handleModalClose} open={openModal}>
@@ -206,7 +193,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 							label="Game"
 							onChange={({ target }) => setSelectedGame(target.value)}
 						>
-							{searchResults.map(game => (
+							{searchResults.map((game) => (
 								<MenuItem key={game.id} value={game.id}>
 									{game.name}
 								</MenuItem>
@@ -219,7 +206,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 							label="Platform"
 							onChange={({ target }) => setSelectedPlatform(target.value)}
 						>
-							{gamePlatforms?.map(platform => (
+							{gamePlatforms?.map((platform) => (
 								<MenuItem key={platform.id} value={platform?.name}>
 									{platform?.name}
 								</MenuItem>
@@ -246,7 +233,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 				</Typography>
 			</Box>
 		</Dialog>
-	);
-};
+	)
+}
 
-export default AddGameModal;
+export default AddGameModal

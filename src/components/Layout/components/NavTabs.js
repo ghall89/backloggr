@@ -1,14 +1,8 @@
-import { useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router'
 
 import {
-	Badge,
-	Chip,
 	Divider,
 	Drawer,
-	DrawerHeader,
-	Hidden,
-	IconButton,
 	List,
 	ListItem,
 	ListItemButton,
@@ -18,9 +12,9 @@ import {
 	Tabs,
 	Typography,
 	useMediaQuery,
-} from '@mui/material';
+} from '@mui/material'
 
-import { useTheme } from '@mui/styles';
+import { useTheme } from '@mui/styles'
 import {
 	AccountCircle,
 	CheckBox,
@@ -28,9 +22,10 @@ import {
 	EmojiEvents,
 	FormatListBulleted,
 	SportsEsports,
-	BarChart,
 	Logout,
-} from '@mui/icons-material';
+} from '@mui/icons-material'
+
+import { useAppContext } from '/src/AppContext'
 
 const tabs = [
 	{
@@ -53,64 +48,63 @@ const tabs = [
 		label: 'Completed',
 		icon: <EmojiEvents />,
 	},
-];
+]
 
-const NavTabs = ({ setFilter }) => {
-	const { query, pathname } = useRouter();
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-	const [tabState, setTabState] = useState(query.tab || 'not_started');
+const NavTabs = () => {
+	const { query, pathname } = useRouter()
+	const { setFilter, setTabState, tabState } = useAppContext()
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-	const drawerWidth = 250;
+	const drawerWidth = 250
 
 	const handleTabs = (event, newValue) => {
-		setTabState(newValue);
-		setFilter(newValue);
-	};
+		setTabState(newValue)
+		setFilter(newValue)
+		if (pathname === '/account') {
+			Router.push('/backlog')
+		}
+	}
 
 	return (
 		<>
 			{isMobile ? (
-				<>
-					{pathname === '/backlog' ? (
-						<Tabs
-							sx={{
-								position: 'fixed',
-								bottom: 0,
-								left: 0,
-								right: 0,
-								backgroundColor: 'rgba(36, 39, 58, 0.9)',
-								paddingBottom: 3,
-								backdropFilter: 'blur(10px)',
-								boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-								'& .MuiTabs-indicator': {
-									display: 'none',
-								},
-							}}
-							value={tabState}
-							onChange={handleTabs}
-							variant="fullWidth"
-						>
-							{tabs.map(({ value, label, icon }) => (
-								<Tab
-									key={value}
-									value={value}
-									label={
-										<Typography
-											sx={{
-												fontSize: { xs: 11, sm: 13 },
-												textTransform: 'none',
-											}}
-										>
-											{label}
-										</Typography>
-									}
-									icon={icon}
-								/>
-							))}
-						</Tabs>
-					) : null}
-				</>
+				<Tabs
+					sx={{
+						position: 'fixed',
+						bottom: 0,
+						left: 0,
+						right: 0,
+						backgroundColor: 'rgba(36, 39, 58, 0.9)',
+						paddingBottom: 3,
+						backdropFilter: 'blur(10px)',
+						boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+						'& .MuiTabs-indicator': {
+							display: 'none',
+						},
+					}}
+					value={tabState}
+					onChange={handleTabs}
+					variant="fullWidth"
+				>
+					{tabs.map(({ value, label, icon }) => (
+						<Tab
+							key={value}
+							value={value}
+							label={
+								<Typography
+									sx={{
+										fontSize: { xs: 11, sm: 13 },
+										textTransform: 'none',
+									}}
+								>
+									{label}
+								</Typography>
+							}
+							icon={icon}
+						/>
+					))}
+				</Tabs>
 			) : (
 				<Drawer
 					sx={{
@@ -172,7 +166,7 @@ const NavTabs = ({ setFilter }) => {
 				</Drawer>
 			)}
 		</>
-	);
-};
+	)
+}
 
-export default NavTabs;
+export default NavTabs
