@@ -2,15 +2,13 @@ import { useMemo, useCallback, useState } from 'react'
 import Router from 'next/router'
 import { useSession } from 'next-auth/react'
 
-import { ArrowBackIosNew } from '@mui/icons-material'
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material'
 
 import { useAppContext } from '/src/AppContext'
+import Layout from '@components/layout'
 
 import { exportJson } from '@lib/functions'
 import percentageCalc from '@lib/percentageCalc.js'
-
-import { AppBar, NavTabs } from './components'
 
 const handleSaveUsername = async (id, newName) => {
 	const body = {
@@ -53,14 +51,7 @@ const Stats = () => {
 	const saveUsername = () => handleSaveUsername(userData.id, usernameField)
 
 	return (
-		<>
-			<AppBar
-				button={
-					<Button startIcon={<ArrowBackIosNew />} onClick={() => Router.back()}>
-						Back
-					</Button>
-				}
-			/>
+		<Layout>
 			<Box
 				sx={{
 					display: 'flex',
@@ -68,7 +59,6 @@ const Stats = () => {
 					alignItems: 'center',
 					justifyContent: 'center',
 					height: { xs: '60vh', md: '100vh' },
-					paddingLeft: { xs: 0, md: 31 },
 					gap: 6,
 				}}
 			>
@@ -130,8 +120,7 @@ const Stats = () => {
 					</Button>
 				</Box>
 			</Box>
-			<NavTabs setFilter={handleNavTabs} />
-		</>
+		</Layout>
 	)
 }
 

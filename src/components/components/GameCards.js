@@ -142,7 +142,7 @@ const GameMenu = ({ id, status }) => {
 	)
 }
 
-const GameCard = ({ game, setStatus }) => (
+const GameCard = ({ game, setStatus, handleGameModal }) => (
 	<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
 		<Card sx={{ width: '100%', position: 'relative' }}>
 			<Box
@@ -157,7 +157,7 @@ const GameCard = ({ game, setStatus }) => (
 				}}
 			>
 				<GameMenu id={game._id} status={game.status} setStatus={setStatus} />
-				<IconButton onClick={() => Router.push(`/game/${game._id}`)}>
+				<IconButton onClick={() => handleGameModal(game._id)}>
 					<Info />
 				</IconButton>
 			</Box>
@@ -176,7 +176,7 @@ const GameCard = ({ game, setStatus }) => (
 	</Grid>
 )
 
-const GameCards = ({ games, loading, setStatus }) => {
+const GameCards = ({ games, loading, setModalId, setModalOpen }) => {
 	const [starred, setStarred] = useState([])
 	const [unstarred, setUnstarred] = useState([])
 
@@ -187,16 +187,29 @@ const GameCards = ({ games, loading, setStatus }) => {
 		}
 	}, [games])
 
+	const handleGameModal = (id) => {
+		setModalId(id)
+		setModalOpen(true)
+	}
+
 	return (
 		<Box sx={{ padding: 2 }}>
 			{loading ? null : (
 				<>
 					<Grid container spacing={2}>
 						{starred?.map((game) => (
-							<GameCard game={game} key={game._id} setStatus={setStatus} />
+							<GameCard
+								game={game}
+								key={game._id}
+								handleGameModal={handleGameModal}
+							/>
 						))}
 						{unstarred?.map((game) => (
-							<GameCard game={game} key={game._id} setStatus={setStatus} />
+							<GameCard
+								game={game}
+								key={game._id}
+								handleGameModal={handleGameModal}
+							/>
 						))}
 					</Grid>
 				</>

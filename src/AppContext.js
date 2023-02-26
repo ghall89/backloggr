@@ -1,5 +1,12 @@
-import { createContext, useContext, useState, useEffect } from 'react'
+import {
+	createContext,
+	useContext,
+	useState,
+	useEffect,
+	useCallback,
+} from 'react'
 import { useSession } from 'next-auth/react'
+import Router, { useRouter } from 'next/router'
 
 import { getGames } from '@lib/games'
 import userHandler from '@lib/users'
@@ -8,13 +15,16 @@ const AppContext = createContext()
 
 export const ContextWrapper = ({ children }) => {
 	const { data, status } = useSession()
+	const { query, pathname } = useRouter()
 	const [userData, setUserData] = useState()
 	const [games, setGames] = useState()
 	const [loading, setLoading] = useState(true)
+	const [filter, setFilter] = useState(query.tab || 'not_started')
+	const [tabState, setTabState] = useState(query.tab || 'not_started')
 
 	const user = data?.user
 
-	const handleApi = () => {
+	const handleApi = useCallback(() => {
 		setLoading(true)
 		setTimeout(async () => {
 			const res = await getGames(user?.id)
@@ -22,7 +32,7 @@ export const ContextWrapper = ({ children }) => {
 			window.sessionStorage.setItem('games', JSON.stringify(res))
 			setLoading(false)
 		}, 1000)
-	}
+	}, [user])
 
 	useEffect(() => {
 		const session = window.sessionStorage.getItem('games')
@@ -36,7 +46,7 @@ export const ContextWrapper = ({ children }) => {
 		if (status === 'authenticated') {
 			handleApi()
 		}
-	}, [status])
+	}, [status, handleApi])
 
 	useEffect(() => {
 		if (user) {
@@ -47,7 +57,19 @@ export const ContextWrapper = ({ children }) => {
 	// useEffect(() => console.log(userData), [userData]);
 
 	return (
-		<AppContext.Provider value={{ games, handleApi, loading, user, userData }}>
+		<AppContext.Provider
+			value={{
+				games,
+				handleApi,
+				loading,
+				user,
+				userData,
+				filter,
+				setFilter,
+				tabState,
+				setTabState,
+			}}
+		>
 			{children}
 		</AppContext.Provider>
 	)

@@ -2,15 +2,6 @@ import Router from 'next/router'
 
 import { deleteGame, updateGame } from './games'
 
-// // get user's games
-// const handleApi = () => {
-// 	setTimeout(async () => {
-// 		const res = await getGames(data?.user.id);
-// 		setGames(res);
-// 		window.sessionStorage.setItem('games', JSON.stringify(res));
-// 	}, 1000);
-// };
-
 // filter game by starred status
 const starFilter = (games, bool) => {
 	const arr = []
@@ -83,7 +74,7 @@ const exportJson = (username, obj) => {
 	document.body.removeChild(element)
 }
 
-// sort games by
+// sort games by title
 const handleSorting = (a, b) => {
 	var titleA = a.title.toUpperCase()
 	var titleB = b.title.toUpperCase()

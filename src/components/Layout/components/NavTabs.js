@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Router, { useRouter } from 'next/router'
 
 import {
@@ -26,6 +25,8 @@ import {
 	Logout,
 } from '@mui/icons-material'
 
+import { useAppContext } from '/src/AppContext'
+
 const tabs = [
 	{
 		value: 'not_started',
@@ -49,11 +50,11 @@ const tabs = [
 	},
 ]
 
-const NavTabs = ({ setFilter }) => {
+const NavTabs = () => {
 	const { query, pathname } = useRouter()
+	const { setFilter, setTabState, tabState } = useAppContext()
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-	const [tabState, setTabState] = useState(query.tab || 'not_started')
 
 	const drawerWidth = 250
 
@@ -65,46 +66,42 @@ const NavTabs = ({ setFilter }) => {
 	return (
 		<>
 			{isMobile ? (
-				<>
-					{pathname === '/backlog' ? (
-						<Tabs
-							sx={{
-								position: 'fixed',
-								bottom: 0,
-								left: 0,
-								right: 0,
-								backgroundColor: 'rgba(36, 39, 58, 0.9)',
-								paddingBottom: 3,
-								backdropFilter: 'blur(10px)',
-								boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-								'& .MuiTabs-indicator': {
-									display: 'none',
-								},
-							}}
-							value={tabState}
-							onChange={handleTabs}
-							variant="fullWidth"
-						>
-							{tabs.map(({ value, label, icon }) => (
-								<Tab
-									key={value}
-									value={value}
-									label={
-										<Typography
-											sx={{
-												fontSize: { xs: 11, sm: 13 },
-												textTransform: 'none',
-											}}
-										>
-											{label}
-										</Typography>
-									}
-									icon={icon}
-								/>
-							))}
-						</Tabs>
-					) : null}
-				</>
+				<Tabs
+					sx={{
+						position: 'fixed',
+						bottom: 0,
+						left: 0,
+						right: 0,
+						backgroundColor: 'rgba(36, 39, 58, 0.9)',
+						paddingBottom: 3,
+						backdropFilter: 'blur(10px)',
+						boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+						'& .MuiTabs-indicator': {
+							display: 'none',
+						},
+					}}
+					value={tabState}
+					onChange={handleTabs}
+					variant="fullWidth"
+				>
+					{tabs.map(({ value, label, icon }) => (
+						<Tab
+							key={value}
+							value={value}
+							label={
+								<Typography
+									sx={{
+										fontSize: { xs: 11, sm: 13 },
+										textTransform: 'none',
+									}}
+								>
+									{label}
+								</Typography>
+							}
+							icon={icon}
+						/>
+					))}
+				</Tabs>
 			) : (
 				<Drawer
 					sx={{
