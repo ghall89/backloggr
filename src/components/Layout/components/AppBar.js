@@ -1,4 +1,5 @@
 import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import Router from 'next/router'
 
@@ -86,7 +87,7 @@ const AppBarComponent = ({ title, button }) => {
 								{!data?.user.image ? (
 									<AccountCircle fontSize="inherit" />
 								) : (
-									<img
+									<Image
 										src={data?.user.image}
 										alt={`${data?.user.name}'s avatar`}
 										width={45}

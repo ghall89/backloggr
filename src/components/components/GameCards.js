@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react'
-import Router from 'next/router'
 
 import {
 	Box,
