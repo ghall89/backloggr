@@ -7,10 +7,11 @@ import {
 	DialogTitle,
 } from '@mui/material'
 
-const ConfirmModal = ({ open, setOpen, confirmAction }) => {
+const ConfirmModal = ({ open, setOpen, confirmAction, closeGameModal }) => {
 	const handleConfirm = async () => {
 		await confirmAction()
 		setOpen(false)
+		closeGameModal()
 	}
 
 	return (

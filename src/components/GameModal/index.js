@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 import { useSession } from 'next-auth/react'
 
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import {
 	Box,
@@ -68,8 +68,6 @@ const GameModal = ({ id, open, modalClose }) => {
 	}, [game])
 
 	const handleDelete = () => setOpenConfirm(true)
-
-	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`)
 
 	useEffect(() => {
 		if (status === 'authenticated' && id) {
@@ -188,7 +186,11 @@ const GameModal = ({ id, open, modalClose }) => {
 										<Typography>{gameDetails?.summary}</Typography>
 									</Fade>
 								</Box>
-								<StatusButton gameStatus={game?.status} />
+								<StatusButton
+									gameStatus={game?.status}
+									setStatus={setStatus}
+									game={game}
+								/>
 								{game?.status === 'finished' || game?.status === 'completed' ? (
 									<Button
 										color="secondary"
@@ -215,6 +217,7 @@ const GameModal = ({ id, open, modalClose }) => {
 					<ConfirmModal
 						open={openConfirm}
 						setOpen={setOpenConfirm}
+						closeGameModal={modalClose}
 						confirmAction={() => deleteAction(id, handleApi)}
 					/>
 				</Dialog>

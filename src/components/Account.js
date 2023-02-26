@@ -24,13 +24,11 @@ const handleSaveUsername = async (id, newName) => {
 		body: JSON.stringify(body),
 	})
 }
-const Stats = () => {
+const Account = () => {
 	const { data } = useSession()
 	const { games, user, userData } = useAppContext()
 
 	const [usernameField, setUsernameField] = useState()
-
-	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`)
 
 	const percentCallback = useCallback(
 		(status) => percentageCalc(status, games),
@@ -124,4 +122,4 @@ const Stats = () => {
 	)
 }
 
-export default Stats
+export default Account

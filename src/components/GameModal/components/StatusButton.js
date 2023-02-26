@@ -1,14 +1,18 @@
 import { Button } from '@mui/material'
 import { CheckBox, EmojiEvents, SportsEsports } from '@mui/icons-material'
 
-const StatusButton = ({ gameStatus }) => {
+import { useAppContext } from '/src/AppContext'
+
+const StatusButton = ({ gameStatus, setStatus, game }) => {
+	const { handleApi } = useAppContext()
+
 	switch (gameStatus) {
 		case 'not_started':
 			return (
 				<Button
 					fullWidth
 					variant="contained"
-					onClick={() => setStatus(game._id, 'in_progress')}
+					onClick={() => setStatus(game._id, 'in_progress', null, handleApi)}
 					startIcon={<SportsEsports />}
 				>
 					Playing
@@ -19,7 +23,7 @@ const StatusButton = ({ gameStatus }) => {
 				<Button
 					fullWidth
 					variant="contained"
-					onClick={() => setStatus(game._id, 'finished')}
+					onClick={() => setStatus(game._id, 'finished', null, handleApi)}
 					startIcon={<CheckBox />}
 				>
 					Finished
@@ -30,7 +34,7 @@ const StatusButton = ({ gameStatus }) => {
 				<Button
 					fullWidth
 					variant="contained"
-					onClick={() => setStatus(game._id, 'completed')}
+					onClick={() => setStatus(game._id, 'completed', null, handleApi)}
 					startIcon={<EmojiEvents />}
 				>
 					Completed

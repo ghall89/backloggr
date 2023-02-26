@@ -37,7 +37,7 @@ const setStatus = async (id, newStatus, replaying, handleApi) => {
 	await updateGame(JSON.stringify(params))
 	window.sessionStorage.clear()
 	handleApi()
-	Router.push(`/backlog?tab=${newStatus}`)
+	Router.push(`/`)
 }
 
 const setStarStatus = async (bool, id, game, setGame, handleApi) => {
@@ -51,7 +51,7 @@ const deleteAction = async (id, handleApi) => {
 	await deleteGame(id)
 	await window.sessionStorage.clear()
 	handleApi()
-	Router.push('/backlog')
+	Router.push('/')
 }
 
 // Export user's data as a JSON file

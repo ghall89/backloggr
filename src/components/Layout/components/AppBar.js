@@ -68,7 +68,7 @@ const AppBarComponent = ({ title, button }) => {
 						variant="h4"
 						component="div"
 						sx={{ flexGrow: 1 }}
-						href="/backlog"
+						href="/"
 					>
 						{title ? title : ''}
 						{button ? button : null}
