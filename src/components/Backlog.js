@@ -9,7 +9,7 @@ import { Add } from '@mui/icons-material'
 import { useTheme } from '@mui/styles'
 
 import { useAppContext } from '/src/AppContext'
-import Layout from '@components/layout'
+import Layout from '@components/Layout'
 
 import { AddGameModal, GameCards, LoadingOverlay } from './components'
 import GameModal from './GameModal'

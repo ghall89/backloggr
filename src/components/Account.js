@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material'
 
 import { useAppContext } from '/src/AppContext'
-import Layout from '@components/layout'
+import Layout from '@components/Layout'
 
 import { exportJson } from '@lib/functions'
 import percentageCalc from '@lib/percentageCalc.js'
