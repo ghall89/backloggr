@@ -61,6 +61,9 @@ const NavTabs = () => {
 	const handleTabs = (event, newValue) => {
 		setTabState(newValue)
 		setFilter(newValue)
+		if (pathname === '/account') {
+			Router.push('/backlog')
+		}
 	}
 
 	return (

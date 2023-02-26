@@ -6,7 +6,7 @@ import {
 	useCallback,
 } from 'react'
 import { useSession } from 'next-auth/react'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import { getGames } from '@lib/games'
 import userHandler from '@lib/users'
@@ -53,8 +53,6 @@ export const ContextWrapper = ({ children }) => {
 			userHandler(user, setUserData)
 		}
 	}, [user])
-
-	// useEffect(() => console.log(userData), [userData]);
 
 	return (
 		<AppContext.Provider

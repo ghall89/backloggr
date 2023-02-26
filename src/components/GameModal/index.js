@@ -72,7 +72,7 @@ const GameModal = ({ id, open, modalClose }) => {
 	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`)
 
 	useEffect(() => {
-		if (status === 'authenticated') {
+		if (status === 'authenticated' && id) {
 			games.forEach((game) => {
 				if (game._id === id) {
 					setGame(game)
@@ -92,7 +92,7 @@ const GameModal = ({ id, open, modalClose }) => {
 			setGame(null)
 			setGameDetails(null)
 		}
-	})
+	}, [open])
 
 	return (
 		<>
