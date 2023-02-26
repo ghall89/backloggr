@@ -1,6 +1,6 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-import Account from '@components/Account'
+import Account from '../src/components/Account';
 
 const AccountPage = () => (
 	<>
@@ -9,6 +9,6 @@ const AccountPage = () => (
 		</Head>
 		<Account />
 	</>
-)
+);
 
-export default AccountPage
+export default AccountPage;

@@ -5,13 +5,13 @@ import {
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
-} from '@mui/material'
+} from '@mui/material';
 
 const ConfirmModal = ({ open, setOpen, confirmAction }) => {
 	const handleConfirm = async () => {
-		await confirmAction()
-		setOpen(false)
-	}
+		await confirmAction();
+		setOpen(false);
+	};
 
 	return (
 		<Dialog
@@ -42,7 +42,7 @@ const ConfirmModal = ({ open, setOpen, confirmAction }) => {
 				</Button>
 			</DialogActions>
 		</Dialog>
-	)
-}
+	);
+};
 
-export default ConfirmModal
+export default ConfirmModal;

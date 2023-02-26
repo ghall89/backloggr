@@ -1,5 +1,19 @@
-import Backlog from '@components/Backlog'
+import Head from 'next/head';
+import Login from '../src/components/Login';
 
-const BacklogPage = () => <Backlog />
+const LoginPage = () => (
+	<div>
+		<Head>
+			<title>Backloggr - Login</title>
+			<meta
+				name="description"
+				content="A gaming backlog manager built with Next.js!"
+			/>
+		</Head>
+		<main>
+			<Login />
+		</main>
+	</div>
+);
 
-export default BacklogPage
+export default LoginPage;

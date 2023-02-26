@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-let Schema = mongoose.Schema
+const mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 let gameSchema = new Schema({
 	igdb_id: String,
@@ -15,6 +15,6 @@ let gameSchema = new Schema({
 	starred: Boolean,
 	replaying: Boolean,
 	archived: Boolean,
-})
+});
 
-module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema)
+module.exports = mongoose.models.Game || mongoose.model('Game', gameSchema);

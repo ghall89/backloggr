@@ -4,24 +4,24 @@ import {
 	SiPlaystation4,
 	SiPlaystation3,
 	SiPlaystation2,
-} from 'react-icons/si'
-import { GiRetroController } from 'react-icons/gi'
+} from 'react-icons/si';
+import { GiRetroController } from 'react-icons/gi';
 
 const PlatformIcon = ({ label }) => {
 	switch (label) {
 		case 'Nintendo Switch':
-			return <SiNintendoswitch />
+			return <SiNintendoswitch />;
 		case 'PlayStation 2':
-			return <SiPlaystation2 />
+			return <SiPlaystation2 />;
 		case 'PlayStation 3':
-			return <SiPlaystation3 />
+			return <SiPlaystation3 />;
 		case 'PlayStation 4':
-			return <SiPlaystation4 />
+			return <SiPlaystation4 />;
 		case 'PlayStation 5':
-			return <SiPlaystation5 />
+			return <SiPlaystation5 />;
 		default:
-			return <GiRetroController />
+			return <GiRetroController />;
 	}
-}
+};
 
-export default PlatformIcon
+export default PlatformIcon;

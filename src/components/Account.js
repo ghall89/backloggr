@@ -1,20 +1,30 @@
-import { useMemo, useCallback, useState } from 'react'
-import Router from 'next/router'
-import { useSession } from 'next-auth/react'
+import { useMemo, useCallback, useState } from 'react';
+import Router, { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
-import { Avatar, Box, Button, Grid, Typography } from '@mui/material'
+import { ArrowBackIosNew } from '@mui/icons-material';
+import {
+	Avatar,
+	Box,
+	Button,
+	FormControl,
+	Grid,
+	TextField,
+	Typography,
+} from '@mui/material';
 
-import { useAppContext } from '/src/AppContext'
-import Layout from '@components/layout'
+import { useAppContext } from '../AppContext';
 
-import { exportJson } from '@lib/functions'
-import percentageCalc from '@lib/percentageCalc.js'
+import { exportJson } from '../lib/functions';
+import percentageCalc from '../lib/percentageCalc.js';
+
+import { AppBar, NavTabs } from './components';
 
 const handleSaveUsername = async (id, newName) => {
 	const body = {
 		id,
 		params: { username: newName },
-	}
+	};
 
 	const res = fetch('/api/users', {
 		method: 'PUT',
@@ -22,36 +32,43 @@ const handleSaveUsername = async (id, newName) => {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(body),
-	})
-}
+	});
+};
 const Stats = () => {
-	const { data } = useSession()
-	const { games, user, userData } = useAppContext()
+	const { data } = useSession();
+	const { games, user, userData } = useAppContext();
 
-	const [usernameField, setUsernameField] = useState()
+	const [usernameField, setUsernameField] = useState();
 
-	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`)
+	const handleNavTabs = (filter) => Router.push(`/backlog?tab=${filter}`);
 
 	const percentCallback = useCallback(
 		(status) => percentageCalc(status, games),
 		[games]
-	)
+	);
 
 	const finishedPercentMemo = useMemo(
 		() => percentCallback('finished'),
 		[percentCallback]
-	)
+	);
 	const completedPercentMemo = useMemo(
 		() => percentCallback('completed'),
 		[percentCallback]
-	)
+	);
 
-	const handleUsername = ({ target }) => setUsernameField(target.value)
+	const handleUsername = ({ target }) => setUsernameField(target.value);
 
-	const saveUsername = () => handleSaveUsername(userData.id, usernameField)
+	const saveUsername = () => handleSaveUsername(userData.id, usernameField);
 
 	return (
-		<Layout>
+		<>
+			<AppBar
+				button={
+					<Button startIcon={<ArrowBackIosNew />} onClick={() => Router.back()}>
+						Back
+					</Button>
+				}
+			/>
 			<Box
 				sx={{
 					display: 'flex',
@@ -59,6 +76,7 @@ const Stats = () => {
 					alignItems: 'center',
 					justifyContent: 'center',
 					height: { xs: '60vh', md: '100vh' },
+					paddingLeft: { xs: 0, md: 31 },
 					gap: 6,
 				}}
 			>
@@ -120,8 +138,9 @@ const Stats = () => {
 					</Button>
 				</Box>
 			</Box>
-		</Layout>
-	)
-}
+			<NavTabs setFilter={handleNavTabs} />
+		</>
+	);
+};
 
-export default Stats
+export default Stats;
