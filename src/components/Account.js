@@ -1,5 +1,4 @@
 import { useMemo, useCallback, useState } from 'react'
-import Router from 'next/router'
 import { useSession } from 'next-auth/react'
 
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material'
