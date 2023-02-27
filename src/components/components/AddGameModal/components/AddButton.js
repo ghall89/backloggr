@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useRef } from 'react'
 import {
 	Button,
@@ -100,6 +101,10 @@ const AddButton = ({ handleSubmit }) => {
 			</Popper>
 		</>
 	)
+}
+
+AddButton.propTypes = {
+	handleSubmit: PropTypes.func.isRequired,
 }
 
 export default AddButton

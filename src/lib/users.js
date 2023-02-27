@@ -1,5 +1,3 @@
-const saveUser = (user) => {}
-
 const userHandler = async (user, setUserData) => {
 	if (!user) {
 		return 'Error: No user object provided'

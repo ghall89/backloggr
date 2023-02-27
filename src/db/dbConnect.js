@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI
+const { MONGODB_URI } = process.env
 
 if (!MONGODB_URI) {
 	throw new Error(
@@ -24,19 +24,19 @@ async function dbConnect() {
 			bufferCommands: false,
 		}
 
-		cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-			return mongoose
-		})
-	}
+		cached.promise = mongoose
+			.connect(MONGODB_URI, opts)
+			.then((mongoose) => mongoose)
 
-	try {
-		cached.conn = await cached.promise
-	} catch (e) {
-		cached.promise = null
-		throw e
-	}
+		try {
+			cached.conn = await cached.promise
+		} catch (e) {
+			cached.promise = null
+			throw e
+		}
 
-	return cached.conn
+		return cached.conn
+	}
 }
 
 export default dbConnect

@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
+import { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 
 import {
@@ -36,27 +37,6 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 
 	const [noResults, setNoResults] = useState(false)
 
-	const handleToggle = () => {
-		setOpen((prevOpen) => !prevOpen)
-	}
-
-	const handleClose = (event) => {
-		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return
-		}
-
-		setOpen(false)
-	}
-
-	function handleListKeyDown(event) {
-		if (event.key === 'Tab') {
-			event.preventDefault()
-			setOpen(false)
-		} else if (event.key === 'Escape') {
-			setOpen(false)
-		}
-	}
-
 	// return focus to the button when we transitioned from !open -> open
 	const prevOpen = useRef(open)
 	useEffect(() => {
@@ -66,14 +46,6 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 
 		prevOpen.current = open
 	}, [open])
-
-	const gamePlatformsMemo = useMemo(() => {
-		searchResults.forEach((game) => {
-			if (selectedGame === game.id) {
-				return game.platforms
-			}
-		})
-	}, [selectedGame, searchResults])
 
 	const handleSearch = async () => {
 		const res = await handleIgdb(query, 'searchGames')
@@ -86,8 +58,6 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 		}
 	}
 
-	const handleChange = async (event) => await setPlatform(event.target.value)
-
 	useEffect(() => {
 		searchResults.forEach((game) => {
 			if (selectedGame === game.id) {
@@ -95,7 +65,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 				setSelectedPlatform(game.platforms[0].name)
 			}
 		})
-	}, [selectedGame])
+	}, [selectedGame, searchResults])
 
 	const handleClearState = () => {
 		setQuery()
@@ -142,7 +112,6 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 					img: `https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.png`,
 					genres: game.genres,
 				}
-				return
 			}
 		})
 
@@ -176,7 +145,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 							</Typography>
 						) : null}
 						<Button
-							disabled={query?.length > 0 ? false : true}
+							disabled={!query?.length > 0}
 							onClick={() => handleSearch()}
 							variant="contained"
 							startIcon={<Search />}
@@ -234,6 +203,11 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 			</Box>
 		</Dialog>
 	)
+}
+
+AddGameModal.propTypes = {
+	openModal: PropTypes.func.isRequired,
+	setOpenModal: PropTypes.func.isRequired,
 }
 
 export default AddGameModal

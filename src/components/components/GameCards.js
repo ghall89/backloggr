@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useEffect, useState, useRef } from 'react'
 
 import {
@@ -41,7 +42,7 @@ const GameMenu = ({ id, status }) => {
 		setOpen(false)
 	}
 
-	function handleListKeyDown(event) {
+	const handleListKeyDown = (event) => {
 		if (event.key === 'Tab') {
 			event.preventDefault()
 			setOpen(false)
@@ -141,7 +142,12 @@ const GameMenu = ({ id, status }) => {
 	)
 }
 
-const GameCard = ({ game, setStatus, handleGameModal }) => (
+GameMenu.propTypes = {
+	id: PropTypes.string.isRequired,
+	status: PropTypes.string.isRequired,
+}
+
+const GameCard = ({ game, handleGameModal }) => (
 	<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
 		<Card sx={{ width: '100%', position: 'relative' }}>
 			<Box
@@ -175,6 +181,12 @@ const GameCard = ({ game, setStatus, handleGameModal }) => (
 	</Grid>
 )
 
+GameCard.propTypes = {
+	game: PropTypes.object.isRequired,
+	setStatus: PropTypes.func.isRequired,
+	handleGameModal: PropTypes.func.isRequired,
+}
+
 const GameCards = ({ games, loading, setModalId, setModalOpen }) => {
 	const [starred, setStarred] = useState([])
 	const [unstarred, setUnstarred] = useState([])
@@ -194,27 +206,32 @@ const GameCards = ({ games, loading, setModalId, setModalOpen }) => {
 	return (
 		<Box sx={{ padding: 2 }}>
 			{loading ? null : (
-				<>
-					<Grid container spacing={2}>
-						{starred?.map((game) => (
-							<GameCard
-								game={game}
-								key={game._id}
-								handleGameModal={handleGameModal}
-							/>
-						))}
-						{unstarred?.map((game) => (
-							<GameCard
-								game={game}
-								key={game._id}
-								handleGameModal={handleGameModal}
-							/>
-						))}
-					</Grid>
-				</>
+				<Grid container spacing={2}>
+					{starred?.map((game) => (
+						<GameCard
+							game={game}
+							key={game._id}
+							handleGameModal={handleGameModal}
+						/>
+					))}
+					{unstarred?.map((game) => (
+						<GameCard
+							game={game}
+							key={game._id}
+							handleGameModal={handleGameModal}
+						/>
+					))}
+				</Grid>
 			)}
 		</Box>
 	)
+}
+
+GameCards.propTypes = {
+	games: PropTypes.object.isRequired,
+	loading: PropTypes.bool.isRequired,
+	setModalId: PropTypes.func.isRequired,
+	setModalOpen: PropTypes.func.isRequired,
 }
 
 export default GameCards

@@ -1,5 +1,4 @@
-import { useMemo, useCallback, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useMemo, useCallback } from 'react'
 
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material'
 
@@ -7,27 +6,26 @@ import { useAppContext } from '/src/AppContext'
 import Layout from '@components/Layout'
 
 import { exportJson } from '@lib/functions'
-import percentageCalc from '@lib/percentageCalc.js'
+import percentageCalc from '@lib/percentageCalc'
 
-const handleSaveUsername = async (id, newName) => {
-	const body = {
-		id,
-		params: { username: newName },
-	}
-
-	const res = fetch('/api/users', {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(body),
-	})
-}
+// const handleSaveUsername = async (id, newName) => {
+// 	const body = {
+// 		id,
+// 		params: { username: newName },
+// 	}
+//
+// 	const res = fetch('/api/users', {
+// 		method: 'PUT',
+// 		headers: {
+// 			'Content-Type': 'application/json',
+// 		},
+// 		body: JSON.stringify(body),
+// 	})
+// }
 const Account = () => {
-	const { data } = useSession()
 	const { games, user, userData } = useAppContext()
 
-	const [usernameField, setUsernameField] = useState()
+	// const [usernameField, setUsernameField] = useState()
 
 	const percentCallback = useCallback(
 		(status) => percentageCalc(status, games),
@@ -43,9 +41,9 @@ const Account = () => {
 		[percentCallback]
 	)
 
-	const handleUsername = ({ target }) => setUsernameField(target.value)
-
-	const saveUsername = () => handleSaveUsername(userData.id, usernameField)
+	// 	const handleUsername = ({ target }) => setUsernameField(target.value)
+	//
+	// 	const saveUsername = () => handleSaveUsername(userData.id, usernameField)
 
 	return (
 		<Layout>
@@ -97,13 +95,13 @@ const Account = () => {
 						</Grid>
 						<Grid item xs={4}>
 							<Typography sx={{ fontSize: 40 }}>
-								{finishedPercentMemo}%
+								{`${finishedPercentMemo}%`}
 							</Typography>
 							<Typography>Finished</Typography>
 						</Grid>
 						<Grid item xs={4}>
 							<Typography sx={{ fontSize: 40 }}>
-								{completedPercentMemo}%
+								{`${completedPercentMemo}%`}
 							</Typography>
 							<Typography>Completed</Typography>
 						</Grid>

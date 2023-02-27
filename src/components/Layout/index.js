@@ -1,13 +1,13 @@
+import PropTypes from 'prop-types'
 import { useMemo } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { Box } from '@mui/material'
+import Login from '@components/Login'
 import { AppBar, NavTabs } from './components'
 
-import Login from '@components/Login'
-
 const Layout = ({ children, title }) => {
-	const { data, status } = useSession()
+	const { status } = useSession()
 
 	const authMemo = useMemo(() => status !== 'authenticated', [status])
 
@@ -21,6 +21,11 @@ const Layout = ({ children, title }) => {
 			<Login open={authMemo} />
 		</>
 	)
+}
+
+Layout.propTypes = {
+	children: PropTypes.object.isRequired,
+	title: PropTypes.string.isRequired,
 }
 
 export default Layout

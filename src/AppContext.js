@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import {
 	createContext,
 	useContext,
@@ -15,7 +16,7 @@ const AppContext = createContext()
 
 export const ContextWrapper = ({ children }) => {
 	const { data, status } = useSession()
-	const { query, pathname } = useRouter()
+	const { query } = useRouter()
 	const [userData, setUserData] = useState()
 	const [games, setGames] = useState()
 	const [loading, setLoading] = useState(true)
@@ -71,6 +72,10 @@ export const ContextWrapper = ({ children }) => {
 			{children}
 		</AppContext.Provider>
 	)
+}
+
+ContextWrapper.propTypes = {
+	children: PropTypes.object.isRequired,
 }
 
 export const useAppContext = () => useContext(AppContext)

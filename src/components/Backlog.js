@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 import { useSession } from 'next-auth/react'
 
@@ -19,13 +18,11 @@ const Backlog = () => {
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-	const { query } = useRouter()
-	const { games, handleApi, loading, filter } = useAppContext()
+	const { games, loading, filter } = useAppContext()
 
 	const [title, setTitle] = useState('Backlog')
 	const [filteredGames, setFilteredGames] = useState()
 	const [openModal, setOpenModal] = useState(false)
-	const [viewMode, setViewMode] = useState('grid')
 
 	const [modalId, setModalId] = useState()
 	const [gameModalOpen, setGameModalOpen] = useState(false)
@@ -74,9 +71,9 @@ const Backlog = () => {
 				<>
 					{data?.user.name ? (
 						<Head>
-							<title>{`Backloggr - ${
-								data?.user.name.split(' ')[0]
-							}'s Backlog`}</title>
+							<title>
+								{`Backloggr - ${data?.user.name.split(' ')[0]}'s Backlog`}
+							</title>
 						</Head>
 					) : null}
 

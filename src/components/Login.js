@@ -1,14 +1,14 @@
 import Image from 'next/image'
-import { useSession } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 
 import { FaDiscord, FaTwitch } from 'react-icons/fa'
 
-import { signIn } from 'next-auth/react'
+import PropTypes from 'prop-types'
 
 import { Box, Button, Dialog, Typography } from '@mui/material'
 
 const Login = ({ open }) => {
-	const { data, status } = useSession()
+	const { status } = useSession()
 
 	return (
 		<Dialog open={open}>
@@ -39,7 +39,7 @@ const Login = ({ open }) => {
 					onClick={() => signIn('discord')}
 					variant="contained"
 					startIcon={<FaDiscord />}
-					disabled={status !== 'unauthenticated' ? true : false}
+					disabled={status !== 'unauthenticated'}
 				>
 					Discord Login
 				</Button>
@@ -49,13 +49,17 @@ const Login = ({ open }) => {
 					onClick={() => signIn('twitch')}
 					variant="contained"
 					startIcon={<FaTwitch />}
-					disabled={status !== 'unauthenticated' ? true : false}
+					disabled={status !== 'unauthenticated'}
 				>
 					Twitch Login
 				</Button>
 			</Box>
 		</Dialog>
 	)
+}
+
+Login.propTypes = {
+	open: PropTypes.bool.isRequired,
 }
 
 export default Login

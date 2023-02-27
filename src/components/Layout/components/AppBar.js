@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
@@ -21,8 +22,8 @@ import {
 } from '@mui/material'
 import { AccountCircle, Coffee, Logout } from '@mui/icons-material'
 
-const AppBarComponent = ({ title, button }) => {
-	const { data, status } = useSession()
+const AppBar = ({ title }) => {
+	const { data } = useSession()
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -60,104 +61,96 @@ const AppBarComponent = ({ title, button }) => {
 		prevOpen.current = open
 	}, [open])
 
-	return (
-		<>
-			{isMobile ? (
-				<Toolbar sx={{ padding: 2, zIndex: 100 }}>
-					<Typography
-						variant="h4"
-						component="div"
-						sx={{ flexGrow: 1 }}
-						href="/"
+	return isMobile ? (
+		<Toolbar sx={{ padding: 2, zIndex: 100 }}>
+			<Typography variant="h4" component="div" sx={{ flexGrow: 1 }} href="/">
+				{title ? title : ''}
+			</Typography>
+			{!data?.user ? null : (
+				<div>
+					<IconButton
+						ref={anchorRef}
+						id="composition-button"
+						aria-controls={open ? 'composition-menu' : undefined}
+						aria-expanded={open ? 'true' : undefined}
+						aria-haspopup="true"
+						onClick={handleToggle}
+						size="large"
 					>
-						{title ? title : ''}
-						{button ? button : null}
-					</Typography>
-					{!data?.user ? null : (
-						<div>
-							<IconButton
-								ref={anchorRef}
-								id="composition-button"
-								aria-controls={open ? 'composition-menu' : undefined}
-								aria-expanded={open ? 'true' : undefined}
-								aria-haspopup="true"
-								onClick={handleToggle}
-								size="large"
+						{!data?.user.image ? (
+							<AccountCircle fontSize="inherit" />
+						) : (
+							<Image
+								src={data?.user.image}
+								alt={`${data?.user.name}'s avatar`}
+								width={45}
+								height={45}
+								style={{ borderRadius: 30 }}
+							/>
+						)}
+					</IconButton>
+					<Popper
+						open={open}
+						anchorEl={anchorRef.current}
+						role={undefined}
+						placement="bottom-start"
+						transition
+						disablePortal
+					>
+						{({ TransitionProps, placement }) => (
+							<Grow
+								{...TransitionProps}
+								style={{
+									transformOrigin:
+										placement === 'bottom-start' ? 'left top' : 'left bottom',
+								}}
 							>
-								{!data?.user.image ? (
-									<AccountCircle fontSize="inherit" />
-								) : (
-									<Image
-										src={data?.user.image}
-										alt={`${data?.user.name}'s avatar`}
-										width={45}
-										height={45}
-										style={{ borderRadius: 30 }}
-									/>
-								)}
-							</IconButton>
-							<Popper
-								open={open}
-								anchorEl={anchorRef.current}
-								role={undefined}
-								placement="bottom-start"
-								transition
-								disablePortal
-							>
-								{({ TransitionProps, placement }) => (
-									<Grow
-										{...TransitionProps}
-										style={{
-											transformOrigin:
-												placement === 'bottom-start'
-													? 'left top'
-													: 'left bottom',
-										}}
-									>
-										<Paper>
-											<ClickAwayListener onClickAway={handleClose}>
-												<MenuList
-													autoFocusItem={open}
-													id="user-menu"
-													aria-labelledby="user-button"
-													onKeyDown={handleListKeyDown}
-												>
-													<MenuItem onClick={() => Router.push('/account')}>
-														<ListItemIcon>
-															<AccountCircle fontSize="small" />
-														</ListItemIcon>
-														<ListItemText>Account</ListItemText>
-													</MenuItem>
-													<MenuItem
-														onClick={() =>
-															window.open('https://ko-fi.com/backloggr')
-														}
-													>
-														<ListItemIcon>
-															<Coffee fontSize="small" />
-														</ListItemIcon>
-														<ListItemText>Support on ko-fi</ListItemText>
-													</MenuItem>
-													<MenuItem
-														onClick={() => Router.push('/api/auth/signout')}
-													>
-														<ListItemIcon>
-															<Logout fontSize="small" />
-														</ListItemIcon>
-														<ListItemText>Logout</ListItemText>
-													</MenuItem>
-												</MenuList>
-											</ClickAwayListener>
-										</Paper>
-									</Grow>
-								)}
-							</Popper>
-						</div>
-					)}
-				</Toolbar>
-			) : null}
-		</>
-	)
+								<Paper>
+									<ClickAwayListener onClickAway={handleClose}>
+										<MenuList
+											autoFocusItem={open}
+											id="user-menu"
+											aria-labelledby="user-button"
+											onKeyDown={handleListKeyDown}
+										>
+											<MenuItem onClick={() => Router.push('/account')}>
+												<ListItemIcon>
+													<AccountCircle fontSize="small" />
+												</ListItemIcon>
+												<ListItemText>Account</ListItemText>
+											</MenuItem>
+											<MenuItem
+												onClick={() =>
+													window.open('https://ko-fi.com/backloggr')
+												}
+											>
+												<ListItemIcon>
+													<Coffee fontSize="small" />
+												</ListItemIcon>
+												<ListItemText>Support on ko-fi</ListItemText>
+											</MenuItem>
+											<MenuItem
+												onClick={() => Router.push('/api/auth/signout')}
+											>
+												<ListItemIcon>
+													<Logout fontSize="small" />
+												</ListItemIcon>
+												<ListItemText>Logout</ListItemText>
+											</MenuItem>
+										</MenuList>
+									</ClickAwayListener>
+								</Paper>
+							</Grow>
+						)}
+					</Popper>
+				</div>
+			)}
+		</Toolbar>
+	) : null
 }
 
-export default AppBarComponent
+AppBar.propTypes = {
+	title: PropTypes.string.isRequired,
+}
+
+export default AppBar
