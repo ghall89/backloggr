@@ -1,7 +1,7 @@
 import { getToken } from 'next-auth/jwt'
-import dbConnect from '@db/dbConnect'
+import dbConnect from '../../src/db/dbConnect'
 
-const Game = require('@db/models/Game')
+const Game = require('../../src/db/models/Game')
 
 export default async function handler(req, res) {
 	const token = await getToken({ req })

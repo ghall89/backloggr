@@ -1,6 +1,6 @@
 import { getToken } from 'next-auth/jwt'
-import dbConnect from '@db/dbConnect'
-const CachedItem = require('@db/models/CachedItem')
+import dbConnect from '../../src/db/dbConnect'
+const CachedItem = require('../../src/db/models/CachedItem')
 
 export default async function handler(req, res) {
 	const token = await getToken({ req })
@@ -11,9 +11,7 @@ export default async function handler(req, res) {
 		let result
 		try {
 			const dbGame = await CachedItem.find({ igdb_id: { $eq: req.query.id } })
-			console.log(dbGame)
 			if (dbGame.length === 0) {
-				console.log('saving game to cache')
 				const igdbGame = await fetch(
 					`/api/igdbApi?search=${req.query.id}&action=gameById`
 				)
@@ -35,7 +33,6 @@ export default async function handler(req, res) {
 
 				cachedItem = await cachedItem.save()
 			} else {
-				console.log('retrieving game from cache')
 				result = dbGame
 			}
 		} catch (err) {
@@ -47,7 +44,6 @@ export default async function handler(req, res) {
 			res.status(200).json(result)
 		}
 	} else {
-		console.log('Unauthorized API call')
-		res.status(401).json({ message: `It's a secret to everyone...` })
+		res.status(401).json({ message: "It's a secret to everyone..." })
 	}
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button } from '@mui/material'
 import { CheckBox, EmojiEvents, SportsEsports } from '@mui/icons-material'
 
-import { useAppContext } from '/src/AppContext'
+import { useAppContext } from '../../../AppContext'
 
 const StatusButton = ({ gameStatus, setStatus, game }) => {
 	const { handleApi } = useAppContext()

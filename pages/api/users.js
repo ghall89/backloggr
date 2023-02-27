@@ -1,6 +1,7 @@
 import { getToken } from 'next-auth/jwt'
-import dbConnect from '@db/dbConnect'
-const User = require('@db/models/User')
+import dbConnect from '../../src/db/dbConnect'
+
+const User = require('../../src/db/models/User')
 
 export default async function handler(req, res) {
 	const token = await getToken({ req })
@@ -13,7 +14,7 @@ export default async function handler(req, res) {
 		switch (method) {
 			case 'GET':
 				try {
-					let user = await User.find({ auth_id: req.query.user_ref }).select(
+					const user = await User.find({ auth_id: req.query.user_ref }).select(
 						'-auth_id'
 					)
 					res.status(200).json({
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
 				break
 			case 'PUT':
 				try {
-					let user = await User.findByIdAndUpdate(body.id, body.params, {
+					const user = await User.findByIdAndUpdate(body.id, body.params, {
 						new: true,
 					})
 
@@ -59,7 +60,6 @@ export default async function handler(req, res) {
 				break
 		}
 	} else {
-		console.log('Unauthorized API call')
-		res.status(401).json({ message: `It's a secret to everyone...` })
+		res.status(401).json({ message: "It's a secret to everyone..." })
 	}
 }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -14,10 +15,10 @@ import {
 } from '@mui/material'
 import { Delete, Loop, StarOutline, StarRate } from '@mui/icons-material'
 
-import { setStatus, deleteAction, setStarStatus } from '@lib/functions'
-import handleIgdb from '@lib/handleIgdb'
+import { setStatus, deleteAction, setStarStatus } from '../../lib/functions'
+import handleIgdb from '../../lib/handleIgdb'
 
-import { useAppContext } from '/src/AppContext'
+import { useAppContext } from '../../AppContext'
 
 import { ConfirmModal, StatusButton } from './components'
 
@@ -63,9 +64,9 @@ const GameModal = ({ id, open, modalClose }) => {
 
 	useEffect(() => {
 		if (status === 'authenticated' && id) {
-			games.forEach((game) => {
-				if (game._id === id) {
-					setGame(game)
+			games.forEach((gameObj) => {
+				if (gameObj._id === id) {
+					setGame(gameObj)
 				}
 			})
 		}
@@ -118,7 +119,7 @@ const GameModal = ({ id, open, modalClose }) => {
 									}}
 								>
 									<Typography variant="h6" color="primary">
-										{statusMemo} on {game?.platform}
+										{`${statusMemo} on ${game?.platform}`}
 									</Typography>
 								</Box>
 							</Box>
@@ -202,6 +203,12 @@ const GameModal = ({ id, open, modalClose }) => {
 			/>
 		</Dialog>
 	) : null
+}
+
+GameModal.propTypes = {
+	id: PropTypes.string.isRequired,
+	open: PropTypes.bool.isRequired,
+	modalClose: PropTypes.func.isRequired,
 }
 
 export default GameModal

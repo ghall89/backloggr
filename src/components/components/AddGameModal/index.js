@@ -24,7 +24,7 @@ import AddButton from './components/AddButton'
 
 const AddGameModal = ({ openModal, setOpenModal }) => {
 	const { data } = useSession()
-	const { games, handleApi } = useAppContext()
+	const { handleApi } = useAppContext()
 
 	const [query, setQuery] = useState()
 	const [searchResults, setSearchResults] = useState([])
@@ -81,12 +81,6 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 	}
 
 	const addAction = async (submitBody) => {
-		games.forEach((game) => {
-			if (game.igdb_id === submitBody.igdb_id) {
-				alert('This game is already in your backlog!')
-				return
-			}
-		})
 		await addGame(submitBody)
 		await handleApi()
 	}

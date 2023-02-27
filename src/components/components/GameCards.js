@@ -20,9 +20,9 @@ import {
 
 import { MoreVert, Info } from '@mui/icons-material'
 
-import { useAppContext } from '/src/AppContext'
+import { useAppContext } from '../../AppContext'
 
-import { starFilter, setStatus } from '@lib/functions'
+import { starFilter, setStatus } from '../../lib/functions'
 
 const GameMenu = ({ id, status }) => {
 	const { handleApi } = useAppContext()
@@ -183,7 +183,6 @@ const GameCard = ({ game, handleGameModal }) => (
 
 GameCard.propTypes = {
 	game: PropTypes.object.isRequired,
-	setStatus: PropTypes.func.isRequired,
 	handleGameModal: PropTypes.func.isRequired,
 }
 

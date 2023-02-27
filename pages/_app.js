@@ -1,14 +1,12 @@
-import '@styles/globals.css'
+import PropTypes from 'prop-types'
+import '../src/styles/globals.css'
 
-import { useRouter } from 'next/router'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { SessionProvider } from 'next-auth/react'
 
-import { ContextWrapper } from '/src/AppContext'
+import { ContextWrapper } from '../src/AppContext'
 
-function MyApp({ Component, pageProps }) {
-	const { route } = useRouter()
-
+function App({ Component, pageProps }) {
 	const theme = createTheme({
 		palette: {
 			mode: 'dark',
@@ -45,4 +43,13 @@ function MyApp({ Component, pageProps }) {
 	)
 }
 
-export default MyApp
+App.propTypes = {
+	Component: PropTypes.object.isRequired,
+	pageProps: PropTypes.object,
+}
+
+App.defaultProps = {
+	pageProps: {},
+}
+
+export default App

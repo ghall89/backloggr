@@ -26,7 +26,7 @@ async function dbConnect() {
 
 		cached.promise = mongoose
 			.connect(MONGODB_URI, opts)
-			.then((mongoose) => mongoose)
+			.then((mongoosePromise) => mongoosePromise)
 
 		try {
 			cached.conn = await cached.promise

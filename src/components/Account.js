@@ -2,11 +2,11 @@ import { useMemo, useCallback } from 'react'
 
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material'
 
-import { useAppContext } from '/src/AppContext'
-import Layout from '@components/Layout'
+import { useAppContext } from '../AppContext'
+import Layout from './Layout'
 
-import { exportJson } from '@lib/functions'
-import percentageCalc from '@lib/percentageCalc'
+import { exportJson } from '../lib/functions'
+import percentageCalc from '../lib/percentageCalc'
 
 // const handleSaveUsername = async (id, newName) => {
 // 	const body = {

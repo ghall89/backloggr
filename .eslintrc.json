@@ -23,7 +23,6 @@
 		"react/jsx-filename-extension": "off",
 		"react/react-in-jsx-scope": "off",
 		"react/forbid-prop-types": "off",
-		"import/no-absolute-path": "off",
 		"import/extensions": "off",
 		"jsx-wrap-multilines": "off",
 		"react/jsx-props-no-spreading": "off",

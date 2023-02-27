@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { Box } from '@mui/material'
-import Login from '@components/Login'
+import Login from '../Login'
 import { AppBar, NavTabs } from './components'
 
 const Layout = ({ children, title }) => {

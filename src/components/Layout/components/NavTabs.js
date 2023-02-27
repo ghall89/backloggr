@@ -25,7 +25,7 @@ import {
 	Logout,
 } from '@mui/icons-material'
 
-import { useAppContext } from '/src/AppContext'
+import { useAppContext } from '../../../AppContext'
 
 const tabs = [
 	{

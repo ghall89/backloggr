@@ -7,8 +7,8 @@ import { Box, Fab, useMediaQuery } from '@mui/material'
 import { Add } from '@mui/icons-material'
 import { useTheme } from '@mui/styles'
 
-import { useAppContext } from '/src/AppContext'
-import Layout from '@components/Layout'
+import { useAppContext } from '../AppContext'
+import Layout from './Layout'
 
 import { AddGameModal, GameCards, LoadingOverlay } from './components'
 import GameModal from './GameModal'

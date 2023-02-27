@@ -42,7 +42,7 @@ const AppBar = ({ title }) => {
 		setOpen(false)
 	}
 
-	function handleListKeyDown(event) {
+	const handleListKeyDown = (event) => {
 		if (event.key === 'Tab') {
 			event.preventDefault()
 			setOpen(false)
@@ -64,7 +64,7 @@ const AppBar = ({ title }) => {
 	return isMobile ? (
 		<Toolbar sx={{ padding: 2, zIndex: 100 }}>
 			<Typography variant="h4" component="div" sx={{ flexGrow: 1 }} href="/">
-				{title ? title : ''}
+				{title || ''}
 			</Typography>
 			{!data?.user ? null : (
 				<div>

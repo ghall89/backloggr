@@ -9,8 +9,8 @@ import {
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
-import { getGames } from '@lib/games'
-import userHandler from '@lib/users'
+import { getGames } from './lib/games'
+import userHandler from './lib/users'
 
 const AppContext = createContext()
 
