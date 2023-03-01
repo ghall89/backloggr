@@ -34,7 +34,7 @@ const Backlog = () => {
 				setFilteredGames(games)
 			} else {
 				const filteredArr = []
-				games.forEach((game) => {
+				games?.forEach((game) => {
 					if (game.status.includes(filter)) {
 						filteredArr.push(game)
 					}

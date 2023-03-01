@@ -1,7 +1,7 @@
 const percentageCalc = (status, games) => {
 	if (games) {
 		let total = 0
-		games.forEach((game) => {
+		games?.forEach((game) => {
 			if (game.status === status) {
 				total += 1
 			}

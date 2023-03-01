@@ -5,7 +5,7 @@ import { deleteGame, updateGame } from './games'
 // filter game by starred status
 const starFilter = (games, bool) => {
 	const arr = []
-	games.forEach((game) => {
+	games?.forEach((game) => {
 		if (game.starred === bool) {
 			arr.push(game)
 		}
