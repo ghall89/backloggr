@@ -1,16 +1,17 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
 import { useSession } from 'next-auth/react'
 
-import { Box, Fab, useMediaQuery } from '@mui/material'
+import { Backdrop, Box, Fab, useMediaQuery } from '@mui/material'
 import { Add } from '@mui/icons-material'
 import { useTheme } from '@mui/styles'
 
 import { useAppContext } from '../AppContext'
 import Layout from './Layout'
 
-import { AddGameModal, GameCards, LoadingOverlay } from './components'
+import { AddGameModal, GameCards } from './components'
 import GameModal from './GameModal'
 
 const Backlog = () => {
@@ -122,7 +123,9 @@ const Backlog = () => {
 					/>
 				</>
 			)}
-			<LoadingOverlay loading={loading} />
+			<Backdrop sx={{ color: '#fff', zIndex: 100 }} open={loading}>
+				<Image src="/img/loading-coin.gif" width={75} height={75} />
+			</Backdrop>
 		</Layout>
 	)
 }
