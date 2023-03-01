@@ -1,5 +1,6 @@
 import { getToken } from 'next-auth/jwt'
 import dbConnect from '../../src/db/dbConnect'
+
 const CachedItem = require('../../src/db/models/CachedItem')
 
 export default async function handler(req, res) {

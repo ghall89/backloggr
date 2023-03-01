@@ -28,6 +28,12 @@
 		"jsx-wrap-multilines": "off",
 		"react/jsx-props-no-spreading": "off",
 		"react/jsx-curly-newline": "off",
-		"implicit-arrow-linebreak": "off"
+		"implicit-arrow-linebreak": "off",
+		"no-param-reassign": "warn",
+		"react/jsx-no-constructed-context-values": "warn",
+		"no-unused-vars": "warn",
+		"react/jsx-one-expression-per-line": "warn",
+		"no-multi-assign": "warn",
+		"react/jsx-wrap-multilines": "warn"
 	}
 }
