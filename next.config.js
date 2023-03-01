@@ -18,6 +18,7 @@ const nextConfig = {
 		TWITCH_CLIENT_SECRET: process.env.TWITCH_CLIENT_SECRET,
 		NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+		SENTRY_DSN: process.env.SENTRY_DSN,
 	},
 }
 
