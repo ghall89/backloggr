@@ -63,7 +63,7 @@ const GameModal = ({ id, open, modalClose }) => {
 
 	useEffect(() => {
 		if (status === 'authenticated' && id) {
-			games.forEach((gameObj) => {
+			games?.forEach((gameObj) => {
 				if (gameObj._id === id) {
 					setGame(gameObj)
 				}

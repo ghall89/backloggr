@@ -33,7 +33,7 @@
 		"react/jsx-no-constructed-context-values": "warn",
 		"no-unused-vars": "warn",
 		"react/jsx-one-expression-per-line": "warn",
-		"no-multi-assign": "warn",
+		"no-multi-assign": ["error", { "ignoreNonDeclaration": true }],
 		"react/jsx-wrap-multilines": "warn"
 	}
 }
