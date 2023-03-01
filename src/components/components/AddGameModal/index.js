@@ -166,7 +166,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 						<Select
 							labelId="platform-select-label"
 							id="platform-select"
-							value={selectedPlatform ? selectedPlatform : ''}
+							value={selectedPlatform || ''}
 							label="Platform"
 							onChange={({ target }) => setSelectedPlatform(target.value)}
 						>

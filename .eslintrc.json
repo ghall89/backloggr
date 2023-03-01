@@ -5,6 +5,7 @@
 	},
 	"extends": ["next", "airbnb"],
 	"plugins": ["unused-imports"],
+	"ignorePatterns": ["/pages/_error.js", "sentry.server.config.js"],
 	"rules": {
 		"unused-imports/no-unused-imports": "error",
 		"indent": "off",

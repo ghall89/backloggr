@@ -33,7 +33,6 @@ const GameModal = ({ id, open, modalClose }) => {
 	const { games, handleApi } = useAppContext()
 
 	const [openConfirm, setOpenConfirm] = useState(false)
-	const [loading, setLoading] = useState(true)
 	const [game, setGame] = useState()
 	const [gameDetails, setGameDetails] = useState()
 
@@ -87,7 +86,7 @@ const GameModal = ({ id, open, modalClose }) => {
 
 	return (
 		<Dialog open={open} onClose={modalClose} TransitionComponent={Grow}>
-			{loading && !game && !gameDetails ? null : (
+			{!game && !gameDetails ? null : (
 				<Box>
 					<Box
 						sx={{
@@ -156,7 +155,7 @@ const GameModal = ({ id, open, modalClose }) => {
 								}
 							/>
 							<Fade
-								in={gameDetails ? true : false}
+								in={gameDetails}
 								sx={{
 									padding: 2,
 									overflow: 'scroll',
