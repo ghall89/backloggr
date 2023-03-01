@@ -44,7 +44,7 @@ function App({ Component, pageProps }) {
 }
 
 App.propTypes = {
-	Component: PropTypes.object.isRequired,
+	Component: PropTypes.func.isRequired,
 	pageProps: PropTypes.object,
 }
 

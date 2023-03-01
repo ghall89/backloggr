@@ -63,7 +63,6 @@ const Backlog = () => {
 
 	const closeGameModal = () => {
 		setGameModalOpen(false)
-		setModalId(null)
 	}
 
 	return (
@@ -124,7 +123,12 @@ const Backlog = () => {
 				</>
 			)}
 			<Backdrop sx={{ color: '#fff', zIndex: 100 }} open={loading}>
-				<Image src="/img/loading-coin.gif" width={75} height={75} />
+				<Image
+					src="/img/loading-coin.gif"
+					alt="loading"
+					width={75}
+					height={75}
+				/>
 			</Backdrop>
 		</Layout>
 	)

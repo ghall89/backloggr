@@ -227,10 +227,14 @@ const GameCards = ({ games, loading, setModalId, setModalOpen }) => {
 }
 
 GameCards.propTypes = {
-	games: PropTypes.object.isRequired,
+	games: PropTypes.array,
 	loading: PropTypes.bool.isRequired,
 	setModalId: PropTypes.func.isRequired,
 	setModalOpen: PropTypes.func.isRequired,
+}
+
+GameCards.defaultProps = {
+	games: [],
 }
 
 export default GameCards

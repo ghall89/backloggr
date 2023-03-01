@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import { useSession, signIn } from 'next-auth/react'
 
-import { FaDiscord, FaTwitch } from 'react-icons/fa'
-
 import PropTypes from 'prop-types'
 
 import { Box, Button, Dialog, Typography } from '@mui/material'
+
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome'
+import { faDiscord, faTwitch } from '@fortawesome/free-brands-svg-icons'
 
 const Login = ({ open }) => {
 	const { status } = useSession()
@@ -38,7 +39,7 @@ const Login = ({ open }) => {
 					fullWidth
 					onClick={() => signIn('discord')}
 					variant="contained"
-					startIcon={<FaDiscord />}
+					startIcon={<Icon icon={faDiscord} />}
 					disabled={status !== 'unauthenticated'}
 				>
 					Discord Login
@@ -48,7 +49,7 @@ const Login = ({ open }) => {
 					fullWidth
 					onClick={() => signIn('twitch')}
 					variant="contained"
-					startIcon={<FaTwitch />}
+					startIcon={<Icon icon={faTwitch} />}
 					disabled={status !== 'unauthenticated'}
 				>
 					Twitch Login

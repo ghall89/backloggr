@@ -12,6 +12,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material'
+
 import { Cached, Search } from '@mui/icons-material'
 
 import { useAppContext } from '../../../AppContext'
@@ -200,7 +201,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 }
 
 AddGameModal.propTypes = {
-	openModal: PropTypes.func.isRequired,
+	openModal: PropTypes.bool.isRequired,
 	setOpenModal: PropTypes.func.isRequired,
 }
 

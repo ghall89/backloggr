@@ -85,7 +85,7 @@ const GameModal = ({ id, open, modalClose }) => {
 		}
 	}, [open])
 
-	return open ? (
+	return (
 		<Dialog open={open} onClose={modalClose} TransitionComponent={Grow}>
 			{loading && !game && !gameDetails ? null : (
 				<Box>
@@ -156,7 +156,7 @@ const GameModal = ({ id, open, modalClose }) => {
 								}
 							/>
 							<Fade
-								in={gameDetails}
+								in={gameDetails ? true : false}
 								sx={{
 									padding: 2,
 									overflow: 'scroll',
@@ -202,13 +202,18 @@ const GameModal = ({ id, open, modalClose }) => {
 				confirmAction={() => deleteAction(id, handleApi)}
 			/>
 		</Dialog>
-	) : null
+	)
 }
 
 GameModal.propTypes = {
-	id: PropTypes.string.isRequired,
-	open: PropTypes.bool.isRequired,
+	id: PropTypes.string,
+	open: PropTypes.bool,
 	modalClose: PropTypes.func.isRequired,
+}
+
+GameModal.defaultProps = {
+	id: null,
+	open: false,
 }
 
 export default GameModal
