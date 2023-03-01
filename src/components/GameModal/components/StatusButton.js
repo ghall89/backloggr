@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types'
+
 import { Button } from '@mui/material'
 import { CheckBox, EmojiEvents, SportsEsports } from '@mui/icons-material'
 
-import { useAppContext } from '/src/AppContext'
+import { useAppContext } from '../../../AppContext'
 
 const StatusButton = ({ gameStatus, setStatus, game }) => {
 	const { handleApi } = useAppContext()
@@ -42,8 +44,13 @@ const StatusButton = ({ gameStatus, setStatus, game }) => {
 			)
 		case 'completed':
 		default:
-			return
 	}
+}
+
+StatusButton.propTypes = {
+	gameStatus: PropTypes.string.isRequired,
+	setStatus: PropTypes.func.isRequired,
+	game: PropTypes.object.isRequired,
 }
 
 export default StatusButton

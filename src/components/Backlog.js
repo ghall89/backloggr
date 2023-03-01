@@ -1,17 +1,17 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 import { useSession } from 'next-auth/react'
 
-import { Box, Fab, useMediaQuery } from '@mui/material'
+import { Backdrop, Box, Fab, useMediaQuery } from '@mui/material'
 import { Add } from '@mui/icons-material'
 import { useTheme } from '@mui/styles'
 
-import { useAppContext } from '/src/AppContext'
-import Layout from '@components/Layout'
+import { useAppContext } from '../AppContext'
+import Layout from './Layout'
 
-import { AddGameModal, GameCards, LoadingOverlay } from './components'
+import { AddGameModal, GameCards } from './components'
 import GameModal from './GameModal'
 
 const Backlog = () => {
@@ -19,13 +19,11 @@ const Backlog = () => {
 	const theme = useTheme()
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-	const { query } = useRouter()
-	const { games, handleApi, loading, filter } = useAppContext()
+	const { games, loading, filter } = useAppContext()
 
 	const [title, setTitle] = useState('Backlog')
 	const [filteredGames, setFilteredGames] = useState()
 	const [openModal, setOpenModal] = useState(false)
-	const [viewMode, setViewMode] = useState('grid')
 
 	const [modalId, setModalId] = useState()
 	const [gameModalOpen, setGameModalOpen] = useState(false)
@@ -65,7 +63,6 @@ const Backlog = () => {
 
 	const closeGameModal = () => {
 		setGameModalOpen(false)
-		setModalId(null)
 	}
 
 	return (
@@ -74,9 +71,9 @@ const Backlog = () => {
 				<>
 					{data?.user.name ? (
 						<Head>
-							<title>{`Backloggr - ${
-								data?.user.name.split(' ')[0]
-							}'s Backlog`}</title>
+							<title>
+								{`Backloggr - ${data?.user.name.split(' ')[0]}'s Backlog`}
+							</title>
 						</Head>
 					) : null}
 
@@ -125,7 +122,14 @@ const Backlog = () => {
 					/>
 				</>
 			)}
-			<LoadingOverlay loading={loading} />
+			<Backdrop sx={{ color: '#fff', zIndex: 100 }} open={loading}>
+				<Image
+					src="/img/loading-coin.gif"
+					alt="loading"
+					width={75}
+					height={75}
+				/>
+			</Backdrop>
 		</Layout>
 	)
 }

@@ -1,6 +1,7 @@
 import { getToken } from 'next-auth/jwt'
-import dbConnect from '@db/dbConnect'
-const Game = require('@db/models/Game')
+import dbConnect from '../../src/db/dbConnect'
+
+const Game = require('../../src/db/models/Game')
 
 export default async function handler(req, res) {
 	const token = await getToken({ req })
@@ -9,11 +10,10 @@ export default async function handler(req, res) {
 		const { method, body } = req
 
 		await dbConnect()
+		let query = { user_ref: req.query.user_ref }
 
 		switch (method) {
 			case 'GET':
-				let query = { user_ref: req.query.user_ref }
-
 				if (req.query.filter) {
 					query = { ...query, status: req.query.filter }
 				}
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 				}
 
 				try {
-					let games = await Game.find(query)
+					const games = await Game.find(query)
 						.sort({ title: 1 })
 						.select('-user_ref')
 					res.status(200).json({
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
 				break
 			case 'PUT':
 				try {
-					let game = await Game.findByIdAndUpdate(body.id, body.params, {
+					const game = await Game.findByIdAndUpdate(body.id, body.params, {
 						new: true,
 					})
 
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
 				break
 			case 'DELETE':
 				try {
-					let games = await Game.findByIdAndRemove(body.id)
+					const games = await Game.findByIdAndRemove(body.id)
 					res.status(200).json({
 						success: true,
 						message: `${games.title} deleted!`,
@@ -85,7 +85,6 @@ export default async function handler(req, res) {
 				break
 		}
 	} else {
-		console.log('Unauthorized API call')
-		res.status(401).json({ message: `It's a secret to everyone...` })
+		res.status(401).json({ message: "It's a secret to everyone..." })
 	}
 }

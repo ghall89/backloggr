@@ -15,8 +15,8 @@ const starFilter = (games, bool) => {
 
 // set play status of game
 const setStatus = async (id, newStatus, replaying, handleApi) => {
-	let params = {
-		id: id,
+	const params = {
+		id,
 		params: {
 			status: newStatus,
 		},
@@ -37,7 +37,7 @@ const setStatus = async (id, newStatus, replaying, handleApi) => {
 	await updateGame(JSON.stringify(params))
 	window.sessionStorage.clear()
 	handleApi()
-	Router.push(`/`)
+	Router.push('/')
 }
 
 const setStarStatus = async (bool, id, game, setGame, handleApi) => {
@@ -59,10 +59,10 @@ const exportJson = (username, obj) => {
 	const filename = `${username}s-backlog-data.json`
 	const jsonStr = JSON.stringify(obj)
 
-	let element = document.createElement('a')
+	const element = document.createElement('a')
 	element.setAttribute(
 		'href',
-		'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr)
+		`data:text/plain;charset=utf-8,${encodeURIComponent(jsonStr)}`
 	)
 	element.setAttribute('download', filename)
 
@@ -72,13 +72,6 @@ const exportJson = (username, obj) => {
 	element.click()
 
 	document.body.removeChild(element)
-}
-
-// sort games by title
-const handleSorting = (a, b) => {
-	var titleA = a.title.toUpperCase()
-	var titleB = b.title.toUpperCase()
-	return titleA < titleB ? -1 : titleA > titleB ? 1 : 0
 }
 
 export { exportJson, setStatus, starFilter, deleteAction, setStarStatus }

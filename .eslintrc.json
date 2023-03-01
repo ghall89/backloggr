@@ -3,9 +3,31 @@
 		"browser": true,
 		"es2021": true
 	},
-	"extends": "next",
+	"extends": ["next", "airbnb"],
 	"plugins": ["unused-imports"],
+	"ignorePatterns": ["/pages/_error.js", "sentry.server.config.js"],
 	"rules": {
-		"unused-imports/no-unused-imports": "error"
+		"unused-imports/no-unused-imports": "error",
+		"indent": "off",
+		"no-tabs": "off",
+		"semi": "off",
+		"default-case": "off",
+		"camelcase": "off",
+		"comma-dangle": "off",
+		"no-underscore-dangle": "off",
+		"object-curly-newline": "off",
+		"consistent-return": "off",
+		"operator-linebreak": "off",
+		"react/jsx-indent": "off",
+		"react/jsx-indent-props": "off",
+		"react/function-component-definition": "off",
+		"react/jsx-filename-extension": "off",
+		"react/react-in-jsx-scope": "off",
+		"react/forbid-prop-types": "off",
+		"import/extensions": "off",
+		"jsx-wrap-multilines": "off",
+		"react/jsx-props-no-spreading": "off",
+		"react/jsx-curly-newline": "off",
+		"implicit-arrow-linebreak": "off"
 	}
 }

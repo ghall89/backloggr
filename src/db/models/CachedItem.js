@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
-let Schema = mongoose.Schema
 
-let cachedItemSchema = new Schema({
+const { Schema } = mongoose
+
+const cachedItemSchema = new Schema({
 	igdb_id: String,
 	cached: Date,
 	title: String,

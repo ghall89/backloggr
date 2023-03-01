@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useRef } from 'react'
 import {
 	Button,
@@ -20,16 +21,6 @@ const options = [
 const AddButton = ({ handleSubmit }) => {
 	const [open, setOpen] = useState(false)
 	const anchorRef = useRef(null)
-	const [selectedIndex, setSelectedIndex] = useState(1)
-
-	const handleClick = () => {
-		console.info(`You clicked ${options[selectedIndex]}`)
-	}
-
-	const handleMenuItemClick = (event, index) => {
-		setSelectedIndex(index)
-		setOpen(false)
-	}
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen)
@@ -100,6 +91,10 @@ const AddButton = ({ handleSubmit }) => {
 			</Popper>
 		</>
 	)
+}
+
+AddButton.propTypes = {
+	handleSubmit: PropTypes.func.isRequired,
 }
 
 export default AddButton

@@ -6,7 +6,9 @@ const getGames = async (user_ref) => {
 
 	const res = await fetch(`/api/games?user_ref=${user_ref}`, options)
 		.then((response) => response.json())
-		.catch((err) => console.error(err))
+		.catch((err) => {
+			throw err
+		})
 
 	return res.data
 }
@@ -21,7 +23,9 @@ const getGame = async (user_ref, id) => {
 
 	const res = await fetch(url, options)
 		.then((response) => response.json())
-		.catch((err) => console.error(err))
+		.catch((err) => {
+			throw err
+		})
 
 	return res.data
 }
@@ -37,7 +41,9 @@ const deleteGame = async (id) => {
 
 	fetch('/api/games', options)
 		.then((response) => response.json())
-		.catch((err) => console.error(err))
+		.catch((err) => {
+			throw err
+		})
 }
 
 const addGame = async (body) => {
@@ -51,7 +57,9 @@ const addGame = async (body) => {
 
 	fetch('/api/games', options)
 		.then((response) => response.json())
-		.catch((err) => console.error(err))
+		.catch((err) => {
+			throw err
+		})
 }
 
 const updateGame = async (body) => {
@@ -65,7 +73,9 @@ const updateGame = async (body) => {
 
 	fetch('/api/games', options)
 		.then((response) => response.json())
-		.catch((err) => console.error(err))
+		.catch((err) => {
+			throw err
+		})
 }
 
 export { getGames, getGame, deleteGame, addGame, updateGame }

@@ -6,17 +6,14 @@ const getParams = (search, action) => {
 
 	switch (action) {
 		case 'searchGames':
-			console.log('searchGames')
 			url = 'https://api.igdb.com/v4/games'
 			params = `search "${search}"; fields name,genres.name,platforms.name,cover.image_id; limit 15;`
 			break
 		case 'gameById':
-			console.log('gameById')
 			url = 'https://api.igdb.com/v4/games'
 			params = `where id = (${search}); fields name,genres.*,platforms.*,videos.*,summary,storyline,similar_games,screenshots.image_id,artworks.image_id;`
 			break
 		case 'coverById':
-			console.log('coverById')
 			url = 'https://api.igdb.com/v4/covers'
 			params = `where game = (${search}); fields *;`
 			break
@@ -26,7 +23,6 @@ const getParams = (search, action) => {
 }
 
 export default async function handler(req, res) {
-	const { method, body } = req
 	const token = await getToken({ req })
 
 	const clientId = process.env.TWITCH_CLIENT_ID
@@ -47,8 +43,6 @@ export default async function handler(req, res) {
 				req.query.action
 			)
 
-			console.log(url, params)
-
 			const data = await fetch(url, {
 				method: 'POST',
 				headers: {
@@ -60,13 +54,11 @@ export default async function handler(req, res) {
 
 			result = await data.json()
 		} catch (err) {
-			console.error(err)
+			res.status(400)
 		} finally {
-			console.log(result)
 			res.status(200).json(result)
 		}
 	} else {
-		console.log('Unauthorized API call')
-		res.status(401).json({ message: `It's a secret to everyone...` })
+		res.status(401).json({ message: "It's a secret to everyone..." })
 	}
 }

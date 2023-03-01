@@ -1,4 +1,4 @@
-import Backlog from '@components/Backlog'
+import Backlog from '../src/components/Backlog'
 
 const BacklogPage = () => <Backlog />
 

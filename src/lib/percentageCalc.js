@@ -3,11 +3,11 @@ const percentageCalc = (status, games) => {
 		let total = 0
 		games.forEach((game) => {
 			if (game.status === status) {
-				total++
+				total += 1
 			}
 		})
 		const percentage = Math.round((100 * total) / games.length)
-		if (isNaN(percentage)) {
+		if (Number.isNaN(percentage)) {
 			return 0
 		}
 		return percentage

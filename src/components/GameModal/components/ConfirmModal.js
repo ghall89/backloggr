@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import {
 	Button,
 	Dialog,
@@ -21,7 +23,7 @@ const ConfirmModal = ({ open, setOpen, confirmAction, closeGameModal }) => {
 			aria-labelledby="alert-dialog-title"
 			aria-describedby="alert-dialog-description"
 		>
-			<DialogTitle id="alert-dialog-title">{'Delete game?'}</DialogTitle>
+			<DialogTitle id="alert-dialog-title">Delete game?</DialogTitle>
 			<DialogContent>
 				<DialogContentText id="alert-dialog-description">
 					If you delete this game, it will be deleted forever and have to be
@@ -44,6 +46,13 @@ const ConfirmModal = ({ open, setOpen, confirmAction, closeGameModal }) => {
 			</DialogActions>
 		</Dialog>
 	)
+}
+
+ConfirmModal.propTypes = {
+	open: PropTypes.bool.isRequired,
+	setOpen: PropTypes.func.isRequired,
+	confirmAction: PropTypes.func.isRequired,
+	closeGameModal: PropTypes.func.isRequired,
 }
 
 export default ConfirmModal

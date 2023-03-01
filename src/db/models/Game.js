@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
-let Schema = mongoose.Schema
 
-let gameSchema = new Schema({
+const { Schema } = mongoose
+
+const gameSchema = new Schema({
 	igdb_id: String,
 	added: Date,
 	updated: Date,
