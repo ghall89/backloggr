@@ -8,11 +8,11 @@ import { Backdrop, Box, Fab, useMediaQuery } from '@mui/material'
 import { Add } from '@mui/icons-material'
 import { useTheme } from '@mui/styles'
 
-import { useAppContext } from '../AppContext'
-import Layout from './Layout'
+import { useAppContext } from '../../AppContext'
+import Layout from '../Layout'
 
 import { AddGameModal, GameCards } from './components'
-import GameModal from './GameModal'
+import GameModal from '../GameModal'
 
 const Backlog = () => {
 	const { data, status } = useSession()

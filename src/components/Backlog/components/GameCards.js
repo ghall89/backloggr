@@ -20,9 +20,9 @@ import {
 
 import { MoreVert, Info } from '@mui/icons-material'
 
-import { useAppContext } from '../../AppContext'
+import { useAppContext } from '../../../AppContext'
 
-import { starFilter, setStatus } from '../../lib/functions'
+import { starFilter, setStatus } from '../../../lib/functions'
 
 const GameMenu = ({ id, status }) => {
 	const { handleApi } = useAppContext()

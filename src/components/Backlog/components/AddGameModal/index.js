@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 
 import {
@@ -15,11 +15,11 @@ import {
 
 import { Cached, Search } from '@mui/icons-material'
 
-import { useAppContext } from '../../../AppContext'
+import { useAppContext } from '../../../../AppContext'
 
-import { addGame } from '../../../lib/games'
+import { addGame } from '../../../../lib/games'
 
-import handleIgdb from '../../../lib/handleIgdb'
+import handleIgdb from '../../../../lib/handleIgdb'
 
 import AddButton from './components/AddButton'
 
@@ -33,20 +33,20 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 	const [gamePlatforms, setGamePlatforms] = useState([])
 	const [selectedPlatform, setSelectedPlatform] = useState()
 
-	const [open, setOpen] = useState(false)
-	const anchorRef = useRef(null)
+	// const [open, setOpen] = useState(false)
+	// const anchorRef = useRef(null)
 
 	const [noResults, setNoResults] = useState(false)
 
 	// return focus to the button when we transitioned from !open -> open
-	const prevOpen = useRef(open)
-	useEffect(() => {
-		if (prevOpen.current === true && open === false) {
-			anchorRef.current.focus()
-		}
-
-		prevOpen.current = open
-	}, [open])
+	// 	const prevOpen = useRef(open)
+	// 	useEffect(() => {
+	// 		if (prevOpen.current === true && open === false) {
+	// 			anchorRef.current.focus()
+	// 		}
+	//
+	// 		prevOpen.current = open
+	// 	}, [open])
 
 	const handleSearch = async () => {
 		const res = await handleIgdb(query, 'searchGames')
@@ -190,7 +190,8 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 			</Box>
 			<Box sx={{ paddingY: 1, textAlign: 'center' }}>
 				<Typography>
-					Results provided by{' '}
+					Results provided by
+					{' '}
 					<Link href="https://api-docs.igdb.com/" target="blank">
 						IGDB API
 					</Link>
