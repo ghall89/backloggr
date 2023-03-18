@@ -11,6 +11,7 @@ import {
 	Select,
 	TextField,
 	Typography,
+	Grow,
 	styled,
 } from '@mui/material'
 
@@ -127,7 +128,11 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 	}
 
 	return (
-		<Dialog onClose={handleModalClose} open={openModal}>
+		<Dialog
+			onClose={handleModalClose}
+			open={openModal}
+			TransitionComponent={Grow}
+		>
 			{searchResults < 1 ? (
 				<form onSubmit={handleSearch}>
 					<StyledFormBox>
