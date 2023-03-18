@@ -33,6 +33,7 @@
 		"no-unused-vars": "warn",
 		"react/jsx-one-expression-per-line": "warn",
 		"no-multi-assign": ["error", { "ignoreNonDeclaration": true }],
-		"react/jsx-wrap-multilines": "warn"
+		"react/jsx-wrap-multilines": "warn",
+		"no-restricted-globals": "off"
 	}
 }

@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react'
 import {
 	Box,
 	Card,
-	CardContent,
 	CardMedia,
 	ClickAwayListener,
 	Grid,
@@ -14,8 +13,6 @@ import {
 	MenuList,
 	Paper,
 	Popper,
-	Tooltip,
-	Typography,
 } from '@mui/material'
 
 import { MoreVert, Info } from '@mui/icons-material'
