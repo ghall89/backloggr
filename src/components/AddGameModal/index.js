@@ -11,17 +11,28 @@ import {
 	Select,
 	TextField,
 	Typography,
+	styled,
 } from '@mui/material'
 
 import { Cached, Search } from '@mui/icons-material'
 
-import { useAppContext } from '../../../../AppContext'
+import { useAppContext } from '../../AppContext'
 
-import { addGame } from '../../../../lib/games'
+import { addGame } from '../../lib/games'
 
-import handleIgdb from '../../../../lib/handleIgdb'
+import handleIgdb from '../../lib/handleIgdb'
 
 import AddButton from './components/AddButton'
+
+const StyledFormBox = styled(Box)({
+	padding: 20,
+	display: 'flex',
+	flexDirection: 'column',
+	gap: 20,
+	backgroundColor: '#363a4f',
+	color: '#cad3f5',
+	width: '300px',
+})
 
 const AddGameModal = ({ openModal, setOpenModal }) => {
 	const { data } = useSession()
@@ -49,6 +60,7 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 	// 	}, [open])
 
 	const handleSearch = async () => {
+		event.preventDefault()
 		const res = await handleIgdb(query, 'searchGames')
 		if (res.length >= 1) {
 			await setSearchResults(res)
@@ -116,19 +128,9 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 
 	return (
 		<Dialog onClose={handleModalClose} open={openModal}>
-			<Box
-				sx={{
-					padding: 3,
-					display: 'flex',
-					flexDirection: 'column',
-					gap: 4,
-					backgroundColor: '#363a4f',
-					color: '#cad3f5',
-					width: '300px',
-				}}
-			>
-				{searchResults < 1 ? (
-					<>
+			{searchResults < 1 ? (
+				<form onSubmit={handleSearch}>
+					<StyledFormBox>
 						<TextField
 							onChange={({ target }) => setQuery(target.value)}
 							label="Title"
@@ -141,57 +143,55 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 						) : null}
 						<Button
 							disabled={!query?.length > 0}
-							onClick={() => handleSearch()}
+							type="submit"
 							variant="contained"
 							startIcon={<Search />}
 						>
 							Search
 						</Button>
-					</>
-				) : (
-					<>
-						<Select
-							labelId="game-select-label"
-							id="game-select"
-							value={selectedGame}
-							label="Game"
-							onChange={({ target }) => setSelectedGame(target.value)}
-						>
-							{searchResults.map((game) => (
-								<MenuItem key={game.id} value={game.id}>
-									{game.name}
-								</MenuItem>
-							))}
-						</Select>
-						<Select
-							labelId="platform-select-label"
-							id="platform-select"
-							value={selectedPlatform || ''}
-							label="Platform"
-							onChange={({ target }) => setSelectedPlatform(target.value)}
-						>
-							{gamePlatforms?.map((platform) => (
-								<MenuItem key={platform.id} value={platform?.name}>
-									{platform?.name}
-								</MenuItem>
-							))}
-						</Select>
-
-						<Button
-							onClick={handleClearState}
-							variant="contained"
-							startIcon={<Cached />}
-						>
-							Search Again
-						</Button>
-						<AddButton handleSubmit={handleSubmit} />
-					</>
-				)}
-			</Box>
+					</StyledFormBox>
+				</form>
+			) : (
+				<StyledFormBox>
+					<Select
+						labelId="game-select-label"
+						id="game-select"
+						value={selectedGame}
+						label="Game"
+						onChange={({ target }) => setSelectedGame(target.value)}
+					>
+						{searchResults.map((game) => (
+							<MenuItem key={game.id} value={game.id}>
+								{game.name}
+							</MenuItem>
+						))}
+					</Select>
+					<Select
+						labelId="platform-select-label"
+						id="platform-select"
+						value={selectedPlatform || ''}
+						label="Platform"
+						onChange={({ target }) => setSelectedPlatform(target.value)}
+					>
+						{gamePlatforms?.map((platform) => (
+							<MenuItem key={platform.id} value={platform?.name}>
+								{platform?.name}
+							</MenuItem>
+						))}
+					</Select>
+					<Button
+						onClick={handleClearState}
+						variant="contained"
+						startIcon={<Cached />}
+					>
+						Search Again
+					</Button>
+					<AddButton handleSubmit={handleSubmit} />
+				</StyledFormBox>
+			)}
 			<Box sx={{ paddingY: 1, textAlign: 'center' }}>
 				<Typography>
-					Results provided by
-					{' '}
+					Results provided by{' '}
 					<Link href="https://api-docs.igdb.com/" target="blank">
 						IGDB API
 					</Link>

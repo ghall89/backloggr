@@ -148,8 +148,8 @@ GameMenu.propTypes = {
 }
 
 const GameCard = ({ game, handleGameModal }) => (
-	<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-		<Card sx={{ width: '100%', position: 'relative' }}>
+	<Grid item xs={6} md={4} lg={3} xl={2}>
+		<Card sx={{ width: '100%', aspectRatio: '3/4', position: 'relative' }}>
 			<Box
 				sx={{
 					width: '100%',
@@ -168,15 +168,15 @@ const GameCard = ({ game, handleGameModal }) => (
 			</Box>
 			<CardMedia
 				component="img"
-				height="194"
+				width="100%"
 				image={game.img}
 				alt={game.title}
 			/>
-			<CardContent>
+			{/* <CardContent>
 				<Tooltip title={`${game.title} - ${game.platform}`} placement="top">
 					<Typography noWrap>{game.title}</Typography>
 				</Tooltip>
-			</CardContent>
+			</CardContent> */}
 		</Card>
 	</Grid>
 )

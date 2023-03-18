@@ -11,7 +11,8 @@ import { useTheme } from '@mui/styles'
 import { useAppContext } from '../../AppContext'
 import Layout from '../Layout'
 
-import { AddGameModal, GameCards } from './components'
+import GameCards from './components/GameCards'
+import AddGameModal from '../AddGameModal'
 import GameModal from '../GameModal'
 
 const Backlog = () => {
