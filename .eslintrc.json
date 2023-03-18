@@ -5,7 +5,6 @@
 	},
 	"extends": ["next", "airbnb"],
 	"plugins": ["unused-imports"],
-	"ignorePatterns": ["/pages/_error.js", "sentry.server.config.js"],
 	"rules": {
 		"unused-imports/no-unused-imports": "error",
 		"indent": "off",
@@ -34,6 +33,7 @@
 		"no-unused-vars": "warn",
 		"react/jsx-one-expression-per-line": "warn",
 		"no-multi-assign": ["error", { "ignoreNonDeclaration": true }],
-		"react/jsx-wrap-multilines": "warn"
+		"react/jsx-wrap-multilines": "warn",
+		"no-restricted-globals": "off"
 	}
 }

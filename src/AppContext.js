@@ -5,6 +5,7 @@ import {
 	useState,
 	useEffect,
 	useCallback,
+	useMemo,
 } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
@@ -55,22 +56,33 @@ export const ContextWrapper = ({ children }) => {
 		}
 	}, [user])
 
+	const contextMemo = useMemo(
+		() => ({
+			games,
+			handleApi,
+			loading,
+			user,
+			userData,
+			filter,
+			setFilter,
+			tabState,
+			setTabState,
+		}),
+		[
+			games,
+			handleApi,
+			loading,
+			user,
+			userData,
+			filter,
+			setFilter,
+			tabState,
+			setTabState,
+		]
+	)
+
 	return (
-		<AppContext.Provider
-			value={{
-				games,
-				handleApi,
-				loading,
-				user,
-				userData,
-				filter,
-				setFilter,
-				tabState,
-				setTabState,
-			}}
-		>
-			{children}
-		</AppContext.Provider>
+		<AppContext.Provider value={contextMemo}>{children}</AppContext.Provider>
 	)
 }
 

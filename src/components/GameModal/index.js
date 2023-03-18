@@ -11,9 +11,13 @@ import {
 	IconButton,
 	Fade,
 	Grow,
+	Slide,
 	Typography,
+	Toolbar,
+	useMediaQuery,
 } from '@mui/material'
-import { Delete, Loop, StarOutline, StarRate } from '@mui/icons-material'
+import { Delete, Loop, StarOutline, StarRate, Close } from '@mui/icons-material'
+import { useTheme } from '@mui/styles'
 
 import { setStatus, deleteAction, setStarStatus } from '../../lib/functions'
 import handleIgdb from '../../lib/handleIgdb'
@@ -29,6 +33,8 @@ const getDameDetails = async (id, setGameDetails) => {
 
 const GameModal = ({ id, open, modalClose }) => {
 	const { status } = useSession()
+	const theme = useTheme()
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
 	const { games, handleApi } = useAppContext()
 
@@ -77,15 +83,25 @@ const GameModal = ({ id, open, modalClose }) => {
 		}
 	}, [id, game])
 
-	useEffect(() => {
-		if (!open) {
-			setGame(null)
-			setGameDetails(null)
-		}
-	}, [open])
-
 	return (
-		<Dialog open={open} onClose={modalClose} TransitionComponent={Grow}>
+		<Dialog
+			open={open}
+			onClose={modalClose}
+			TransitionComponent={isMobile ? Slide : Grow}
+			fullScreen={isMobile}
+		>
+			{isMobile ? (
+				<Toolbar>
+					<IconButton
+						edge="start"
+						color="inherit"
+						onClick={modalClose}
+						aria-label="close"
+					>
+						<Close />
+					</IconButton>
+				</Toolbar>
+			) : null}
 			{!game && !gameDetails ? null : (
 				<Box>
 					<Box
