@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSession } from 'next-auth/react'
 
 import {
@@ -45,20 +45,21 @@ const AddGameModal = ({ openModal, setOpenModal }) => {
 	const [gamePlatforms, setGamePlatforms] = useState([])
 	const [selectedPlatform, setSelectedPlatform] = useState()
 
-	// const [open, setOpen] = useState(false)
-	// const anchorRef = useRef(null)
-
 	const [noResults, setNoResults] = useState(false)
 
-	// return focus to the button when we transitioned from !open -> open
-	// 	const prevOpen = useRef(open)
-	// 	useEffect(() => {
-	// 		if (prevOpen.current === true && open === false) {
-	// 			anchorRef.current.focus()
-	// 		}
-	//
-	// 		prevOpen.current = open
-	// 	}, [open])
+	const handleKeyPress = useCallback((event) => {
+		console.log(`Key pressed: ${event.key}`)
+	}, [])
+
+	useEffect(() => {
+		// attach the event listener
+		document.addEventListener('keydown', handleKeyPress)
+
+		// remove the event listener
+		return () => {
+			document.removeEventListener('keydown', handleKeyPress)
+		}
+	}, [handleKeyPress])
 
 	const handleSearch = async () => {
 		event.preventDefault()

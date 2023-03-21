@@ -50,9 +50,10 @@ const Login = ({ open }) => {
 					onClick={() => signIn('twitch')}
 					variant="contained"
 					startIcon={<Icon icon={faTwitch} />}
-					disabled={status !== 'unauthenticated'}
+					disabled
+					// disabled={status !== 'unauthenticated'}
 				>
-					Twitch Login
+					Twitch Login - Temporarily Unavailable
 				</Button>
 			</Box>
 		</Dialog>
