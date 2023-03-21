@@ -75,7 +75,7 @@ const GameMenu = ({ id, status }) => {
 				open={open}
 				anchorEl={anchorRef.current}
 				role={undefined}
-				placement="right-start"
+				placement="bottom-start"
 				transition
 				disablePortal
 			>
@@ -145,8 +145,18 @@ GameMenu.propTypes = {
 }
 
 const GameCard = ({ game, handleGameModal }) => (
-	<Grid item xs={6} md={4} lg={3} xl={2}>
-		<Card sx={{ width: '100%', aspectRatio: '3/4', position: 'relative' }}>
+	<Grid item xs={6} sm={4} lg={2} xl={1}>
+		<Card
+			sx={{
+				width: '100%',
+				aspectRatio: '3/4',
+				position: 'relative',
+				transition: 'transform 200ms',
+				'&:hover': {
+					transform: 'scale(1.05)',
+				},
+			}}
+		>
 			<Box
 				sx={{
 					width: '100%',

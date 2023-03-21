@@ -9,7 +9,8 @@ import {
 	Button,
 	Dialog,
 	IconButton,
-	Fade,
+	Card,
+	CardMedia,
 	Grow,
 	Slide,
 	Typography,
@@ -103,15 +104,30 @@ const GameModal = ({ id, open, modalClose }) => {
 				</Toolbar>
 			) : null}
 			{!game && !gameDetails ? null : (
-				<Box>
+				<Card
+					sx={{
+						height: '100%',
+						position: 'relative',
+						width: { xs: '100%', sm: '600px' },
+					}}
+				>
+					<CardMedia
+						component="img"
+						height="100%"
+						image={game.img ? game.img : 'img/no-image.jpg'}
+						alt="green iguana"
+						sx={{ opacity: 0.1, filter: 'blur(10px)' }}
+					/>
 					<Box
 						sx={{
+							position: 'absolute',
+							top: 0,
 							padding: 2,
 							display: 'flex',
 							flexDirection: 'column',
 							alignItems: 'center',
 							gap: 2,
-							width: { xs: '100%', sm: '600px' },
+							width: '100%',
 							marginX: 'auto',
 						}}
 					>
@@ -170,17 +186,6 @@ const GameModal = ({ id, open, modalClose }) => {
 										: 'placeholder image'
 								}
 							/>
-							<Fade
-								in={gameDetails}
-								sx={{
-									padding: 2,
-									overflow: 'scroll',
-									height: 200,
-									width: '100%',
-								}}
-							>
-								<Typography>{gameDetails?.summary}</Typography>
-							</Fade>
 						</Box>
 						<StatusButton
 							gameStatus={game?.status}
@@ -208,7 +213,7 @@ const GameModal = ({ id, open, modalClose }) => {
 							Delete
 						</Button>
 					</Box>
-				</Box>
+				</Card>
 			)}
 			<ConfirmModal
 				open={openConfirm}
