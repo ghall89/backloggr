@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { CssBaseline } from '@nextui-org/react'
 
 export default function Document() {
 	return (
@@ -9,6 +10,7 @@ export default function Document() {
 				<meta name="theme-color" content="#393a4c" />
 				<meta name="apple-mobile-web-app-capable" content="yes" />
 				<meta charSet="UTF-8" />
+				{CssBaseline.flush()}
 			</Head>
 			<body>
 				<Main />

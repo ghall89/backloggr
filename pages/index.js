@@ -1,5 +1,5 @@
-import Backlog from '../src/components/Backlog'
+import Main from '../src/components/Main'
 
-const BacklogPage = () => <Backlog />
+const HomePage = () => <Main />
 
-export default BacklogPage
+export default HomePage
