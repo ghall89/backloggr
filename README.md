@@ -10,7 +10,7 @@ The mission behind Backloggr is a simple one: to provide a free, open-source too
 
 Unlike other backlogging services, Backloggr gives you the opportunity to own your data by making it easy to export your entire backlog to a JSON file. Also, the license allows you to fork and deploy to any hosting service that supports web apps built with [Next.js](https://nextjs.org/) (I suggest [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/)), and connect to a database on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 
-![](./screenshot.png)
+![](/public/img/backloggr_logo.png)
 
 ## Using Backloggr
 

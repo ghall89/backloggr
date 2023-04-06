@@ -10,10 +10,10 @@ const Main = () => {
 
 	const nowPlayingMemo = useMemo(() => {
 		const arr = []
-		if (loading === true) {
-			return
+		if (loading === true || !games) {
+			return arr
 		}
-		games.forEach((game) => {
+		games?.forEach((game) => {
 			if (game.status === 'in_progress') {
 				arr.push(game)
 			}
