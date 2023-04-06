@@ -1,6 +1,6 @@
 {
-	"name": "gaming-backlog",
-	"version": "0.4.1",
+	"name": "backloggr",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
